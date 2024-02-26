@@ -16,5 +16,4 @@ const foodSchema = new mongoose.Schema({
             description: String,
         }
     ],
-    images: [String]
 })

@@ -1,4 +1,4 @@
-// import { CategoryModel } from "../models/category-model.js";
+
 import { foodModel } from "../models/food-model.js";
 
 export const getFood = async (req, res) => {
@@ -11,26 +11,26 @@ export const getFood = async (req, res) => {
   }
 };
 
+
 export const createFood = async (req, res) => {
-  console.log(req.body);
   try {
-    const { questions } = req.body;
+    const { name, description, category, recipes, instruction, images } = req.body;
 
-    const recipe = await foodModel.create({
-      questions: questions.map((question) => ({
-        question: question.question,
-        answers: question.options,
-        correctAnswer: question.correctOption,
-      })),
-
-      category: req.body.category,
+    const food = await Food.create({
+      name,
+      description,
+      category,
+      recipes,
+      instruction,
     });
 
-    res.status(200).json({ recipe });
+    res.status(201).json({ success: true, data: food });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
+
+
 
 export const foods = async (req, res) => {
   const params = req.params;
