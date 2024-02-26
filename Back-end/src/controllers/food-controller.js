@@ -1,9 +1,8 @@
-
 import { foodModel } from "../models/food-model.js";
 
 export const getFood = async (req, res) => {
   try {
-    const quizs = await foodModel.find();
+    const recipes = await foodModel.find();
 
     res.status(200).json({ recipes: recipes });
   } catch (error) {
@@ -11,12 +10,12 @@ export const getFood = async (req, res) => {
   }
 };
 
-
 export const createFood = async (req, res) => {
   try {
-    const { name, description, category, recipes, instruction, images } = req.body;
+    const { name, description, category, recipes, instruction, images } =
+      req.body;
 
-    const food = await Food.create({
+    const food = await foodModel.create({
       name,
       description,
       category,
@@ -29,8 +28,6 @@ export const createFood = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
-
 
 export const foods = async (req, res) => {
   const params = req.params;
