@@ -1,13 +1,11 @@
 
-import { foodModel } from "../models/food-model.js";
+import { FoodModel } from "../models/food-model.js";
 
-const req =request()
-
-export const getFood = async (req, res) => {
+export const getAllFood = async (req, res) => {
   try {
-    const foods = await foodModel.find();
+    const foods = await FoodModel.find();
 
-    res.status(200).json({ recipes: foods });
+    res.status(200).json({ foods: foods });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -18,7 +16,7 @@ export const createFood = async (req, res) => {
   try {
     const { name, description, category, recipes, instruction, images } = req.body;
 
-    const food = await Food.create({
+    const food = await FoodModel.create({
       name,
       description,
       category,
@@ -31,4 +29,3 @@ export const createFood = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
