@@ -1,4 +1,3 @@
-
 import { FoodModel } from "../models/food-model.js";
 
 export const getAllFood = async (req, res) => {
@@ -26,7 +25,8 @@ export const getFood = async (req, res) => {
 
 export const createFood = async (req, res) => {
   try {
-    const { name, description, category, recipes, instruction, images } = req.body;
+    const { name, description, category, recipes, instruction, images } =
+      req.body;
 
     const food = await FoodModel.create({
       name,
