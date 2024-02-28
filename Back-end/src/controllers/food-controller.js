@@ -35,6 +35,6 @@ export const getCategories = async (req, res) => {
     const categories = CategoryModel.find();
     res.status(200).json({ categories });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ success: false, error: error.message });
   }
 };
