@@ -1,18 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import styles from "./style.css";
 
 export default function NavigationBar() {
   const router = useRouter();
 
   return (
-    <div>
-      <div>Logo</div>
-      <div>Recipes</div>
-      <div>
-        <button onClick={() => router.push("/LogInPage")}>Log in </button>
-        <button onClick={() => router.push("/SignUpPage")}>Sign Up</button>
+    <div className="navigation">
+      <div className="logoRecipeContainer">
+        <div className="logo"></div>  
+        <div>Recipes</div>
       </div>
+      <div className="userIcon"></div>  
     </div>
   );
 }
