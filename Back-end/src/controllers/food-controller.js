@@ -3,26 +3,36 @@ import { FoodModel } from "../models/food-model.js";
 
 export const getAllFood = async (req, res) => {
   try {
-    const foods = await FoodModel.find();
+    const { category } = req.body
 
-    res.status(200).json({ foods: foods });
+    if (category) { }
+    else {
+      const foods = await FoodModel.find();
+      return res.status(200).json({ foods: foods });
+    }
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 
 export const getFood = async (req, res) => {
-
   const { id } = req.params;
   try {
-    const findFood = await FoodModel.findOne(id);
+    const findFood = await FoodModel.findById(id);
 
-    res.status(200).json({ findFood: findFood });
+    if (!findFood) {
+      return res.status(404).json({ error: 'Food not found' });
+    }
+
+    res.status(200).json({ findFood });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 export const createFood = async (req, res) => {
   try {
