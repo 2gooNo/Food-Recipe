@@ -1,0 +1,33 @@
+.navigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width:100vw;
+    height:80px;
+    background-color: rgb(9, 109, 175);
+    padding-left: 80px;
+    gap: 1830px;
+}
+.logo{
+    width:45px;
+    height: 45px;
+    border-radius: 50px;
+    border-color: white;
+    border-width: 5px;
+    background-color: white;
+}
+.logoRecipeContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 80px;
+}
+.userIcon{
+    width:45px;
+    height: 45px;
+    border-radius: 50px;
+    border-color: white;
+    border-width: 5px;
+    background-color: white;
+}
