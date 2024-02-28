@@ -1,4 +1,5 @@
 import { FoodModel } from "../models/food-model.js";
+import { CategoryModel } from "../models/category-model.js";
 
 export const getAllFood = async (req, res) => {
   try {
@@ -44,13 +45,20 @@ export const deleteFood = async (req, res) => {
   const { id } = req.params;
   try {
     const deletedFood = await FoodModel.findByIdAndDelete(id);
-    res
-      .status(200)
-      .json({
-        message: "Food recipe deleted successfully",
-        deletedFood: deletedFood,
-      });
+    res.status(200).json({
+      message: "Food recipe deleted successfully",
+      deletedFood: deletedFood,
+    });
   } catch (error) {
     res.status(404).json({ message: "Food not found" });
+  }
+};
+
+export const getCategories = async (req, res) => {
+  try {
+    const categories = CategoryModel.find();
+    res.status(200).json({ categories });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
