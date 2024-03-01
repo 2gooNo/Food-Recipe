@@ -1,5 +1,4 @@
 import { FoodModel } from "../models/food-model.js";
-import { CategoryModel } from "../models/category-model.js";
 
 export const getAllFood = async (req, res) => {
   try {
@@ -14,7 +13,7 @@ export const getAllFood = async (req, res) => {
 export const getFood = async (req, res) => {
   const { id } = req.params;
   try {
-    const findFood = await FoodModel.findOne(id);
+    const findFood = await FoodModel.findOne({ findFood: id.id });
 
     res.status(200).json({ findFood: findFood });
   } catch (error) {
@@ -59,6 +58,6 @@ export const getCategories = async (req, res) => {
     const categories = CategoryModel.find();
     res.status(200).json({ categories });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ success: false, error: error.message });
   }
 };
