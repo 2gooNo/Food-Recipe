@@ -13,9 +13,9 @@ export const getAllFood = async (req, res) => {
 export const getFood = async (req, res) => {
   const { id } = req.params;
   try {
-    const foods = await FoodModel.findById({ id });
+    const findFood = await FoodModel.findOne(id);
 
-    res.status(200).json({ recipes: foods });
+    res.status(200).json({ findFood: findFood });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -37,5 +37,20 @@ export const createFood = async (req, res) => {
     res.status(201).json({ success: true, data: food });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+export const deleteFood = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedFood = await FoodModel.findByIdAndDelete(id);
+    res
+      .status(200)
+      .json({
+        message: "Food recipe deleted successfully",
+        deletedFood: deletedFood,
+      });
+  } catch (error) {
+    res.status(404).json({ message: "Food not found" });
   }
 };
