@@ -1,8 +1,8 @@
-"use client";
-
-import { useState, useEffect } from "react";
+"use client"
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import styles from "./SignUpPage.module.css";
 
 export default function SignUpPage() {
   const [signUpData, setSignUpData] = useState({});
@@ -10,57 +10,63 @@ export default function SignUpPage() {
   const router = useRouter();
 
   const handleSignUp = async () => {
-    const data = await axios
-      .post(`http://localhost:8000/signUp`, {
+    try {
+      const response = await axios.post("http://localhost:8000/signUp", {
         email: signUpData.email,
         password: signUpData.password,
         userName: signUpData.userName,
-      })
-      .catch((error) => setIsGood(false));
-    if (isGood == true) {
+      });
+      console.log(response.data);
       router.push("../LogInPage");
-    } else {
+    } catch (error) {
+      setIsGood(false);
       alert("Email is already taken");
     }
-
-    console.log(data);
   };
 
   return (
-    <div>
-      <div>
-        <h1>Sign Up</h1>
-        <input
-          type="text"
-          id="emailInput"
-          name="emailInput"
-          value={signUpData.email}
-          onChange={(e) =>
-            setSignUpData((prev) => ({ ...prev, email: e.target.value }))
-          }
-          placeholder="Mail"
-        />
-        <input
-          type="text"
-          id="usernameInput"
-          name="usernameInput"
-          value={signUpData.userName}
-          onChange={(e) =>
-            setSignUpData((prev) => ({ ...prev, userName: e.target.value }))
-          }
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          id="passwordInput"
-          name="passwordInput"
-          value={signUpData.password}
-          onChange={(e) =>
-            setSignUpData((prev) => ({ ...prev, password: e.target.value }))
-          }
-          placeholder="Password"
-        />
-        <button onClick={handleSignUp}>Sign up</button>
+    <div className={styles.body}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Sign Up</h1>
+        <p className={styles.p}>Built with lite forms.</p>
+        <div className={styles.border}>bndi</div>
+        <div className={styles.box}>
+          <input
+            type="text"
+            id="emailInput"
+            name="emailInput"
+            value={signUpData.email || ""}
+            onChange={(e) =>
+              setSignUpData((prev) => ({ ...prev, email: e.target.value }))
+            }
+            placeholder="Mail"
+            className={styles.inputField}
+          />
+          <input
+            type="text"
+            id="usernameInput"
+            name="usernameInput"
+            value={signUpData.userName || ""}
+            onChange={(e) =>
+              setSignUpData((prev) => ({ ...prev, userName: e.target.value }))
+            }
+            placeholder="Username"
+            className={styles.inputField}
+          />
+          <input
+            type="password"
+            id="passwordInput"
+            name="passwordInput"
+            value={signUpData.password || ""}
+            onChange={(e) =>
+              setSignUpData((prev) => ({ ...prev, password: e.target.value }))
+            }
+            placeholder="Password"
+            className={styles.inputField}
+          />
+          <button onClick={handleSignUp} className={styles.button}>Sign up</button>
+        </div>
+        <div className={styles.whiteBottom}></div>
       </div>
     </div>
   );
