@@ -19,14 +19,22 @@ export default function NavigationBar() {
     window.location.reload(false);
   }
 
+  function ProfilePicture() {
+    router.push("/Profile");
+  }
+  function Category() {
+    router.push("/category");
+  }
+
   return (
     <div>
       <div>Logo </div>
       <div>Recipes</div>
       {isLoggedIn ? (
         <div>
-          <h3>profile picture </h3>
+          <h3 onClick={() => ProfilePicture()}>profile picture </h3>
           <button onClick={() => LogOut()}>Log Out</button>
+          <h3 onClick={() => Category()}>category</h3>
         </div>
       ) : (
         <div>
