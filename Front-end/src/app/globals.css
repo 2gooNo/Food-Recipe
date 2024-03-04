@@ -27,3 +27,14 @@
   top: 30px;
   left: 40px;
 }
+
+.arrow_down {
+  width: 20px;
+}
+.outerdiv_category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  gap: 10px;
+}

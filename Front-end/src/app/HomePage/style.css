@@ -1,30 +1,49 @@
-.body{
+.body {
+  padding-top: 56px;
+  padding-left: 165px;
+  padding-right: 165px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.navBar {
+  width: 1110px;
+  height: 61px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-color: rgb(232, 232, 232);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.SearchIcon {
+  width: 50px;
+  height: 55px;
+  margin-right: 270px;
+}
+.navTexts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  margin-right: 195px;
+}
+.navbarText{
+    font-weight: 600;
+}
+.navMenuIcon{
+    width: 60px;
+    height: 55px;
+}
+.suggestRecipe{
+    width: 1110px;
+    height: 466px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
-    width: 100vw;
-    gap: 90px;
-    position: relative;
-}
-.contentContainer{
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
-}
-.searchBar{
-    border-color: rgb(9, 109, 175);
-    border-radius: 30px;
-    border-width: 3px;
-    width: 700px;
-    height: 60px;
-    font-size: 20px;
-    padding-left:30px ;
-}
-.navigationBar{
-    position: absolute;
-    top: 0;
+    
 }
