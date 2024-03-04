@@ -19,6 +19,7 @@ export default function SignUpPage() {
       .catch((error) => setIsGood(false));
     if (isGood == true) {
       router.push("../LogInPage");
+      sessionStorage.setItem("isLoggedIn", "LoggedIn");
     } else {
       alert("Email is already taken");
     }
@@ -30,37 +31,42 @@ export default function SignUpPage() {
     <div>
       <div>
         <h1>Sign Up</h1>
-        <input
-          type="text"
-          id="emailInput"
-          name="emailInput"
-          value={signUpData.email}
-          onChange={(e) =>
-            setSignUpData((prev) => ({ ...prev, email: e.target.value }))
-          }
-          placeholder="Mail"
-        />
-        <input
-          type="text"
-          id="usernameInput"
-          name="usernameInput"
-          value={signUpData.userName}
-          onChange={(e) =>
-            setSignUpData((prev) => ({ ...prev, userName: e.target.value }))
-          }
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          id="passwordInput"
-          name="passwordInput"
-          value={signUpData.password}
-          onChange={(e) =>
-            setSignUpData((prev) => ({ ...prev, password: e.target.value }))
-          }
-          placeholder="Password"
-        />
-        <button onClick={handleSignUp}>Sign up</button>
+        <div>
+          <input
+            type="text"
+            id="emailInput"
+            name="emailInput"
+            value={signUpData.email}
+            onChange={(e) =>
+              setSignUpData((prev) => ({ ...prev, email: e.target.value }))
+            }
+            placeholder="Mail"
+            className="border-[2px] border-white rounded-[40px] w-[500px] h-[40px] outline-none placeholder-[grey]"
+          />
+          <input
+            type="text"
+            id="usernameInput"
+            name="usernameInput"
+            value={signUpData.userName}
+            onChange={(e) =>
+              setSignUpData((prev) => ({ ...prev, userName: e.target.value }))
+            }
+            placeholder="Username"
+            className="border-[2px] border-white rounded-[40px] w-[500px] h-[40px] outline-none placeholder-[grey]"
+          />
+          <input
+            type="password"
+            id="passwordInput"
+            name="passwordInput"
+            value={signUpData.password}
+            onChange={(e) =>
+              setSignUpData((prev) => ({ ...prev, password: e.target.value }))
+            }
+            placeholder="Password"
+            className="border-[2px] border-white rounded-[40px] w-[500px] h-[40px] outline-none placeholder-[grey]"
+          />
+          <button onClick={handleSignUp}>Sign up</button>
+        </div>
       </div>
     </div>
   );
