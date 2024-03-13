@@ -23,27 +23,168 @@
 .SearchIcon {
   width: 50px;
   height: 55px;
-  margin-right: 270px;
+  margin-right: 210px;
 }
 .navTexts {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 80px;
-  margin-right: 195px;
+  margin-right: 149px;
 }
-.navbarText{
+.navbarSelection{
     font-weight: 600;
 }
 .navMenuIcon{
     width: 60px;
     height: 55px;
 }
-.suggestRecipe{
+.suggestRecipes{
     width: 1110px;
     height: 466px;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    flex-direction: row;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+.Selection-Icon{
+  display: flex;
+  flex-direction: row;
+}
+.downward-icon{
+  width: 35px;
+  height: 35px;
+}
+.suggesRecipe{
+  display: flex;
+  flex-direction: column;
+  gap: 24.5px;
+  border-width: 1px;
+  border-color: rgb(232, 232, 232);
+  border-top-left-radius:15px ;
+  border-top-right-radius:15px ;
+  border-bottom-left-radius:15px ;
+  border-bottom-right-radius:15px ;
+  width: 350px;
+  height: 484px;
+}
+.suggestRecipeName{
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+}
+.suggestRecipePhoto{
+  height: 338px;
+  width: 350px;
+  border-top-left-radius:15px ;
+  border-top-right-radius:15px ;
+}
+.popularRecipeText{
+  font-size: 36px;
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
+}
+.popularRecipeName{
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 8px;
+}
+.Super-delicious-text{
+  font-size: 30px;
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
+}
+.super-delicious-img{
+  height: 187px;
+  width: 345px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.super-delicious-recipe{
+  height: 500px;
+  width: 345px;
+}
+.super-delicious-container{
+  width: 1110px;
+  height: 1126px;
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+}
+.delicious-recipe-description{
+  width: 100%;
+  padding-top: 16.5px;
+  padding-bottom: 38px;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-width: 1px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.super-delicious-recipes{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-direction: row;
+}
+.fiveStar-container{
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+.star-name-profile{
+  display: flex;
+  flex-direction: column;
+  padding-right: 62px;
+}
+.deliciousRecipe-name{
+  margin-bottom: 20px;
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+}
+.user-name{
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+}
+.userName{
+  font-size: 12px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  color: #000;
+}
+.calendar-text{
+  font-size: 12px;
+  font-weight: 400;
+  color: #7F7F7F;
+}
+.like-text{
+  font-size: 12px;
+  font-weight: 400;
+  color: #7F7F7F;
+}
+.calendar-like{
+  bottom:24px ;
+  position: absolute;
+  right: 25px;
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+}
+.calendar{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.like{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
