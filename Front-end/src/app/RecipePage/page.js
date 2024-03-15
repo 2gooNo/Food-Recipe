@@ -4,7 +4,7 @@ export default function RecipePage() {
     <div className="w-full height-full">
       <div className=" flex flex-col items-center">
         <div className="flex justify-between mt-[30px] w-[1100px]">
-          <img src="logo.png" width={140} height={50}></img>
+          <img src="logo.png" width={140} height={50} />
           <div className="flex justify-center gap-[90px] font-semibold items-center">
             <p>HomePage</p>
             <p>Recipe Page</p>
@@ -110,14 +110,14 @@ export default function RecipePage() {
             />
           </div>
         </div>
-        <div className="flex flex-col items-center mt-[20px] pt-[30px] w-[1100px] border-solid border-t border-gray-300">
+        <div className="flex flex-col items-center mt-[20px] pt-[30px] w-[1100px] border-solid border-t border-gray-250">
           <p className="pb-[40px]">
             One thing I learned living in the Canarsie section of Brooklyn, NY
             was how to cook a good Italian meal. Here is a recipe I created
             after having this dish in a restaurant. Enjoy!
           </p>
           <img
-            src="cheesecake.png"
+            src="cheeseCake.jpeg"
             height={0}
             width={0}
             alt="Strawberry Cheesecake"
@@ -345,20 +345,159 @@ export default function RecipePage() {
         </div>
         {/* ingredient + nutrition facts + instructions end  */}
         {/* suggestion start  */}
-        <div>
-          <h1 className="text-4xl font-semibold">You might also like</h1>
-          <div>
-            <img
-              src="menu126.jpg"
-              className="rounded-3xl"
-              width={300}
-              height={300}
-            />
-            <h1 className="">Cranberry Macaroon Ice Cream Cake</h1>
+        <div className="flex flex-col w-[1100px] mb-[80px]">
+          <h1 className="text-4xl font-semibold mb-[40px] mt-[40px]">
+            You might also like
+          </h1>
+          <div className="flex grid grid-cols-4 gap-[15px] font-semibold break-normal">
+            <div>
+              <img
+                src="cranberry.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">Cranberry Macaroon Ice Cream Cake</h1>
+            </div>
+            <div>
+              <img
+                src="noBakeCk.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">No Bake Cheesecake</h1>
+            </div>
+            <div>
+              <img
+                src="spongeCake.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">Double Thick Layered Sponge Cake</h1>
+            </div>
+            <div>
+              <img
+                src="glazeCake.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">Caramel Glaze Cake</h1>
+            </div>
+            <div>
+              <img
+                src="creamCake.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">Strawberry Cream Cake Bites</h1>
+            </div>
+            <div>
+              <img
+                src="weddingCake.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">Homemade Mixed Berries Wedding Cake</h1>
+            </div>
+            <div>
+              <img
+                src="chocolateCake.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">M&M's Chocolate Cake</h1>
+            </div>
+            <div>
+              <img
+                src="cinnamonCake.jpg"
+                className="rounded-xl"
+                width={250}
+                height={250}
+              />
+              <h1 className="pt-[10px]">Almond Cinnamon Sponge Cake</h1>
+            </div>
           </div>
         </div>
         {/* suggestion end  */}
       </div>
+      {/* footer start  */}
+      <div className="bg-gray-100 flex flex-col items-center pt-[80px] gap-[30px] ">
+        {/* texts start  */}
+        <div className="flex justify-start gap-[200px] pb-[60px] border-b-2 border-solid border-gray-300 w-[1100px]">
+          <div className="flex flex-col w-[370px] w-[1100px] ">
+            <img src="logo.png" width={180} height={80} />
+            <h1 className="text-gray-500 mt-[25px]">
+              "On the other hand, we denounce with righteous indignation and
+              dislike men who are so beguiled and demoralized by the charms of
+              pleasure of the moment
+            </h1>
+          </div>
+          {/* 3 columns start  */}
+          <div className="flex gap-[100px]">
+            <div className="flex flex-col gap-[8px]">
+              <p className="text-gary-500 text-sm">Tastebite</p>
+              <p className="text-gray-500 text-sm">About Us</p>
+              <p className="text-gray-500 text-sm">Careers</p>
+              <p className="text-gray-500 text-sm">Contact Us</p>
+              <p className="text-gray-500 text-sm">Feedback</p>
+            </div>
+            <div className="flex flex-col gap-[8px]">
+              <p>Legal</p>
+              <p className="text-gray-500 text-sm">Terms</p>
+              <p className="text-gray-500 text-sm">Conditions</p>
+              <p className="text-gray-500 text-sm">Cookies</p>
+              <p className="text-gray-500 text-sm">Copyright</p>
+            </div>
+            <div className="flex flex-col gap-[8px]">
+              <p>Follow</p>
+              <p className="text-gray-500 text-sm">Facebook</p>
+              <p className="text-gray-500 text-sm">Twitter</p>
+              <p className="text-gray-500 text-sm">Instagram</p>
+              <p className="text-gray-500 text-sm">Youtube</p>
+            </div>
+            {/* 3 columns end  */}
+          </div>
+        </div>
+        {/* texts end  */}
+        <div className="flex items-center justify-around gap-[690px] pb-[20px]">
+          <p className="text-gray-500 text-sm">
+            © 2020 Tastebite - All rights reserved
+          </p>
+          <div className="flex gap-[20px]">
+            <Image
+              src={"facebook.svg"}
+              height={0}
+              width={0}
+              className="w-[20px] h-auto"
+            />{" "}
+            <Image
+              src={"instagram.svg"}
+              height={0}
+              width={0}
+              className="w-[20px] h-auto"
+            />{" "}
+            <Image
+              src={"twitter.svg"}
+              height={0}
+              width={0}
+              className="w-[25px] h-auto"
+            />{" "}
+            <Image
+              src={"youtube.svg"}
+              height={0}
+              width={0}
+              className="w-[35px] h-auto"
+            />
+          </div>
+        </div>
+      </div>
+      {/* footer end  */}
     </div>
   );
 }
