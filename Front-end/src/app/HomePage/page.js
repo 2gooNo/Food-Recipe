@@ -442,9 +442,7 @@ export default function HomePage() {
             <div className="collection">
               <img className="collection-img" src="collection.jpg"></img>
               <div className="collection-description">
-                <p className="collection-title">
-                  Sushi
-                </p>
+                <p className="collection-title">Sushi</p>
                 <div className="recipeNumber">156 Recipes</div>
               </div>
             </div>
@@ -453,9 +451,7 @@ export default function HomePage() {
             <div className="collection">
               <img className="collection-img" src="collection.jpg"></img>
               <div className="collection-description">
-                <p className="collection-title">
-                  Sushi 
-                </p>
+                <p className="collection-title">Sushi</p>
                 <div className="recipeNumber">156 Recipes</div>
               </div>
             </div>
@@ -482,12 +478,54 @@ export default function HomePage() {
             <div className="collection">
               <img className="collection-img" src="collection.jpg"></img>
               <div className="collection-description">
-                <p className="collection-title">
-                  Sushi
-                </p>
+                <p className="collection-title">Sushi</p>
                 <div className="recipeNumber">156 Recipes</div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="gap-[91px] w-[100vw] h-[442px] bg-[#f9f9f9] flex flex-col justify-center items-start pt-[104px] pb-[50px] px-[165px]">
+        <div className="flex flex-row w-[screen] gap-[322px]">
+          <div className="flex flex-col justify-center items-start w-[350px] gap-[23px]">
+            <img className="w-[200px]" src="Taste.png" />
+            <h3 className="footer-text">
+              "On the other hand, we denounce with righteous indignation and
+              dislike men who are so beguiled and demoralized by the charms of
+              pleasure of the moment"
+            </h3>
+          </div>
+          <div className="flex w-[40vh] gap-[149px]">
+            <div className="Contact_List">
+              <h2>Tastebite</h2>
+              <p className="a">About us</p>
+              <p className="a">Careers</p>
+              <p className="a">Contact us</p>
+              <p className="a">Feedback</p>
+            </div>
+            <div className="Contact_List">
+              <h3>Legal</h3>
+              <p className="a">Terms</p>
+              <p className="a">Conditions</p>
+              <p className="a">Cookies</p>
+              <p className="a">Copyright</p>
+            </div>
+            <div className="Contact_List">
+              <h3>Follow</h3>
+              <p className="a">Facebook</p>
+              <p className="a">Twitter</p>
+              <p className="a">Instagram</p>
+              <p className="a">Youtube</p>
+            </div>
+          </div>
+        </div>
+        <div className="gap-[701px] h-[43px] border-t-[1px] border-color-[gray] flex justify-center items-center flex-row">
+          <div className="a">© 2020 Tastebite - All rights reserved</div>
+          <div className="flex gap-[20px] justify-center items-center">
+            <img className="picture_contacts1" src="facebook.png" />
+            <img className="picture_contacts1" src="Instagram.png" />
+            <img className="picture_contacts1" src="Twitter.png" />
+            <img className="picture_contacts1" src="Youtube.png" />
           </div>
         </div>
       </div>
