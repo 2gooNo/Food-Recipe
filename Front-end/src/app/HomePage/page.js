@@ -429,11 +429,64 @@ export default function HomePage() {
       <div className="curratedCollections-container">
         <h1 className="curratedCollections-title">Curated Collections</h1>
         <div className="collections">
-          <div className="collection">
-            <img className="collection-img" src="collection.jpg"></img>
-            <div className="collection-description">
-              <h1 className="collection-title">Sushi Combos for your Next Party</h1>
-              <div>156 Recipes</div>
+          <div className="collection-row">
+            <div className="collection">
+              <img className="collection-img" src="collection.jpg"></img>
+              <div className="collection-description">
+                <p className="collection-title">
+                  Sushi Combos for your Next Party
+                </p>
+                <div className="recipeNumber">156 Recipes</div>
+              </div>
+            </div>
+            <div className="collection">
+              <img className="collection-img" src="collection.jpg"></img>
+              <div className="collection-description">
+                <p className="collection-title">
+                  Sushi
+                </p>
+                <div className="recipeNumber">156 Recipes</div>
+              </div>
+            </div>
+          </div>
+          <div className="collection-row">
+            <div className="collection">
+              <img className="collection-img" src="collection.jpg"></img>
+              <div className="collection-description">
+                <p className="collection-title">
+                  Sushi 
+                </p>
+                <div className="recipeNumber">156 Recipes</div>
+              </div>
+            </div>
+            <div className="collection">
+              <img className="collection-img" src="collection.jpg"></img>
+              <div className="collection-description">
+                <p className="collection-title">
+                  Sushi Combos for your Next Party
+                </p>
+                <div className="recipeNumber">156 Recipes</div>
+              </div>
+            </div>
+          </div>
+          <div className="collection-row">
+            <div className="collection">
+              <img className="collection-img" src="collection.jpg"></img>
+              <div className="collection-description">
+                <p className="collection-title">
+                  Sushi Combos for your Next Party
+                </p>
+                <div className="recipeNumber">156 Recipes</div>
+              </div>
+            </div>
+            <div className="collection">
+              <img className="collection-img" src="collection.jpg"></img>
+              <div className="collection-description">
+                <p className="collection-title">
+                  Sushi
+                </p>
+                <div className="recipeNumber">156 Recipes</div>
+              </div>
             </div>
           </div>
         </div>
