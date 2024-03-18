@@ -349,74 +349,74 @@ export default function RecipePage() {
           <h1 className="text-4xl font-semibold mb-[40px] mt-[40px]">
             You might also like
           </h1>
-          <div className="flex grid grid-cols-4 gap-[15px] font-semibold break-normal">
-            <div>
+          <div className="flex grid grid-cols-4 gap-[15px] font-semibold break-words ">
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="cranberry.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
               <h1 className="pt-[10px]">Cranberry Macaroon Ice Cream Cake</h1>
             </div>
-            <div>
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="noBakeCk.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
               <h1 className="pt-[10px]">No Bake Cheesecake</h1>
             </div>
-            <div>
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="spongeCake.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
               <h1 className="pt-[10px]">Double Thick Layered Sponge Cake</h1>
             </div>
-            <div>
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="glazeCake.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
               <h1 className="pt-[10px]">Caramel Glaze Cake</h1>
             </div>
-            <div>
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="creamCake.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
               <h1 className="pt-[10px]">Strawberry Cream Cake Bites</h1>
             </div>
-            <div>
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="weddingCake.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
               <h1 className="pt-[10px]">Homemade Mixed Berries Wedding Cake</h1>
             </div>
-            <div>
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="chocolateCake.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
               <h1 className="pt-[10px]">M&M's Chocolate Cake</h1>
             </div>
-            <div>
+            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
               <img
                 src="cinnamonCake.jpg"
-                className="rounded-xl"
+                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
                 width={250}
                 height={250}
               />
@@ -427,9 +427,9 @@ export default function RecipePage() {
         {/* suggestion end  */}
       </div>
       {/* footer start  */}
-      <div className="bg-gray-100 flex flex-col items-center pt-[80px] gap-[30px] ">
+      <div className="bg-gray-100 flex flex-col items-center pt-[80px]">
         {/* texts start  */}
-        <div className="flex justify-start gap-[200px] pb-[60px] border-b-2 border-solid border-gray-300 w-[1100px]">
+        <div className="flex justify-start gap-[200px] pb-[50px] border-b-2 border-solid border-gray-300 w-[1100px] mb-[15px]">
           <div className="flex flex-col w-[370px] w-[1100px] ">
             <img src="logo.png" width={180} height={80} />
             <h1 className="text-gray-500 mt-[25px]">
@@ -465,16 +465,16 @@ export default function RecipePage() {
           </div>
         </div>
         {/* texts end  */}
-        <div className="flex items-center justify-around gap-[690px] pb-[20px]">
-          <p className="text-gray-500 text-sm">
+        <div className="flex items-center justify-around gap-[670px] pb-[15px]">
+          <p className="text-gray-500 text-xs">
             © 2020 Tastebite - All rights reserved
           </p>
-          <div className="flex gap-[20px]">
+          <div className="flex gap-[25px]">
             <Image
               src={"facebook.svg"}
               height={0}
               width={0}
-              className="w-[20px] h-auto"
+              className="w-[25px] h-auto"
             />{" "}
             <Image
               src={"instagram.svg"}
