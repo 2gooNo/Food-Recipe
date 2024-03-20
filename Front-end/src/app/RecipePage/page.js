@@ -3,6 +3,7 @@ export default function RecipePage() {
   return (
     <div className="w-full height-full">
       <div className=" flex flex-col items-center">
+        {/* header start  */}
         <div className="flex justify-between mt-[30px] w-[1100px]">
           <img src="logo.png" width={140} height={50} />
           <div className="flex justify-center gap-[90px] font-semibold items-center">
@@ -27,21 +28,22 @@ export default function RecipePage() {
             />
           </div>
         </div>
+        {/* header end  */}
         <div className="flex ml-[355px]">
-          <div className="flex justify-end gap-[40px] mt-[120px] mr-[350px] w-[1100px]">
+          <div className="flex justify-end gap-[40px] mt-[90px] mr-[350px] w-[1100px]">
             <Image
               src={"download.svg"}
               height={0}
               width={0}
               alt="download"
-              className="w-[31px] h-auto"
+              className="w-[30px] h-[35px]"
             />
             <Image
               src={"save.svg"}
               height={0}
               width={0}
               alt="save"
-              className="w-[40px] h-auto"
+              className="w-[40px] h-[35px]"
             />
           </div>
         </div>
@@ -65,49 +67,6 @@ export default function RecipePage() {
               className="w-[18px] h-auto"
             />
             <p className=" mr-[40px] ml-[10px]">Yesterday</p>
-            <Image
-              src={"comment.svg"}
-              width={0}
-              height={0}
-              alt="comment"
-              className="w-[22px] h-auto"
-            />
-            <p className=" mr-[40px] ml-[10px]">25</p>
-            <Image
-              src={"star.svg"}
-              width={0}
-              height={0}
-              alt="star"
-              className="w-[25px] h-[25px]"
-            />
-            <Image
-              src={"star.svg"}
-              width={0}
-              height={0}
-              alt="star"
-              className="w-[25px] h-[25px]"
-            />
-            <Image
-              src={"star.svg"}
-              width={0}
-              height={0}
-              alt="star"
-              className="w-[25px] h-[25px]"
-            />
-            <Image
-              src={"star.svg"}
-              width={0}
-              height={0}
-              alt="star"
-              className="w-[25px] h-[25px]"
-            />
-            <Image
-              src={"star.svg"}
-              width={0}
-              height={0}
-              alt="star"
-              className="w-[25px] h-[25px]"
-            />
           </div>
         </div>
         <div className="flex flex-col items-center mt-[20px] pt-[30px] w-[1100px] border-solid border-t border-gray-250">
@@ -124,31 +83,6 @@ export default function RecipePage() {
             className="w-[1100px] h-auto rounded-xl"
           />
         </div>
-        <div className="flex gap-[20px] mt-[50px] mr-[730px]">
-          <div className="flex flex-col gap-[2px] border-solid border-r border-gray-300 pr-[15px]">
-            <p className="text-gray-400">PREP TIME</p>
-            <p>15 MIN</p>
-          </div>
-
-          <div className="flex flex-col gap-[2px] border-solid border-r border-gray-300 pr-[15px]">
-            <p className="text-gray-400">PREP TIME</p>
-            <p>15 MIN</p>
-          </div>
-
-          <div className="flex flex-col gap-[2px] border-solid border-r border-gray-300 pr-[15px]">
-            <p className="text-gray-400">SERVINGS</p>
-            <div className="flex gap-[10px]">
-              <p>4 PEOPLE</p>
-              <Image
-                src={"note.svg"}
-                width={0}
-                height={0}
-                alt="note"
-                className="w-[20px] heigh-auto"
-              />
-            </div>
-          </div>
-        </div>
         {/* ingredient + nutrition facts + instructions start  */}
         <div className="flex">
           {/* ingredient + nutrition facts start */}
@@ -159,43 +93,77 @@ export default function RecipePage() {
                 {/* crust start */}
                 <strong>For the crust</strong>
                 <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
                   <p>400g graham crackers</p>
                 </div>
                 <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
                   <p>150g unsalted butter, melted</p>
                 </div>
               </div>
               {/* cheesecake start */}
               <div className="flex flex-col gap-[10px] mt-[40px]">
                 <strong>For the cheesecake</strong>
-                <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                <div className="flex items-center gap-2 pt-[20px]">
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
+
                   <p>300g marshmallows</p>
                 </div>
-                <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                <div className="flex items-center gap-2 pt-[20px]">
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
+
                   <p>175g unsalted butter, melted</p>
                 </div>
-                <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                <div className="flex items-center gap-2 pt-[20px]">
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
+
                   <p>500g Philadelphia cream cheese, softened</p>
                 </div>
-                <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                <div className="flex items-center gap-2 pt-[20px]">
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
+
                   <p>250ml thickened/whipping cream, warm</p>
                 </div>
-                <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                <div className="flex items-center gap-2 pt-[20px]">
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
+
                   <p>3 tbsp powdered gelatin + 3 tbsp water</p>
                 </div>
-                <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                <div className="flex items-center gap-2 pt-[20px]">
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
+
                   <p>5 drops purple food gel</p>
                 </div>
-                <div className="flex gap-2 pt-[20px]">
-                  <input type="checkbox" />
+                <div className="flex items-center gap-2 pt-[20px]">
+                  <input
+                    type="checkbox"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                  />
+
                   <p>3 drops blue food gel</p>
                 </div>
               </div>
@@ -349,77 +317,77 @@ export default function RecipePage() {
           <h1 className="text-4xl font-semibold mb-[40px] mt-[40px]">
             You might also like
           </h1>
-          <div className="flex grid grid-cols-4 gap-[15px] font-semibold break-words ">
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="cranberry.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+          <div className="flex grid grid-cols-4 gap-[15px] gap-y-[40px] font-semibold break-words text-[18px]">
+            <div className=" hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] overflow-hidden bg-cover">
+                <img
+                  src="cranberry.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110 "
+                />
+              </div>
               <h1 className="pt-[10px]">Cranberry Macaroon Ice Cream Cake</h1>
             </div>
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="noBakeCk.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+            <div className="hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] bg-cover overflow-hidden">
+                <img
+                  src="noBakeCk.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110"
+                />
+              </div>
               <h1 className="pt-[10px]">No Bake Cheesecake</h1>
             </div>
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="spongeCake.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+            <div className="hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] bg-cover overflow-hidden">
+                <img
+                  src="spongeCake.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110"
+                />
+              </div>
               <h1 className="pt-[10px]">Double Thick Layered Sponge Cake</h1>
             </div>
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="glazeCake.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+            <div className="hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] bg-cover overflow-hidden">
+                <img
+                  src="glazeCake.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110"
+                />
+              </div>
               <h1 className="pt-[10px]">Caramel Glaze Cake</h1>
             </div>
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="creamCake.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+            <div className="hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] bg-cover overflow-hidden">
+                <img
+                  src="creamCake.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110"
+                />
+              </div>
               <h1 className="pt-[10px]">Strawberry Cream Cake Bites</h1>
             </div>
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="weddingCake.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+            <div className="hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] bg-cover overflow-hidden">
+                <img
+                  src="weddingCake.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110"
+                />
+              </div>
               <h1 className="pt-[10px]">Homemade Mixed Berries Wedding Cake</h1>
             </div>
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="chocolateCake.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+            <div className="hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] bg-cover overflow-hidden">
+                <img
+                  src="chocolateCake.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110"
+                />
+              </div>
               <h1 className="pt-[10px]">M&M's Chocolate Cake</h1>
             </div>
-            <div className="max-w-[250px] overflow-hidden bg-cover hover:text-orange-500 cursor-pointer">
-              <img
-                src="cinnamonCake.jpg"
-                className="max-h-[250px] transition duration-700 ease-in-out hover:scale-110"
-                width={250}
-                height={250}
-              />
+            <div className="hover:text-orange-500 cursor-pointer">
+              <div className="max-w-[250px] bg-cover overflow-hidden">
+                <img
+                  src="cinnamonCake.jpg"
+                  className="h-[190px] transition duration-700 ease-in-out hover:scale-110"
+                />
+              </div>
               <h1 className="pt-[10px]">Almond Cinnamon Sponge Cake</h1>
             </div>
           </div>
