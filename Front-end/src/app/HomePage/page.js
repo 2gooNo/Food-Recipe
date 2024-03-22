@@ -1,11 +1,34 @@
+"use client"
+
 import { useContext } from "react";
-import NavigationBar from "../Navigation-Bar/page";
 import styles from "./style.css";
-// import { contextUsage } from "../../Context/themeProvider";
+import { useState,useEffect } from "react";
+import { useRouter } from 'next/navigation'
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
 
 export default function HomePage() {
-  // const {values}= useContext(contextUsage)
-  // console.log(values)
+  const router = useRouter()
+  const searchParams = useSearchParams();
+  const [foodData,setFoodData] = useState()
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    const foodData = await axios.get(
+      `http://localhost:8000/getAllFood`
+    );
+    // const userData = await axios.get(`http://localhost:8000/getUser`, {
+    //   headers: { token },
+    // });
+    setFoodData(foodData);
+    // setUserData(userData);
+    console.log(foodData);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="body">
       <img src="Logo.png"></img>
