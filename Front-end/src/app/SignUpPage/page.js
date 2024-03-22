@@ -1,72 +1,99 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import axios from "axios";
+import "./SignUpPage.css";
+import LockSvg from "../../../utils/lock-svg";
+import MailSvg from "../../../utils/mail-svg";
+import AccountSvg from "../../../utils/account-svg";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
-  const [signUpData, setSignUpData] = useState({});
+  const [signupData, setSignupData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
   const [isGood, setIsGood] = useState(true);
   const router = useRouter();
 
   const handleSignUp = async () => {
-    const data = await axios
-      .post(`http://localhost:8000/signUp`, {
-        email: signUpData.email,
-        password: signUpData.password,
-        userName: signUpData.userName,
-      })
-      .catch((error) => setIsGood(false));
-    if (isGood == true) {
+    try {
+      await axios.post("http://localhost:8000/signUp", {
+        userName: signupData.fullName,
+        email: signupData.email,
+        password: signupData.password,
+      });
       router.push("../LogInPage");
-      sessionStorage.setItem("isLoggedIn", "LoggedIn");
-    } else {
-      alert("Email is already taken");
+    } catch (error) {
+      setIsGood(false);
+      alert("Sign Up failed");
     }
-
-    console.log(data);
   };
 
   return (
-    <div>
-      <div>
-        <h1>Sign Up</h1>
-        <div>
-          <input
-            type="text"
-            id="emailInput"
-            name="emailInput"
-            value={signUpData.email}
-            onChange={(e) =>
-              setSignUpData((prev) => ({ ...prev, email: e.target.value }))
-            }
-            placeholder="Mail"
-            className="border-[2px] border-white rounded-[40px] w-[500px] h-[40px] outline-none placeholder-[grey]"
-          />
-          <input
-            type="text"
-            id="usernameInput"
-            name="usernameInput"
-            value={signUpData.userName}
-            onChange={(e) =>
-              setSignUpData((prev) => ({ ...prev, userName: e.target.value }))
-            }
-            placeholder="Username"
-            className="border-[2px] border-white rounded-[40px] w-[500px] h-[40px] outline-none placeholder-[grey]"
-          />
-          <input
-            type="password"
-            id="passwordInput"
-            name="passwordInput"
-            value={signUpData.password}
-            onChange={(e) =>
-              setSignUpData((prev) => ({ ...prev, password: e.target.value }))
-            }
-            placeholder="Password"
-            className="border-[2px] border-white rounded-[40px] w-[500px] h-[40px] outline-none placeholder-[grey]"
-          />
-          <button onClick={handleSignUp}>Sign up</button>
+    <div className="signupContainer">
+      <div className="signupForm">
+        <div className="w-[357px]">
+          <h1 className="signup">SIGN UP</h1>
         </div>
+        <div className="inputContainer">
+          <div className="input">
+            <div className="image">
+              <AccountSvg height={30} width={30} />
+            </div>
+            <input
+              type="text"
+              id="fullNameInput"
+              name="fullNameInput"
+              value={signupData.fullName}
+              onChange={(e) =>
+                setSignupData((prev) => ({ ...prev, fullName: e.target.value }))
+              }
+              placeholder="Full Name"
+              className="mb"
+            />
+          </div>
+          <div className="input">
+            <div className="image">
+              <MailSvg height={30} width={30} />
+            </div>
+            <input
+              type="text"
+              id="emailInput"
+              name="emailInput"
+              value={signupData.email}
+              onChange={(e) =>
+                setSignupData((prev) => ({ ...prev, email: e.target.value }))
+              }
+              placeholder="Email"
+              className="mb"
+            />
+          </div>
+          <div className="br"></div>
+          <div className="input">
+            <div className="image">
+              <LockSvg height={30} width={30} />
+            </div>
+            <input
+              type="password"
+              id="passwordInput"
+              name="passwordInput"
+              value={signupData.password}
+              onChange={(e) =>
+                setSignupData((prev) => ({
+                  ...prev,
+                  password: e.target.value,
+                }))
+              }
+              placeholder="Password"
+              className="mb"
+            />
+          </div>
+        </div>
+        <button onClick={handleSignUp} className="button1">
+          Sign Up
+        </button>
       </div>
     </div>
   );
