@@ -14,9 +14,6 @@ export const getAllFood = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
-
 export const getFood = async (req, res) => {
   const { id } = req.params;
   try {
@@ -31,15 +28,17 @@ export const getFood = async (req, res) => {
 
 export const createFood = async (req, res) => {
   try {
-    const { name, description, category, recipes, instruction, images } =
+    const { foodName, category, recipes, instruction,foodCreator,like } =
       req.body;
 
     const food = await FoodModel.create({
-      name,
-      description,
+      foodCreator,
+      like,
+      foodName,
       category,
       recipes,
       instruction,
+      createdOn: new Date(),
     });
 
     res.status(201).json({ success: true, data: food });
@@ -52,7 +51,12 @@ export const deleteFood = async (req, res) => {
   const { id } = req.params;
   try {
     const deletedFood = await FoodModel.findByIdAndDelete(id);
-    res.status(200).json({ message: "Food recipe deleted successfully", deletedFood: deletedFood });
+    res
+      .status(200)
+      .json({
+        message: "Food recipe deleted successfully",
+        deletedFood: deletedFood,
+      });
   } catch (error) {
     res.status(404).json({ message: "Food not found" });
   }

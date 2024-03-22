@@ -6,6 +6,7 @@ import {
     deleteFood,
     getFood
 } from "../controllers/food-controller.js"
+
 export const foodRouter = Router();
 
 foodRouter.get("/getAllFood", getAllFood);
