@@ -95,16 +95,32 @@ export default function RecipePage() {
                 <div className="flex gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="crackers"
                   />
-                  <p>400g graham crackers</p>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
+                  <label htmlFor="crackers">400g graham crackers</label>
                 </div>
                 <div className="flex gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="butter"
                   />
-                  <p>150g unsalted butter, melted</p>
+                  <label htmlFor="butter">150g unsalted butter, melted</label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
               </div>
               {/* cheesecake start */}
@@ -113,58 +129,121 @@ export default function RecipePage() {
                 <div className="flex items-center gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="marshmallows"
                   />
 
-                  <p>300g marshmallows</p>
+                  <label htmlFor="marshmallows">300g marshmallows</label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
                 <div className="flex items-center gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="melted-butter"
                   />
 
-                  <p>175g unsalted butter, melted</p>
+                  <label htmlFor="melted-butter">
+                    175g unsalted butter, melted
+                  </label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
                 <div className="flex items-center gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="cream-cheese"
                   />
 
-                  <p>500g Philadelphia cream cheese, softened</p>
+                  <label htmlFor="cream-cheese">
+                    500g Philadelphia cream cheese, softened
+                  </label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
                 <div className="flex items-center gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="whipping-cream"
                   />
 
-                  <p>250ml thickened/whipping cream, warm</p>
+                  <label className="whipping-cream">
+                    250ml thickened/whipping cream, warm
+                  </label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
                 <div className="flex items-center gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="gelatin"
                   />
 
-                  <p>3 tbsp powdered gelatin + 3 tbsp water</p>
+                  <label htmlFor="gelatin">
+                    3 tbsp powdered gelatin + 3 tbsp water
+                  </label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
                 <div className="flex items-center gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="purple-gel"
                   />
 
-                  <p>5 drops purple food gel</p>
+                  <label htmlFor="purple-gel">5 drops purple food gel</label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
                 <div className="flex items-center gap-2 pt-[20px]">
                   <input
                     type="checkbox"
-                    className="appearance-none w-6 h-6 border-2 border-black rounded-full checked:border-orange-500"
+                    className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
+                    id="blue-gel"
                   />
-
-                  <p>3 drops blue food gel</p>
+                  <label htmlFor="blue-gel">3 drops blue food gel</label>
+                  <img
+                    src="checkMark.svg"
+                    className="absolute 
+                    w-6 h-6 
+                    hidden peer-checked:block
+                    pointer-events-none"
+                  />
                 </div>
               </div>
             </div>
