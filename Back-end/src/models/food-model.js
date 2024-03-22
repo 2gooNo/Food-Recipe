@@ -12,8 +12,7 @@ const foodSchema = new mongoose.Schema({
     },
   ],
   instruction: [
-      "hdhdhhddhhd",
-      "jdjdjjdjdj"
+    String
   ],
 });
 export const FoodModel = mongoose.model("food", foodSchema);
