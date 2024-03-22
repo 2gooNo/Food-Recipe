@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const foodSchema = new mongoose.Schema({
   foodCreator:String,
   foodName: String,
-  description: String,
   category: [String],
   like:Number,
   recipes: [
@@ -13,10 +12,8 @@ const foodSchema = new mongoose.Schema({
     },
   ],
   instruction: [
-    {
-      step: Number,
-      description: String,
-    },
+      "hdhdhhddhhd",
+      "jdjdjjdjdj"
   ],
 });
 export const FoodModel = mongoose.model("food", foodSchema);

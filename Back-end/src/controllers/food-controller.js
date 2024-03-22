@@ -23,14 +23,13 @@ export const getFood = async (req, res) => {
 
 export const createFood = async (req, res) => {
   try {
-    const { name, description, category, recipes, instruction, images } =
+    const { foodName, category, recipes, instruction,foodCreator,like } =
       req.body;
 
     const food = await FoodModel.create({
       foodCreator,
       like,
       foodName,
-      description,
       category,
       recipes,
       instruction,
