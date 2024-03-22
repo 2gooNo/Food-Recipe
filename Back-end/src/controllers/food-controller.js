@@ -27,11 +27,14 @@ export const createFood = async (req, res) => {
       req.body;
 
     const food = await FoodModel.create({
-      name,
+      foodCreator,
+      like,
+      foodName,
       description,
       category,
       recipes,
       instruction,
+      createdOn: new Date(),
     });
 
     res.status(201).json({ success: true, data: food });

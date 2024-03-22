@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
 const foodSchema = new mongoose.Schema({
-  name: String,
+  foodCreator:String,
+  foodName: String,
   description: String,
   category: [String],
+  like:Number,
   recipes: [
     {
       recipe: String,
