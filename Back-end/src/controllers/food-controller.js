@@ -20,13 +20,9 @@ export const getAllFood = async (req, res) => {
 export const getFood = async (req, res) => {
   const { id } = req.params;
   try {
-    const findFood = await FoodModel.findById(id);
+    const findFood = await FoodModel.findOne({ findFood: id.id });
 
-    if (!findFood) {
-      return res.status(404).json({ error: 'Food not found' });
-    }
-
-    res.status(200).json({ findFood });
+    res.status(200).json({ findFood: findFood });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

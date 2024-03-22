@@ -1,76 +1,89 @@
-"use client"
-
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import styles from "./LogInPage.module.css"; 
+import "./LogInPage.css";
+import LockSvg from "../../../utils/lock-svg";
+import MailSvg from "../../../utils/mail-svg";
+
 export default function LogInPage() {
-  const [LogInData, setLogInData] = useState({});
-  const [isGood, setIsGood] = useState(true);
+  const [loginData, setLoginData] = useState({});
   const router = useRouter();
+
+  const token = window.localStorage.getItem("token");
 
   const handleLogIn = async () => {
     const data = await axios
       .post(`http://localhost:8000/logIn`, {
-        email: LogInData.email,
-        password: LogInData.password,
-        userName: LogInData.userName,
+        email: loginData.email,
+        password: loginData.password,
+        userName: loginData.userName,
       })
-      .catch((error) => setIsGood(false));
-    if (isGood == true) {
-      router.push("../HomePage");
-    } else {
-      alert("Email is not found");
-    }
-
-    console.log(data);
+      .catch((error) => alert("error"));
+    window.localStorage.setItem("token", data.data.token);
   };
 
+  useEffect(() => {
+    if (token) {
+      router.push("/HomePage");
+    }
+  }, [token]);
+  const SignUpPage = async () => {
+    router.push("/SignUpPage");
+  }
+  const forgotpassword = async () => {
+    router.push("/RecoverPassword");
+  }
+
   return (
-    <div className={styles.body}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Log In</h1>
-        <p className={styles.p}>Built with lite forms.</p>
-        <div className={styles.border}>bndi</div>
-        <div className={styles.box}>
-          <input
-            type="text"
-            id="emailInput"
-            name="emailInput"
-            value={LogInData.email}
-            onChange={(e) =>
-              setLogInData((prev) => ({ ...prev, email: e.target.value }))
-            }
-            placeholder="Mail"
-            className={styles.inputField}
-          />
-          <input
-            type="text"
-            id="usernameInput"
-            name="usernameInput"
-            value={LogInData.userName}
-            onChange={(e) =>
-              setLogInData((prev) => ({ ...prev, userName: e.target.value }))
-            }
-            placeholder="Username"
-            className={styles.inputField}
-          />
-          <input
-            type="password"
-            id="passwordInput"
-            name="passwordInput"
-            value={LogInData.password}
-            onChange={(e) =>
-              setLogInData((prev) => ({ ...prev, password: e.target.value }))
-            }
-            placeholder="Password"
-            className={styles.inputField}
-          />
-          <button onClick={handleLogIn} className={styles.button}>
-            Sign in
-          </button>
+    <div className="loginContainer">
+      <div className="loginForm">
+        <div className="w-[357px]">
+          <h1 className="login">LOGIN</h1>
         </div>
-        <div className={styles.whiteBottom}></div>
+        <div className="inputContainer">
+          <div className="input">
+            <div className="image">
+              <MailSvg height={25} width={25} />
+            </div>
+            <input
+              type="text"
+              id="emailInput"
+              name="emailInput"
+              value={loginData.email}
+              onChange={(e) =>
+                setLoginData((prev) => ({ ...prev, email: e.target.value }))
+              }
+              placeholder="Email"
+              className="mb"
+            />
+          </div>
+          <div className="br"></div>
+          <div className="input">
+            <div className="image">
+              <LockSvg height={25} width={25} />
+            </div>
+            <input
+              type="password"
+              id="passwordInput"
+              name="passwordInput"
+              value={loginData.password}
+              onChange={(e) =>
+                setLoginData((prev) => ({
+                  ...prev,
+                  password: e.target.value,
+                }))
+              }
+              placeholder="Password"
+              className="mb"
+            />
+          </div>
+          <p className="noaccount" onClick={SignUpPage}>Don't have an account?</p>
+          <p className="forgotpassword" onClick={forgotpassword}>Forgot Password?</p>
+        </div>
+        <button onClick={handleLogIn} className="button1">
+          Log In
+        </button>
       </div>
     </div>
   );
