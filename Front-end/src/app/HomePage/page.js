@@ -10,11 +10,11 @@ import axios from "axios";
 export default function HomePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [foodData, setFoodData] = useState();
+  const [foodData, setFoodData] = useState([]);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
-    const foodData = await axios.get(`http://localhost:8000/getAllFood`);
+    const foodData = await axios.get(`http://localhost:8001/getAllFood`);
     // const userData = await axios.get(`http://localhost:8000/getUser`, {
     //   headers: { token },
     // });
@@ -22,6 +22,14 @@ export default function HomePage() {
     // setUserData(userData);
     console.log(foodData);
   };
+  function index() {
+    const numbers = [];
+    for (let i = 0; i < 3; i++) {
+      numbers.push(Math.floor(Math.random() * 6) + 1);
+    }
+  }
+  const i = foodData?.data?.foods[0]?.imgSrc;
+  console.log(foodData?.data?.foods[0]?.imgSrc);
 
   useEffect(() => {
     fetchData();
@@ -53,30 +61,37 @@ export default function HomePage() {
         <img className="navMenuIcon" src="MenuIcon.png"></img>
       </div>
       <div className="suggestRecipes">
-        <div className="suggesRecipe">
-          <img className="suggestRecipePhoto" src="recipeImg.jpg"></img>
-          <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
-            <div className="flex gap-[5px]">
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+        {foodData?.data?.foods?.[1].map((imgSrc, foodName, like) => (
+          <div className="suggesRecipe">
+            <img className="suggestRecipePhoto" src={imgSrc}></img>
+            <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
+              <div className="like">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="18"
+                  viewBox="0 -960 960 960"
+                  width="18"
+                >
+                  <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+                </svg>
+                <div>{like}</div>
+              </div>
+              <h1 className="suggestRecipeName">{foodName}</h1>
             </div>
-            <h1 className="suggestRecipeName">
-              Very Berry Healthy Summer Smoothie
-            </h1>
           </div>
-        </div>
-        <div className="suggesRecipe">
+        ))}
+        {/* <div className="suggesRecipe">
           <img className="suggestRecipePhoto" src="recipe1Img.jpg"></img>
           <div className="w-[100%] pl-[23.5px] pr-[62px] mb-[29.5px] flex gap-[15px] flex-col">
-            <div className="flex gap-[5px]">
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+            <div className="like">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="18"
+                viewBox="0 -960 960 960"
+                width="18"
+              >
+                <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+              </svg>
             </div>
             <h1 className="suggestRecipeName">Creamy Carrot and Ginger Soup</h1>
           </div>
@@ -84,18 +99,21 @@ export default function HomePage() {
         <div className="suggesRecipe">
           <img className="suggestRecipePhoto" src="recipe2Img.jpg"></img>
           <div className="w-[100%] pl-[23.5px] pr-[62px] mb-[29.5px] flex gap-[15px] flex-col">
-            <div className="flex gap-[5px]">
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-              <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+            <div className="like">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="18"
+                viewBox="0 -960 960 960"
+                width="18"
+              >
+                <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+              </svg>
             </div>
             <h1 className="suggestRecipeName">
               Loaded Mixed Berries Mini Tarts
             </h1>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="w-[1110px] h-[1px] bg-[#e8e8e8] mb-[40px]">
         <div></div>
@@ -136,12 +154,15 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="fiveStar-container">
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+                <div className="like">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18"
+                    viewBox="0 -960 960 960"
+                    width="18"
+                  >
+                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+                  </svg>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
@@ -189,12 +210,15 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="fiveStar-container">
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+                <div className="like">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18"
+                    viewBox="0 -960 960 960"
+                    width="18"
+                  >
+                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+                  </svg>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
@@ -242,12 +266,15 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="fiveStar-container">
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+                <div className="like">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18"
+                    viewBox="0 -960 960 960"
+                    width="18"
+                  >
+                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+                  </svg>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
@@ -295,12 +322,15 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="fiveStar-container">
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+                <div className="like">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18"
+                    viewBox="0 -960 960 960"
+                    width="18"
+                  >
+                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+                  </svg>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
@@ -348,12 +378,15 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="fiveStar-container">
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+                <div className="like">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18"
+                    viewBox="0 -960 960 960"
+                    width="18"
+                  >
+                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+                  </svg>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
@@ -401,12 +434,15 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="fiveStar-container">
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
-                  <img src="starIcon.png" className="w-[14.5px] h-[15px]"></img>
+                <div className="like">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18"
+                    viewBox="0 -960 960 960"
+                    width="18"
+                  >
+                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
+                  </svg>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
