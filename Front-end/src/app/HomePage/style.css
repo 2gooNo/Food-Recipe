@@ -316,3 +316,9 @@
   font-size: 14px;
   margin-top: 6px;
 }
+.like{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
