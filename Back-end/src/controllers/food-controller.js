@@ -28,7 +28,7 @@ export const getFood = async (req, res) => {
 
 export const createFood = async (req, res) => {
   try {
-    const { foodName, category, recipes, instruction,foodCreator,like } =
+    const { foodName, category, recipes, instruction,foodCreator,like,imgSrc } =
       req.body;
 
     const food = await FoodModel.create({
@@ -38,6 +38,7 @@ export const createFood = async (req, res) => {
       category,
       recipes,
       instruction,
+      imgSrc,
       createdOn: new Date(),
     });
 
