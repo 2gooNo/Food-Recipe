@@ -38,3 +38,57 @@
   width: 150px;
   gap: 10px;
 }
+.a {
+  color: grey;
+}
+.picture_contacts1 {
+  width: 30px;
+  height: 30px;
+}
+
+/* .svg3:hover path {
+  stroke: orange;
+} */
+.drop_down:hover {
+  color: #ff6430;
+}
+
+.drop_down:hover .svg3 path {
+  stroke: #ff6430;
+}
+.test {
+  position: absolute;
+  top: 90px;
+  left: 770px;
+}
+.Buy {
+  font-weight: 700;
+  color: grey;
+}
+.input_category {
+  box-shadow: 0px 0px 20px white;
+}
+
+.search-detail {
+  width: 950px;
+  border-radius: 20px;
+}
+
+.search {
+  width: 40px;
+  border-radius: 50%;
+}
+.favs {
+  font: bold;
+  font-weight: 700;
+  font-size: 35px;
+}
+.search-detail2 {
+  width: 950px;
+  border-radius: 20px;
+}
+
+.search2 {
+  width: 40px;
+  border-radius: 50%;
+}
