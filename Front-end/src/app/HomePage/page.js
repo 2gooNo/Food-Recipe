@@ -60,14 +60,30 @@ export default function HomePage() {
     console.log(suggesRecipes);
     setTryNewRecipes(suggesRecipes);
   };
-  function index() {
-    const numbers = [];
-    for (let i = 0; i < 3; i++) {
-      numbers.push(Math.floor(Math.random() * 6) + 1);
-    }
-  }
-  const i = foodData?.data?.foods[0]?.imgSrc;
-  console.log(foodData?.data?.foods[0]?.imgSrc);
+
+  const topThree = (foodData) => {
+    const recipeLikes = [];
+    const topRecipes = [];
+
+    foodData?.data?.foods.map((food) => recipeLikes.push(food.like));
+
+    const sortedLikes = recipeLikes.sort((a, b) => a - b);
+
+    // console.log(sortedLikes);
+    const topLikes = sortedLikes.slice(-3);
+    // console.log(topLikes);
+
+    foodData?.data?.foods.map((food) => {
+      if (topLikes.includes(food.like)) {
+        topRecipes.push(food);
+      }
+      // console.log("top", topRecipes);
+    });
+
+    setTop(topRecipes);
+  };
+
+  // console.log("likes", recipeLikes);
 
   useEffect(() => {
     fetchData();
