@@ -3,10 +3,10 @@ import { useState } from "react";
 import axios from "axios";
 import "./RecoverPassword.css";
 import MailSvg from "../../../utils/mail-svg";
+import { useHistory } from 'react-router-dom';
 
 const sendResetCodeByEmail = async (email, code) => {
   try {
-    // Implement sending reset code by email here
   } catch (error) {
     throw new Error("Failed to send reset code by email.");
   }
@@ -17,6 +17,7 @@ export default function RecoverPasswordPage() {
   const [message, setMessage] = useState("");
   const [toggle, setToggle] = useState("email");
   const [isLoading, setIsLoading] = useState(false);
+  const [resetToken,setResetToken] = useState()
 
   const handleRecoverPassword = async () => {
     try {
@@ -25,14 +26,20 @@ export default function RecoverPasswordPage() {
         email: email,
       });
       setMessage(response.data.message);
+      setResetToken(response.data.resetToken)
       await sendResetCodeByEmail(email, response.data.resetToken);
       setToggle("code");
     } catch (error) {
-      setMessage("An error occurred. Please try again.");
+      if (error.response && error.response.status === 404) {
+        setMessage("There is no such user. Please check if it's wrong.");
+      } else {
+        setMessage("An error occurred. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className="recoverPasswordContainer">
@@ -84,18 +91,24 @@ const SendEmail = ({ setEmail, email, message, handleRecoverPassword, isLoading 
   );
 };
 
+
+
 const VerifyCode = () => {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState('');
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory(); 
 
   const handleVerifyCode = async () => {
     try {
-      setIsLoading(true);
-      const response = await axios.post("http://localhost:8000/verify-code", {
+      setIsLoading(true); 
+      const response = await axios.post("http://localhost:8000/verifyCode", {
         code: code,
       });
       setVerificationMessage(response.data.message);
+      if (response.status === 200) { 
+        history.push('/ChangePassword'); 
+      }
     } catch (error) {
       setVerificationMessage("An error occurred. Please try again.");
     } finally {
