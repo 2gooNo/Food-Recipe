@@ -10,7 +10,7 @@ export default function LogInPage() {
   const [loginData, setLoginData] = useState({});
   const router = useRouter();
 
-  const token = window.localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const handleLogIn = async () => {
     const data = await axios
@@ -20,7 +20,7 @@ export default function LogInPage() {
         userName: loginData.userName,
       })
       .catch((error) => alert("error"));
-    window.localStorage.setItem("token", data.data.token);
+    localStorage.setItem("token", data.data.token);
   };
 
   useEffect(() => {
@@ -30,10 +30,10 @@ export default function LogInPage() {
   }, [token]);
   const SignUpPage = async () => {
     router.push("/SignUpPage");
-  }
+  };
   const forgotpassword = async () => {
     router.push("/RecoverPassword");
-  }
+  };
 
   return (
     <div className="loginContainer">
@@ -78,8 +78,12 @@ export default function LogInPage() {
               className="mb"
             />
           </div>
-          <p className="noaccount" onClick={SignUpPage}>Don't have an account?</p>
-          <p className="forgotpassword" onClick={forgotpassword}>Forgot Password?</p>
+          <p className="noaccount" onClick={SignUpPage}>
+            Don't have an account?
+          </p>
+          <p className="forgotpassword" onClick={forgotpassword}>
+            Forgot Password?
+          </p>
         </div>
         <button onClick={handleLogIn} className="button1">
           Log In
