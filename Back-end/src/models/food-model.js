@@ -4,6 +4,7 @@ const foodSchema = new mongoose.Schema({
   foodCreator:String,
   foodName: String,
   category: [String],
+  imgSrc:String,
   like:Number,
   recipes: [
     {
@@ -12,8 +13,7 @@ const foodSchema = new mongoose.Schema({
     },
   ],
   instruction: [
-      "hdhdhhddhhd",
-      "jdjdjjdjdj"
+    String
   ],
 });
 export const FoodModel = mongoose.model("food", foodSchema);
