@@ -13,7 +13,6 @@ export default function LogInPage() {
   const [token, setToken] = useState("");
   const router = useRouter();
 
-
   const handleLogIn = async () => {
     const data = await axios
       .post(`${Back_End_Url}/logIn`, {
@@ -23,10 +22,15 @@ export default function LogInPage() {
       })
       .catch((error) => alert("error"));
     window.localStorage.setItem("token", data.data.token);
-
-    router.push("/");
   };
 
+  useEffect(() => {
+    if (!token) {
+      console.log("we got token");
+    } else {
+      router.push("/HomePage");
+    }
+  }, [token]);
 
   const SignUpPage = async () => {
     router.push("/SignUpPage");
