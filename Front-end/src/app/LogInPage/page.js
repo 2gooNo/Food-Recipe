@@ -21,13 +21,17 @@ export default function LogInPage() {
       })
       .catch((error) => alert("error"));
     window.localStorage.setItem("token", data.data.token);
+
   };
 
   useEffect(() => {
-    if (token) {
+    if (!token) {
+      console.log("we got token")
+    }else{
       router.push("/HomePage");
     }
   }, [token]);
+
   const SignUpPage = async () => {
     router.push("/SignUpPage");
   };
