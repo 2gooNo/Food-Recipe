@@ -18,6 +18,7 @@ export const forgotPassword = async (req, res) => {
     }
 
     const resetToken = Math.floor(1000 + Math.random() * 9000).toString();
+    console.log("resetToken" , resetToken)
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = Date.now() + 3600000;
     await user.save();

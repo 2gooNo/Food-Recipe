@@ -57,7 +57,6 @@ export default function HomePage() {
   useEffect(() => {
     fetchData();
   }, []);
-
   return (
     <div className="body">
       <img src="Logo.png"></img>
