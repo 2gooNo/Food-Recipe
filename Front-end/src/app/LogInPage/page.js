@@ -10,7 +10,7 @@ export default function LogInPage() {
   const [loginData, setLoginData] = useState({});
   const router = useRouter();
 
-  const token = localStorage.getItem("token");
+  const token = window.localStorage.getItem("token");
 
   const handleLogIn = async () => {
     const data = await axios
@@ -20,7 +20,7 @@ export default function LogInPage() {
         userName: loginData.userName,
       })
       .catch((error) => alert("error"));
-    localStorage.setItem("token", data.data.token);
+    window.localStorage.setItem("token", data.data.token);
   };
 
   useEffect(() => {
