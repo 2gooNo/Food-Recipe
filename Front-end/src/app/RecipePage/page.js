@@ -132,7 +132,7 @@ const RecipePage = ({ params }) => {
                       pointer-events-none"
                       />
                       <label htmlFor="ingredient">
-                        {rec.recipe} {rec.size}
+                        {rec.size} {rec.recipe}
                       </label>
                     </div>
                   </div>
@@ -191,10 +191,12 @@ const RecipePage = ({ params }) => {
             <div className="w-[500px] flex flex-col gap-[30px] mt-[65px]">
               <h1 className="text-3xl">Instructions</h1>
               {recipeData.instruction?.map((inst, index) => (
-                <div className="flex gap-[25px]">
-                  <p className="bg-orange-600 rounded-3xl text-center text-white">
-                    {index}
-                  </p>
+                <div className="flex gap-[25px] mt-[15px]">
+                  <div className="max-w-6 max-h-6">
+                    <p className="bg-orange-600 w-6 h-6 rounded-3xl text-center text-white">
+                      {index}
+                    </p>
+                  </div>
                   <p>{inst}</p>
                 </div>
               ))}
