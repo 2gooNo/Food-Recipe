@@ -6,7 +6,6 @@ import "./LogInPage.css";
 import LockSvg from "../../../utils/lock-svg";
 import MailSvg from "../../../utils/mail-svg";
 import { Back_End_Url } from "../../../back-url";
-// import { Back_End_Url } from "../../../back-url";
 
 export default function LogInPage() {
   const [loginData, setLoginData] = useState({});
