@@ -3,7 +3,7 @@ export default function AccountSvg({ height, width }) {
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}>
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
         strokeLinecap="round"
@@ -21,10 +21,11 @@ export default function AccountSvg({ height, width }) {
           d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z"
           stroke="#7f7f7f"
           strokeWidth="2"
-          strokeWinecap="round"
+          strokewinecap="round"
           strokeLinejoin="round"
         ></path>
       </g>
     </svg>
   );
 }
+//bitgii solioroi

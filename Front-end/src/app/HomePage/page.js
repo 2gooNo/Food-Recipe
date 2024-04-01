@@ -9,6 +9,7 @@ import axios from "axios";
 import { Calendar } from "../../assets/icons/calendar";
 import { Like } from "../../assets/icons/like";
 import { Comment } from "../../assets/icons/comment";
+import { Back_End_Url } from "../../../back-url";
 
 export default function HomePage() {
   const router = useRouter();
@@ -18,16 +19,10 @@ export default function HomePage() {
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
-    const foodData = await axios.get(`http://localhost:8001/getAllFood`);
+    const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
 
     topThree(foodData);
     setFoods(foodData);
-    // const userData = await axios.get(`http://localhost:8000/getUser`, {
-    //   headers: { token },
-    // });
-    // setFoodData(foodData);
-    // setUserData(userData);
-    // console.log(foodData);
   };
 
   const topThree = (foodData) => {
