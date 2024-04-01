@@ -5,6 +5,7 @@ import axios from "axios";
 import "./LogInPage.css";
 import LockSvg from "../../../utils/lock-svg";
 import MailSvg from "../../../utils/mail-svg";
+import { Back_End_Url } from "../../../back-url";
 
 export default function LogInPage() {
   const [loginData, setLoginData] = useState({});
@@ -14,7 +15,7 @@ export default function LogInPage() {
 
   const handleLogIn = async () => {
     const data = await axios
-      .post(`http://localhost:8000/logIn`, {
+      .post(`${Back_End_Url}/logIn`, {
         email: loginData.email,
         password: loginData.password,
         userName: loginData.userName,
