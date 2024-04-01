@@ -2,10 +2,11 @@
 import Image from "next/image";
 import styles from "./style.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const RecipePage = ({ params }) => {
   const [recipeData, setRecipeData] = useState([]);
+  const [strikeThroughCSS, setStrikeThroughCSS] = useState({});
   const { id } = params;
 
   const fetchRecipe = async () => {
@@ -17,6 +18,13 @@ const RecipePage = ({ params }) => {
     }
   };
   console.log(recipeData);
+
+  const toggleStrikeThrough = useCallback((index) => {
+    setStrikeThroughCSS((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }));
+  }, []);
 
   useEffect(() => {
     fetchRecipe();
@@ -122,16 +130,21 @@ const RecipePage = ({ params }) => {
                       <input
                         type="checkbox"
                         className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
-                        id="ingredient"
+                        id={`ingredient-${index}`}
+                        onClick={() => toggleStrikeThrough(index)}
                       />
                       <img
                         src="checkMark.svg"
-                        className="absolute 
-                      w-6 h-6 
-                      hidden peer-checked:block
-                      pointer-events-none"
+                        className="absolute w-6 h-6 hidden peer-checked:block pointer-events-none"
                       />
-                      <label htmlFor="ingredient">
+                      <label
+                        htmlFor={`ingredient-${index}`}
+                        style={{
+                          textDecoration: strikeThroughCSS[index]
+                            ? "line-through"
+                            : "none",
+                        }}
+                      >
                         {rec.size} {rec.recipe}
                       </label>
                     </div>
