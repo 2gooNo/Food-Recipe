@@ -27,8 +27,15 @@ export const getFood = async (req, res) => {
 
 export const createFood = async (req, res) => {
   try {
-    const { foodName, category, recipes, instruction, foodCreator, imgSrc } =
-      req.body;
+    const {
+      foodName,
+      category,
+      recipes,
+      instruction,
+      foodCreator,
+      like,
+      imgSrc,
+    } = req.body;
 
     const food = await FoodModel.create({
       foodCreator,
