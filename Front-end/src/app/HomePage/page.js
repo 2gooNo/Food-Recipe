@@ -48,6 +48,9 @@ export default function HomePage() {
   };
 
   // console.log("likes", recipeLikes);
+  const recipPage = () => {
+    router.push("/RecipePage");
+  };
 
   useEffect(() => {
     fetchData();
@@ -78,9 +81,9 @@ export default function HomePage() {
         </div>
         <img className="navMenuIcon" src="MenuIcon.png"></img>
       </div>
-      <div className="suggestRecipes">
+      <div className="suggestRecipes" onClick={recipPage}>
         {foodData?.data?.foods?.[1].map((imgSrc, foodName, like) => (
-          <div className="suggesRecipe">
+          <div className="suggesRecipe" key={food._id}>
             <img className="suggestRecipePhoto" src={imgSrc}></img>
             <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
               <div className="like">
