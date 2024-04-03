@@ -6,12 +6,13 @@ import "./LogInPage.css";
 import LockSvg from "../../../utils/lock-svg";
 import MailSvg from "../../../utils/mail-svg";
 import { Back_End_Url } from "../../../back-url";
+// import { Back_End_Url } from "../../../back-url";
 
 export default function LogInPage() {
   const [loginData, setLoginData] = useState({});
+  const [token, setToken] = useState("");
   const router = useRouter();
 
-  const token = window.localStorage.getItem("token");
 
   const handleLogIn = async () => {
     const data = await axios
@@ -23,15 +24,9 @@ export default function LogInPage() {
       .catch((error) => alert("error"));
     window.localStorage.setItem("token", data.data.token);
 
+    router.push("/");
   };
 
-  useEffect(() => {
-    if (!token) {
-      console.log("we got token")
-    }else{
-      router.push("/HomePage");
-    }
-  }, [token]);
 
   const SignUpPage = async () => {
     router.push("/SignUpPage");
