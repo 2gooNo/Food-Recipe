@@ -18,7 +18,7 @@ export default function RecoverPasswordPage() {
   const [message, setMessage] = useState("");
   const [toggle, setToggle] = useState("email");
   const [isLoading, setIsLoading] = useState(false);
-  const [resetToken,setResetToken] = useState()
+  const [resetToken, setResetToken] = useState();
 
   const handleRecoverPassword = async () => {
     try {
@@ -27,7 +27,7 @@ export default function RecoverPasswordPage() {
         email: email,
       });
       setMessage(response.data.message);
-      setResetToken(response.data.resetToken)
+      setResetToken(response.data.resetToken);
       await sendResetCodeByEmail(email, response.data.resetToken);
       setToggle("code");
     } catch (error) {
@@ -40,7 +40,6 @@ export default function RecoverPasswordPage() {
       setIsLoading(false);
     }
   };
-  
 
   return (
     <div className="recoverPasswordContainer">
@@ -53,12 +52,18 @@ export default function RecoverPasswordPage() {
           isLoading={isLoading}
         />
       )}
-      {toggle === "code" && <VerifyCode />}
+      {toggle === "code" && <VerifyCode email={email} />}
     </div>
   );
 }
 
-const SendEmail = ({ setEmail, email, message, handleRecoverPassword, isLoading }) => {
+const SendEmail = ({
+  setEmail,
+  email,
+  message,
+  handleRecoverPassword,
+  isLoading,
+}) => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleRecoverPassword();
@@ -85,30 +90,32 @@ const SendEmail = ({ setEmail, email, message, handleRecoverPassword, isLoading 
         />
       </div>
       <p className="message">{message}</p>
-      <button onClick={handleRecoverPassword} className="button1" disabled={isLoading}>
-        {isLoading ? "Sending..." : "Recover Password"}
+      <button
+        onClick={handleRecoverPassword}
+        className="button2"
+        disabled={isLoading}
+      >
+        {isLoading ? "Sending..." : "Submit"}
       </button>
     </div>
   );
 };
 
-
-
-const VerifyCode = () => {
-  const [code, setCode] = useState('');
+const VerifyCode = ({ email }) => {
+  const [code, setCode] = useState("");
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleVerifyCode = async () => {
     try {
-      setIsLoading(true); 
+      setIsLoading(true);
       const response = await axios.post(`${Back_End_Url}/verifyCode`, {
         code: code,
       });
       setVerificationMessage(response.data.message);
-      if (response.status === 200) { 
-        router.push('/ChangePassword'); 
+      if (response.status === 200) {
+        router.push("/ChangePassword" + "?email=" + email);
       }
     } catch (error) {
       setVerificationMessage("An error occurred. Please try again.");
@@ -140,7 +147,11 @@ const VerifyCode = () => {
         />
       </div>
       <p className="message">{verificationMessage}</p>
-      <button onClick={handleVerifyCode} className="button1" disabled={isLoading}>
+      <button
+        onClick={handleVerifyCode}
+        className="button2"
+        disabled={isLoading}
+      >
         {isLoading ? "Verifying..." : "Verify Code"}
       </button>
     </div>
