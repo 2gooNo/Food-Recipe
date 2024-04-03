@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const offPages = { ["/SignUpPage"]: true, ["/LogInPage"]: true };
+const offPages = { ["/SignUpPage"]: true, ["/LogInPage"]: true, ["/ChangePassword"]: true };
 
 export const AuthProvider = ({ children }) => {
   const pathname = usePathname();

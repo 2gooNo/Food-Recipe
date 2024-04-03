@@ -3,7 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import "./RecoverPassword.css";
 import MailSvg from "../../../utils/mail-svg";
-import { useHistory } from 'react-router-dom';
+import { useRouter } from "next/navigation";
+import { Back_End_Url } from "../../../back-url";
 
 const sendResetCodeByEmail = async (email, code) => {
   try {
@@ -22,7 +23,7 @@ export default function RecoverPasswordPage() {
   const handleRecoverPassword = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:8000/forgot-password", {
+      const response = await axios.post(`${Back_End_Url}/forgot-password`, {
         email: email,
       });
       setMessage(response.data.message);
@@ -97,17 +98,17 @@ const VerifyCode = () => {
   const [code, setCode] = useState('');
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory(); 
+  const router = useRouter()
 
   const handleVerifyCode = async () => {
     try {
       setIsLoading(true); 
-      const response = await axios.post("http://localhost:8000/verifyCode", {
+      const response = await axios.post(`${Back_End_Url}/verifyCode`, {
         code: code,
       });
       setVerificationMessage(response.data.message);
       if (response.status === 200) { 
-        history.push('/ChangePassword'); 
+        router.push('/ChangePassword'); 
       }
     } catch (error) {
       setVerificationMessage("An error occurred. Please try again.");

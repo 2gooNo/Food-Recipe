@@ -7,6 +7,7 @@ import LockSvg from "../../../utils/lock-svg";
 import MailSvg from "../../../utils/mail-svg";
 import AccountSvg from "../../../utils/account-svg";
 import { useRouter } from "next/navigation";
+import { Back_End_Url } from "../../../back-url";
 
 export default function SignUpPage() {
   const [signupData, setSignupData] = useState({
@@ -19,7 +20,7 @@ export default function SignUpPage() {
 
   const handleSignUp = async () => {
     try {
-      await axios.post("http://localhost:8000/signUp", {
+      await axios.post(`${Back_End_Url}/signUp`, {
         userName: signupData.fullName,
         email: signupData.email,
         password: signupData.password,
