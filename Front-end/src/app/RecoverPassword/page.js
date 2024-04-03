@@ -116,7 +116,7 @@ const VerifyCode = ({ email }) => {
       });
       setVerificationMessage(response.data.message);
       if (response.status === 200) {
-        router.push("/ChangePassword" + "?email=" + email);
+        router.push("/ChangePassword" + "?email=" + email); 
       }
     } catch (error) {
       setVerificationMessage("An error occurred. Please try again.");

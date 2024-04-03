@@ -84,6 +84,9 @@ export default function HomePage() {
   };
 
   // console.log("likes", recipeLikes);
+  const recipPage = () => {
+    router.push("/RecipePage");
+  };
 
   useEffect(() => {
     fetchData();
