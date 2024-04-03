@@ -102,11 +102,11 @@ const SendEmail = ({
   );
 };
 
-const VerifyCode = () => {
+const VerifyCode = ({ email }) => {
   const [code, setCode] = useState("");
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
+  const router = useRouter();
 
   const handleVerifyCode = async () => {
     try {
