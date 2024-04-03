@@ -11,7 +11,9 @@ const RecipePage = ({ params }) => {
 
   const fetchRecipe = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8000/getFood/${id}`);
+      const { data } = await axios.get(
+        `http://localhost:8000/getFood/66013c058b21b336ef0c90cb`
+      );
       setRecipeData(data.findFood);
     } catch (error) {
       console.error("error");
@@ -19,15 +21,15 @@ const RecipePage = ({ params }) => {
   };
   console.log(recipeData);
 
+  useEffect(() => {
+    fetchRecipe();
+  }, []);
+
   const toggleStrikeThrough = useCallback((index) => {
     setStrikeThroughCSS((prevState) => ({
       ...prevState,
       [index]: !prevState[index],
     }));
-  }, []);
-
-  useEffect(() => {
-    fetchRecipe();
   }, []);
 
   return (
@@ -143,6 +145,7 @@ const RecipePage = ({ params }) => {
                           textDecoration: strikeThroughCSS[index]
                             ? "line-through"
                             : "none",
+                          color: strikeThroughCSS[index] ? "GrayText" : "none",
                         }}
                       >
                         {rec.size} {rec.recipe}
