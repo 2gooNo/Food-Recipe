@@ -31,6 +31,11 @@ export default function SignUpPage() {
       alert("Sign Up failed");
     }
   };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSignUp();
+    }
+  };
 
   return (
     <div className="signupContainer">
@@ -89,6 +94,7 @@ export default function SignUpPage() {
               }
               placeholder="Password"
               className="mb"
+              onKeyPress={handleKeyPress}
             />
           </div>
         </div>

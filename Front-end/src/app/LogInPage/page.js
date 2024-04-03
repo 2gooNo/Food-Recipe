@@ -35,6 +35,12 @@ export default function LogInPage() {
     router.push("/RecoverPassword");
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleLogIn();
+    }
+  };
+
   return (
     <div className="loginContainer">
       <div className="loginForm">
@@ -76,6 +82,7 @@ export default function LogInPage() {
               }
               placeholder="Password"
               className="mb"
+              onKeyPress={handleKeyPress}
             />
           </div>
           <p className="noaccount" onClick={SignUpPage}>
