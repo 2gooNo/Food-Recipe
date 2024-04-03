@@ -2,15 +2,18 @@
 import Image from "next/image";
 import styles from "./style.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const RecipePage = ({ params }) => {
   const [recipeData, setRecipeData] = useState([]);
+  const [strikeThroughCSS, setStrikeThroughCSS] = useState({});
   const { id } = params;
 
   const fetchRecipe = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8000/getFood/${id}`);
+      const { data } = await axios.get(
+        `http://localhost:8000/getFood/66013c058b21b336ef0c90cb`
+      );
       setRecipeData(data.findFood);
     } catch (error) {
       console.error("error");
@@ -20,6 +23,13 @@ const RecipePage = ({ params }) => {
 
   useEffect(() => {
     fetchRecipe();
+  }, []);
+
+  const toggleStrikeThrough = useCallback((index) => {
+    setStrikeThroughCSS((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }));
   }, []);
 
   return (
@@ -122,17 +132,23 @@ const RecipePage = ({ params }) => {
                       <input
                         type="checkbox"
                         className="appearance-none w-6 h-6 border-2 border-black rounded-full relative peer checked:border-orange-500"
-                        id="ingredient"
+                        id={`ingredient-${index}`}
+                        onClick={() => toggleStrikeThrough(index)}
                       />
                       <img
                         src="checkMark.svg"
-                        className="absolute 
-                      w-6 h-6 
-                      hidden peer-checked:block
-                      pointer-events-none"
+                        className="absolute w-6 h-6 hidden peer-checked:block pointer-events-none"
                       />
-                      <label htmlFor="ingredient">
-                        {rec.recipe} {rec.size}
+                      <label
+                        htmlFor={`ingredient-${index}`}
+                        style={{
+                          textDecoration: strikeThroughCSS[index]
+                            ? "line-through"
+                            : "none",
+                          color: strikeThroughCSS[index] ? "GrayText" : "none",
+                        }}
+                      >
+                        {rec.size} {rec.recipe}
                       </label>
                     </div>
                   </div>
@@ -191,10 +207,12 @@ const RecipePage = ({ params }) => {
             <div className="w-[500px] flex flex-col gap-[30px] mt-[65px]">
               <h1 className="text-3xl">Instructions</h1>
               {recipeData.instruction?.map((inst, index) => (
-                <div className="flex gap-[25px]">
-                  <p className="bg-orange-600 rounded-3xl text-center text-white">
-                    {index}
-                  </p>
+                <div className="flex gap-[25px] mt-[15px]">
+                  <div className="max-w-6 max-h-6">
+                    <p className="bg-orange-600 w-6 h-6 rounded-3xl text-center text-white">
+                      {index}
+                    </p>
+                  </div>
                   <p>{inst}</p>
                 </div>
               ))}
