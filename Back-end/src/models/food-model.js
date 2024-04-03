@@ -5,7 +5,6 @@ const foodSchema = new mongoose.Schema({
   foodName: String,
   category: [String],
   imgSrc:String,
-  like:Number,
   recipes: [
     {
       recipe: String,
