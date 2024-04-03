@@ -39,7 +39,6 @@ export const createFood = async (req, res) => {
 
     const food = await FoodModel.create({
       foodCreator,
-      like,
       foodName,
       category,
       recipes,
