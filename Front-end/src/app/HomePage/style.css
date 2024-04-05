@@ -1,5 +1,4 @@
 .body {
-  padding-top: 56px;
   padding-left: 165px;
   padding-right: 165px;
   display: flex;
@@ -11,26 +10,17 @@
 .navBar {
   width: 1110px;
   height: 61px;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  border-color: rgb(232, 232, 232);
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   margin-top: 40px;
   margin-bottom: 40px;
+  gap: 80px;
 }
 .SearchIcon {
   width: 50px;
   height: 55px;
   margin-right: 210px;
-}
-.navTexts {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 80px;
-  margin-right: 149px;
 }
 .navbarSelection{
     font-weight: 600;
@@ -321,4 +311,28 @@
   flex-direction: row;
   justify-content: start;
   align-items: center;
+}
+.topNav{
+  width: 100vw;
+  height: 56px;
+  background-color: rgb(249, 249, 249);
+  padding-right: 166px;
+  padding-bottom: 19px;
+  padding-top: 19px;
+  margin-bottom: 64px;
+display: flex;
+flex-direction: row;
+justify-content: end;
+align-items: center;
+position: relative;
+}
+.navSocial{
+  display: flex;
+  gap: 36px;
+  left: 170px;
+  position: absolute;
+
+}
+.Logo{
+  margin-bottom: 64px;
 }

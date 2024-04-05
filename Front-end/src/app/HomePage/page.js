@@ -1,15 +1,18 @@
 "use client";
 
-import { useContext } from "react";
 import styles from "./style.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
-import {Calendar} from "../../assets/icons/calendar"
-import {Like} from "../../assets/icons/like"
-import {Comment} from "../../assets/icons/comment"
+import { Calendar } from "../../assets/icons/calendar";
+import { Like } from "../../assets/icons/like";
+import { Comment } from "../../assets/icons/comment";
 import { Back_End_Url } from "../../../back-url";
+import { Search } from "@/assets/icons/search";
+import { FacebookBlack } from "@/assets/icons/facebookBlack";
+import { TwitterBlack } from "@/assets/icons/twitterBlack";
+import { InstagramBlack } from "@/assets/icons/instagramBlack";
 
 export default function HomePage() {
   const router = useRouter();
@@ -41,57 +44,47 @@ export default function HomePage() {
       if (topLikes.includes(food.like)) {
         topRecipes.push(food);
       }
-      // console.log("top", topRecipes);
     });
 
     setTop(topRecipes);
   };
 
-  // console.log("likes", recipeLikes);
-  const recipPage = () => {
-    router.push("/RecipePage")
-  }
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  function pageJump(index) {
+    const recipeId = top?.[index]._id;
+    console.log(recipeId);
+
+    router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
   return (
     <div className="body">
-      <img src="Logo.png"></img>
-      <div className="navBar">
-        <img className="SearchIcon" src="SearchIcon.png"></img>
-        <div className="navTexts">
-          <div className="Selection-Icon">
-            <button className="navbarSelection">Home Page</button>
-            <img className="downward-icon" src="downwardPointerIcon.png"></img>
-          </div>
-          <div className="Selection-Icon">
-            <button className="navbarSelection">Recipe Page</button>
-            <img className="downward-icon" src="downwardPointerIcon.png"></img>
-          </div>
-          <div className="Selection-Icon">
-            <button className="navbarSelection">Pages</button>
-            <img className="downward-icon" src="downwardPointerIcon.png"></img>
-          </div>
-          <div className="Selection-Icon">
-            <button className="navbarSelection">Buy</button>
-            <img className="downward-icon" src="downwardPointerIcon.png"></img>
-          </div>
+      <div className="topNav">
+        <div className="navSocial">
+          <FacebookBlack></FacebookBlack>
+          <TwitterBlack></TwitterBlack>
+          <InstagramBlack></InstagramBlack>
         </div>
-        <img className="navMenuIcon" src="MenuIcon.png"></img>
+        <div className="Selection-Icon">
+          <button className="navbarSelection">Pages</button>
+          <img className="downward-icon" src="downwardPointerIcon.png"></img>
+        </div>
+        <img className="userImg"></img>
+        <Search></Search>
       </div>
-      <div className="suggestRecipes" onClick={recipPage}>
-        {top.map((food) => (
-          <div className="suggesRecipe" key={food._id}>
-            <img className="suggestRecipePhoto" src={food.imgSrc}></img>
-            <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
-              <div className="like">
-              <Like></Like>
-                <div>{food.like}</div>
-              </div>
-              <h1 className="suggestRecipeName">{food.foodName}</h1>
-            </div>
-          </div>
+      <img className="Logo" src="Logo.png"></img>
+      <div className="suggestRecipes" >
+        {top.map((food, index) => (
+          <TopRecipe
+            id={food._id}
+            imgSrc={food.imgSrc}
+            foodName={food.foodName}
+            index={index}
+            pageJump={pageJump}
+          />
         ))}
       </div>
       <div className="w-[1110px] h-[1px] bg-[#e8e8e8] mb-[40px]">
@@ -134,7 +127,7 @@ export default function HomePage() {
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
                 <div className="like">
-                <Like></Like>
+                  <Like></Like>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
@@ -147,33 +140,6 @@ export default function HomePage() {
               <div className="calendar-like">
                 <div className="calendar">
                   <Calendar></Calendar>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-                <div className="like">
-                  <Comment></Comment>
-                  <h1 className="like-text">456</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <div className="like">
-                <Like></Like>
-                </div>
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <img src="profile.png"></img>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                <Calendar></Calendar>
                   <h1 className="calendar-text">Yesterday</h1>
                 </div>
                 <div className="like">
@@ -215,7 +181,34 @@ export default function HomePage() {
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
                 <div className="like">
-                <Like></Like>
+                  <Like></Like>
+                </div>
+                <h1 className="deliciousRecipe-name">
+                  Loaded Mixed Berries Mini Tarts
+                </h1>
+              </div>
+              <div className="user-name">
+                <img src="profile.png"></img>
+                <h1 className="userName">Tricia Albert</h1>
+              </div>
+              <div className="calendar-like">
+                <div className="calendar">
+                  <Calendar></Calendar>
+                  <h1 className="calendar-text">Yesterday</h1>
+                </div>
+                <div className="like">
+                  <Comment></Comment>
+                  <h1 className="like-text">456</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="super-delicious-recipe">
+            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
+            <div className="delicious-recipe-description">
+              <div className="star-name-profile">
+                <div className="like">
+                  <Like></Like>
                 </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
@@ -555,3 +548,13 @@ export default function HomePage() {
     </div>
   );
 }
+const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
+  return (
+    <div onClick={() => pageJump(index)} className="suggesRecipe" key={id}>
+      <img className="suggestRecipePhoto" src={imgSrc}></img>
+      <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
+        <h1 className="suggestRecipeName">{foodName}</h1>
+      </div>
+    </div>
+  );
+};
