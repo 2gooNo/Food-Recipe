@@ -280,65 +280,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="curratedCollections-container">
-        <h1 className="curratedCollections-title">Curated Collections</h1>
-        <div className="collections">
-          <div className="collection-row">
-            <div className="collection">
-              <img className="collection-img" src="collection.jpg"></img>
-              <div className="collection-description">
-                <p className="collection-title">
-                  Sushi Combos for your Next Party
-                </p>
-                <div className="recipeNumber">156 Recipes</div>
-              </div>
-            </div>
-            <div className="collection">
-              <img className="collection-img" src="collection.jpg"></img>
-              <div className="collection-description">
-                <p className="collection-title">Sushi</p>
-                <div className="recipeNumber">156 Recipes</div>
-              </div>
-            </div>
-          </div>
-          <div className="collection-row">
-            <div className="collection">
-              <img className="collection-img" src="collection.jpg"></img>
-              <div className="collection-description">
-                <p className="collection-title">Sushi</p>
-                <div className="recipeNumber">156 Recipes</div>
-              </div>
-            </div>
-            <div className="collection">
-              <img className="collection-img" src="collection.jpg"></img>
-              <div className="collection-description">
-                <p className="collection-title">
-                  Sushi Combos for your Next Party
-                </p>
-                <div className="recipeNumber">156 Recipes</div>
-              </div>
-            </div>
-          </div>
-          <div className="collection-row">
-            <div className="collection">
-              <img className="collection-img" src="collection.jpg"></img>
-              <div className="collection-description">
-                <p className="collection-title">
-                  Sushi Combos for your Next Party
-                </p>
-                <div className="recipeNumber">156 Recipes</div>
-              </div>
-            </div>
-            <div className="collection">
-              <img className="collection-img" src="collection.jpg"></img>
-              <div className="collection-description">
-                <p className="collection-title">Sushi</p>
-                <div className="recipeNumber">156 Recipes</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="footer-container">
         <div className="upFooter-container">
           <div className="footer-text">
