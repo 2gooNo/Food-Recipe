@@ -45,10 +45,6 @@
   width: 30px;
   height: 30px;
 }
-
-/* .svg3:hover path {
-  stroke: orange;
-} */
 .drop_down:hover {
   color: #ff6430;
 }
@@ -84,11 +80,18 @@
   font-size: 35px;
 }
 .search-detail2 {
-  width: 950px;
-  border-radius: 20px;
+  width: 920px;
 }
 
 .search2 {
   width: 40px;
   border-radius: 50%;
+}
+.Profile_word {
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 33px;
+  /* position: absolute;
+  top: 220px;
+  left: 295px; */
 }
