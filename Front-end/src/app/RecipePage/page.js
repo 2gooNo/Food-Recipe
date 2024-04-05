@@ -113,12 +113,12 @@ const RecipePage = ({ params }) => {
               src={recipeData.imgSrc}
               height={0}
               width={0}
-              alt="Strawberry Cheesecake"
+              alt="Food picture"
               className="w-[1100px] h-auto rounded-xl"
             />
           </div>
           {/* ingredient + nutrition facts + instructions start  */}
-          <div className="flex">
+          <div className="flex w-[1100px]">
             {/* ingredient + nutrition facts start */}
             <div className="mr-[250px]">
               {/* ingredients start  */}
