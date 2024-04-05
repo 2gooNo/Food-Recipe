@@ -408,3 +408,4 @@ const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
     </div>
   );
 };
+

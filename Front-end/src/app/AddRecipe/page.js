@@ -1,72 +1,58 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { Back_End_Url } from "../../../back-url";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+import { useState } from "react";
+import "./AddRecipe.css"
 
-export default function addRecipe() {
-  const router = useRouter();
-  const [userData, setUserData] = useState();
-  const [food, setFood] = useState({});
+const AddRecipe = () => {
+  const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredient] = useState("");
 
-  const fetchData = async () => {
-    const token = localStorage.getItem("token");
-    if (token == null) {
-      router.push("/LogInPage");
-    } else {
-      const data = await axios.get(`${Back_End_Url}/getUser`, {
-        headers: { token },
-      });
-      setUserData(data);
-      console.log("name", data?.data?.user?.userName);
+  const handleAddIngredient = () => {
+    if (newIngredient.trim() !== "") {
+      setIngredients([...ingredients, newIngredient]);
+      setNewIngredient("");
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const addQuiz = async () => {
-    // addQuestion();
-
-    const { data } = await axios.post(`${Back_End_Url}/createFood`, {
-      foodCreator: data?.data?.user?.userName,
-      foodName: food.foodName,
-      category: food.category,
-
-      // recipes:userData?.data?.user?.userName,
-      // instructions:
-    });
-    router.push("/CustomQuizMenu");
+  const handleRemoveIngredient = (index) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients.splice(index, 1);
+    setIngredients(updatedIngredients);
   };
 
   return (
-    <div>
-      <input
-        className="foodName"
-        placeholder="foodName"
-        onChange={(e) =>
-          setFood((prev) => ({ ...prev, foodName: e.target.value }))
-        }
-        value={food.foodName}
-      ></input>
-      <input
-        className="category"
-        placeholder="category"
-        onChange={(e) =>
-          setFood((prev) => ({ ...prev, category: e.target.value }))
-        }
-        value={food.category}
-      ></input>
-      <input className="recipes" placeholder="recipes"></input>
-      {[Array(2)].map(() => (
-        <div className="flex flex-row">
-          <input placeholder="instruction"></input>
+    <div className="add-recipe-container">
+      <h1 className="add-recipe-title">Add Recipe</h1>
+      <div className="ingredient-list">
+        <h2 className="ingredient-list-title">Ingredients</h2>
+        <ul className="ingredients">
+          {ingredients.map((ingredient, index) => (
+            <li key={index} className="ingredient">
+              <span>{ingredient}</span>
+              <button
+                onClick={() => handleRemoveIngredient(index)}
+                className="remove-button"
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="add-ingredient">
+          <input
+            type="text"
+            value={newIngredient}
+            onChange={(e) => setNewIngredient(e.target.value)}
+            placeholder="Enter ingredient"
+            className="ingredient-input"
+          />
+          <button onClick={handleAddIngredient} className="add-button">
+            Add Ingredient
+          </button>
         </div>
-      ))}
-      <input className="instructions" placeholder="instructions"></input>
-      <input className="imgSrc" placeholder="imgSrc"></input>
+      </div>
     </div>
   );
-}
+};
+
+export default AddRecipe;
