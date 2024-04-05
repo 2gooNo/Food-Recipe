@@ -51,6 +51,9 @@ export default function Home() {
   function searchInput(e) {
     console.log(e.target.value);
   }
+  function GoToProfile() {
+    router.push("/Profile");
+  }
   return (
     <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
@@ -125,8 +128,10 @@ export default function Home() {
         )}
         <div className="flex flex-row gap-[40px] justify-between items-center">
           <div
-            className={`border-[2px] border-[black] p-[8px] ${
-              appear ? "search-detail2" : "search2"
+            className={`p-[8px] ${
+              appear
+                ? "search-detail2 border-b-[2px] border-[black]"
+                : "search2 border-[2px] border-[black]"
             }
           // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
           >
@@ -140,9 +145,7 @@ export default function Home() {
                   placeholder="Enter a dish name..."
                   onChange={searchInput}
                 />
-                <button>
-                  <img className="w-[20px] h-[20px]" src="search.webp" />
-                </button>
+                <button></button>
               </div>
             ) : (
               <div>
@@ -154,6 +157,11 @@ export default function Home() {
               </div>
             )}
           </div>
+          <img
+            onClick={() => GoToProfile()}
+            className="w-[40px]"
+            src="default.png"
+          />
         </div>
       </div>
       <div>
