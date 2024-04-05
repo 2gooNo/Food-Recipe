@@ -156,11 +156,6 @@
   font-weight: 400;
   color: #7F7F7F;
 }
-.like-text{
-  font-size: 12px;
-  font-weight: 400;
-  color: #7F7F7F;
-}
 .calendar-like{
   bottom:24px ;
   position: absolute;
@@ -170,11 +165,6 @@
   gap: 28px;
 }
 .calendar{
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-}
-.like{
   display: flex;
   flex-direction: row;
   gap: 8px;

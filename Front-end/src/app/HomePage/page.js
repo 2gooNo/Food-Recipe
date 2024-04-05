@@ -36,9 +36,7 @@ export default function HomePage() {
 
     const sortedLikes = recipeLikes.sort((a, b) => a - b);
 
-    // console.log(sortedLikes);
     const topLikes = sortedLikes.slice(-3);
-    // console.log(topLikes);
 
     foodData?.data?.foods.map((food) => {
       if (topLikes.includes(food.like)) {
@@ -131,9 +129,6 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="like">
-                  <Like></Like>
-                </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
                 </h1>
@@ -147,10 +142,6 @@ export default function HomePage() {
                   <Calendar></Calendar>
                   <h1 className="calendar-text">Yesterday</h1>
                 </div>
-                <div className="like">
-                  <Comment></Comment>
-                  <h1 className="like-text">456</h1>
-                </div>
               </div>
             </div>
           </div>
@@ -158,9 +149,6 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="like">
-                  <Like></Like>
-                </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
                 </h1>
@@ -174,10 +162,6 @@ export default function HomePage() {
                   <Calendar></Calendar>
                   <h1 className="calendar-text">Yesterday</h1>
                 </div>
-                <div className="like">
-                  <Comment></Comment>
-                  <h1 className="like-text">456</h1>
-                </div>
               </div>
             </div>
           </div>
@@ -185,9 +169,6 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="like">
-                  <Like></Like>
-                </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
                 </h1>
@@ -201,10 +182,6 @@ export default function HomePage() {
                   <Calendar></Calendar>
                   <h1 className="calendar-text">Yesterday</h1>
                 </div>
-                <div className="like">
-                  <Comment></Comment>
-                  <h1 className="like-text">456</h1>
-                </div>
               </div>
             </div>
           </div>
@@ -212,9 +189,6 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="like">
-                  <Like></Like>
-                </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
                 </h1>
@@ -239,21 +213,6 @@ export default function HomePage() {
                   </svg>
                   <h1 className="calendar-text">Yesterday</h1>
                 </div>
-                <div className="like">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13.333"
-                    height="13.335"
-                    viewBox="0 0 13.333 13.335"
-                  >
-                    <path
-                      id="Shape"
-                      d="M.672,13.335a.687.687,0,0,1-.464-.183A.655.655,0,0,1,0,12.667V2A2,2,0,0,1,2,0h9.334a2,2,0,0,1,2,2V8.666a2,2,0,0,1-2,2H3.61L1.138,13.138A.657.657,0,0,1,.672,13.335ZM2,1.333A.667.667,0,0,0,1.333,2v9.058L2.862,9.529a.671.671,0,0,1,.472-.195h8A.668.668,0,0,0,12,8.666V2a.667.667,0,0,0-.667-.667Z"
-                      fill="#7F7F7F"
-                    />
-                  </svg>
-                  <h1 className="like-text">456</h1>
-                </div>
               </div>
             </div>
           </div>
@@ -261,16 +220,6 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="like">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="18"
-                    viewBox="0 -960 960 960"
-                    width="18"
-                  >
-                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
-                  </svg>
-                </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
                 </h1>
@@ -295,21 +244,6 @@ export default function HomePage() {
                   </svg>
                   <h1 className="calendar-text">Yesterday</h1>
                 </div>
-                <div className="like">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13.333"
-                    height="13.335"
-                    viewBox="0 0 13.333 13.335"
-                  >
-                    <path
-                      id="Shape"
-                      d="M.672,13.335a.687.687,0,0,1-.464-.183A.655.655,0,0,1,0,12.667V2A2,2,0,0,1,2,0h9.334a2,2,0,0,1,2,2V8.666a2,2,0,0,1-2,2H3.61L1.138,13.138A.657.657,0,0,1,.672,13.335ZM2,1.333A.667.667,0,0,0,1.333,2v9.058L2.862,9.529a.671.671,0,0,1,.472-.195h8A.668.668,0,0,0,12,8.666V2a.667.667,0,0,0-.667-.667Z"
-                      fill="#7F7F7F"
-                    />
-                  </svg>
-                  <h1 className="like-text">456</h1>
-                </div>
               </div>
             </div>
           </div>
@@ -317,16 +251,6 @@ export default function HomePage() {
             <img className="super-delicious-img" src="recipe9Img.jpg"></img>
             <div className="delicious-recipe-description">
               <div className="star-name-profile">
-                <div className="like">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="18"
-                    viewBox="0 -960 960 960"
-                    width="18"
-                  >
-                    <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z" />
-                  </svg>
-                </div>
                 <h1 className="deliciousRecipe-name">
                   Loaded Mixed Berries Mini Tarts
                 </h1>
@@ -350,21 +274,6 @@ export default function HomePage() {
                     />
                   </svg>
                   <h1 className="calendar-text">Yesterday</h1>
-                </div>
-                <div className="like">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13.333"
-                    height="13.335"
-                    viewBox="0 0 13.333 13.335"
-                  >
-                    <path
-                      id="Shape"
-                      d="M.672,13.335a.687.687,0,0,1-.464-.183A.655.655,0,0,1,0,12.667V2A2,2,0,0,1,2,0h9.334a2,2,0,0,1,2,2V8.666a2,2,0,0,1-2,2H3.61L1.138,13.138A.657.657,0,0,1,.672,13.335ZM2,1.333A.667.667,0,0,0,1.333,2v9.058L2.862,9.529a.671.671,0,0,1,.472-.195h8A.668.668,0,0,0,12,8.666V2a.667.667,0,0,0-.667-.667Z"
-                      fill="#7F7F7F"
-                    />
-                  </svg>
-                  <h1 className="like-text">456</h1>
                 </div>
               </div>
             </div>
