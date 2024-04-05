@@ -82,7 +82,7 @@ const RecipePage = ({ params }) => {
           </div>
           <div className="flex flex-col items-start w-[1100px] ">
             <h1 className="text-6xl font-bold mt-[50px]">
-              {recipeData.foodName}
+              {recipeData?.foodName}
             </h1>
             <div className="flex mt-[30px] items-center">
               <Image
@@ -91,7 +91,7 @@ const RecipePage = ({ params }) => {
                 height={45}
                 alt="profile picture 2"
               />
-              <p className=" mr-[40px]">{recipeData.foodCreator}</p>
+              <p className=" mr-[40px]">{recipeData?.foodCreator}</p>
               <Image
                 src={"calendar.svg"}
                 width={0}

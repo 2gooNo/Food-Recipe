@@ -35,7 +35,6 @@ export default function addRecipe() {
       foodName: food.foodName,
       category: food.category,
 
-
       // recipes:userData?.data?.user?.userName,
       // instructions:
     });
@@ -61,11 +60,11 @@ export default function addRecipe() {
         value={food.category}
       ></input>
       <input className="recipes" placeholder="recipes"></input>
-      {
-        [Array(10)].map(() => (
-            <input placeholder="instruction"></input>
-        ))
-      }
+      {[Array(2)].map(() => (
+        <div className="flex flex-row">
+          <input placeholder="instruction"></input>
+        </div>
+      ))}
       <input className="instructions" placeholder="instructions"></input>
       <input className="imgSrc" placeholder="imgSrc"></input>
     </div>
