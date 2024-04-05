@@ -23,7 +23,10 @@ export default function NavigationBar() {
     router.push("/Profile");
   }
   function Category() {
-    router.push("/category");
+    router.push("/categories");
+  }
+  function Favorites() {
+    router.push("/favorites");
   }
 
   return (
@@ -37,6 +40,7 @@ export default function NavigationBar() {
           <h3 onClick={() => ProfilePicture()}>profile picture </h3>
           <button onClick={() => LogOut()}>Log Out</button>
           <h3 onClick={() => Category()}>category</h3>
+          <h3 onClick={() => Favorites()}>favorites</h3>
         </div>
       ) : (
         <div>

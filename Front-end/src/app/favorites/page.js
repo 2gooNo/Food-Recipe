@@ -2,20 +2,23 @@
 
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
 import { useState } from "react";
-import { Exit } from "@/app/favorites/components/Exit";
-import { useRouter } from "next/navigation";
 import { Select, Option } from "@mui/joy";
-import { Profile } from "@/app/Profile/components/Profile";
-import { At } from "@/app/Profile/components/At";
-import { Mail } from "@/app/Profile/components/Mail";
-import { Lock } from "@/app/Profile/components/Lock";
-import { LogOut } from "@/app/Profile/components/LogOut";
-import { Contacts } from "@/app/Profile/components/Contacts";
+import { useRouter } from "next/navigation";
+import { Contacts } from "@/app/favorites/components/Contacts";
+import { Category } from "@/app/favorites/components/Category";
+import { Heart } from "@/app/favorites/components/Heart";
+import { Edit } from "@/app/favorites/components/Edit";
+import { Trash } from "@/app/favorites/components/Trash";
+import Stuff from "@/app/favorites/json/food";
+import { White_Correct } from "@/app/favorites/components/White_Correct";
+import { Exit } from "@/app/favorites/components/Exit";
 
 export default function Home() {
   const [appear3, setAppear3] = useState(false);
   const [appear2, setAppear2] = useState(false);
   const [appear, setAppear] = useState(false);
+  const [amount, setAmount] = useState(Stuff.length);
+  const [showAll, setShowAll] = useState(false);
   const router = useRouter();
 
   function Input() {
@@ -42,19 +45,17 @@ export default function Home() {
   function GoToCategory() {
     router.push("/categories");
   }
+  function ShowAll() {
+    setShowAll(!showAll);
+  }
   function searchInput(e) {
     console.log(e.target.value);
   }
-  function GoToFavorites() {
-    router.push("favorites");
+  function GoToProfile() {
+    router.push("/Profile");
   }
-  function LogOutFromProfile() {
-    sessionStorage.removeItem("isLoggedIn");
-    router.push("/HomePage");
-  }
-
   return (
-    <div className="flex flex-col items-center gap-[115px]">
+    <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
         <img className="w-[200px] h-[60px]" src="Taste.png" />
         {!appear2 && (
@@ -116,9 +117,7 @@ export default function Home() {
                 <Option value="categories" onClick={GoToCategory}>
                   Categories
                 </Option>
-                <Option onClick={GoToFavorites} value="favorites">
-                  Favorites
-                </Option>
+                <Option value="first">Test 2</Option>
                 <Option>Test 3</Option>
               </Select>
             </div>
@@ -142,10 +141,11 @@ export default function Home() {
                   <Exit />
                 </button>
                 <input
-                  className=" outline-none w-[870px] rounded-[10px] mr-[10px] placeholder-[grey] p-[3px] text-grey"
+                  className=" outline-none w-[860px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
                   placeholder="Enter a dish name..."
                   onChange={searchInput}
                 />
+                <button></button>
               </div>
             ) : (
               <div>
@@ -157,76 +157,69 @@ export default function Home() {
               </div>
             )}
           </div>
+          <img
+            onClick={() => GoToProfile()}
+            className="w-[40px]"
+            src="default.png"
+          />
         </div>
       </div>
-      <div className="w-[125vh] flex justify-between items-center border-b-[1px] border-[grey] h-[81px]">
-        <h2 className="Profile_word">Profile</h2>
-        <button className="bg-[#ff6430] h-[48px] w-[142px] text-[white] rounded-[5px] text-[20px]">
-          SAVE
-        </button>
-      </div>
-      <div className="flex flex-row items-center gap-[50px] justify-items-start w-[125vh]">
-        <img className="h-[128px] w-[128px]" src="default.png" />
-        <div className=" flex flex-row gap-[30px]">
-          <button className="w-[216px] h-[48px] bg-[#ff6430] rounded-[5px] text-[white]">
-            Change photo
-          </button>
-          <button className="w-[151px] h-[48px] border-[1px] border-[black] rounded-[5px]">
-            Delete
-          </button>
-        </div>
-      </div>
-      <div className="text-[grey] flex w-[85vh] flex-wrap gap-[100px] justify-items-start mr-[400px] ">
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>FULL NAME</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Profile />
-            <input
-              placeholder="Full name"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
+      <div>
+        <div className="flex flex-row justify-between w-[123vh] border-b-[1px] border-[#acacac] h-[80px]">
+          <div className="flex gap-[30px]">
+            <Heart />
+            <h3 className="favs">Favorites</h3>
+          </div>
+          <div>
+            {" "}
+            <Select
+              placeholder="Sorts"
+              on
+              sx={{
+                boxShadow: "none",
+                bgcolor: "transparent",
+                color: "black",
+                fontWeight: 700,
+                "& :hover": { color: "red" },
+                width: "180px",
+              }}
+              indicator={<ArrowDown />}
+            >
+              <Option sx={{}}>Sort1 test</Option>
+              <Option value="first">Sort2 test</Option>
+            </Select>
           </div>
         </div>
-        <div className="border-b-[2px] border-[grey] w-[351px] ">
-          <h3>USERNAME</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <At />
-            <input
-              placeholder="Username"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
+        <div className="flex gap-[30px] mt-[40px]">
+          <h3>{amount} Recipes</h3>
+          <div className="flex items-center gap-[10px] drop_down">
+            <Edit />
+            <h3>Edit</h3>
           </div>
-        </div>
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>EMAIL</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Mail />
-            <input
-              placeholder="Email"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
+          <div className="flex items-center gap-[10px]">
+            <div
+              onClick={() => ShowAll()}
+              className={`border-[1.5px]  w-[16px] h-[16px] rounded-[50%] ${
+                showAll ? "bg-[#ff6430] border-[#ff6430]" : "border-[black]"
+              } flex justify-center items-center transition-colors duration-300 ease-in-out`}
+            >
+              <White_Correct />
+            </div>
+            <h3>All</h3>
           </div>
-        </div>
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>PASSWORD</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Lock />
-            <input
-              placeholder="Password"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
+          <div className="flex items-center gap-[10px] drop_down">
+            <Trash />
+            <h3>Trash</h3>
           </div>
         </div>
       </div>
-      <div className="flex w-[125vh] justify-between items-center">
-        <div
-          onClick={() => LogOutFromProfile()}
-          className="flex justify-center items-center gap-[5px]"
-        >
-          <LogOut />
-          <button>Sign Out</button>
-        </div>
-        <h3 className="text-[#ff6430]">Delete Account</h3>
+      <div
+        className="flex justify-center items-center flex-wrap gap-[50px] w-[130vh]"
+        c
+      >
+        {Stuff.map((category, index) => (
+          <Category key={index} category={category} />
+        ))}
       </div>
       <div>
         <Contacts />

@@ -1,21 +1,17 @@
 "use client";
-
+import { Category } from "@/app/categories/components/Category";
+import Stuff from "@/app/categories/json/food";
+import { Contacts } from "@/app/categories/components/Contacts";
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
 import { useState } from "react";
-import { Exit } from "@/app/favorites/components/Exit";
-import { useRouter } from "next/navigation";
 import { Select, Option } from "@mui/joy";
-import { Profile } from "@/app/Profile/components/Profile";
-import { At } from "@/app/Profile/components/At";
-import { Mail } from "@/app/Profile/components/Mail";
-import { Lock } from "@/app/Profile/components/Lock";
-import { LogOut } from "@/app/Profile/components/LogOut";
-import { Contacts } from "@/app/Profile/components/Contacts";
+import { Router, useRouter } from "next/navigation";
+import { Exit } from "../favorites/components/Exit";
 
 export default function Home() {
-  const [appear3, setAppear3] = useState(false);
   const [appear2, setAppear2] = useState(false);
   const [appear, setAppear] = useState(false);
+  const [appear3, setAppear3] = useState(false);
   const router = useRouter();
 
   function Input() {
@@ -28,33 +24,21 @@ export default function Home() {
     } else {
       setAppear2(!appear2);
     }
-    if (appear == false) {
-      setTimeout(() => {
-        setAppear3(!appear3);
-      }, 80);
-    } else {
-      setAppear3(!appear3);
-    }
   }
   function GoToHome() {
     router.push("/HomePage");
   }
-  function GoToCategory() {
-    router.push("/categories");
+  function GoToFavorites() {
+    router.push("/favorites");
   }
   function searchInput(e) {
     console.log(e.target.value);
   }
-  function GoToFavorites() {
-    router.push("favorites");
+  function GoToProfile() {
+    router.push("/Profile");
   }
-  function LogOutFromProfile() {
-    sessionStorage.removeItem("isLoggedIn");
-    router.push("/HomePage");
-  }
-
   return (
-    <div className="flex flex-col items-center gap-[115px]">
+    <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
         <img className="w-[200px] h-[60px]" src="Taste.png" />
         {!appear2 && (
@@ -62,7 +46,6 @@ export default function Home() {
             <div className="drop_down  transition-colors duration-400 ease-in-out cursor-pointer cate1">
               <Select
                 placeholder="HomePage"
-                on
                 sx={{
                   border: "none",
                   boxShadow: "none",
@@ -73,7 +56,7 @@ export default function Home() {
                 }}
                 indicator={<ArrowDown />}
               >
-                <Option onClick={GoToHome} sx={{}}>
+                <Option value="homePage" onClick={GoToHome} sx={{}}>
                   Home
                 </Option>
                 <Option value="first">Test 2</Option>
@@ -113,12 +96,14 @@ export default function Home() {
                 }}
                 indicator={<ArrowDown />}
               >
-                <Option value="categories" onClick={GoToCategory}>
-                  Categories
-                </Option>
-                <Option onClick={GoToFavorites} value="favorites">
+                <Option
+                  sx={{}}
+                  value="Favorites"
+                  onClick={() => GoToFavorites()}
+                >
                   Favorites
                 </Option>
+                <Option value="first">Test 2</Option>
                 <Option>Test 3</Option>
               </Select>
             </div>
@@ -134,18 +119,19 @@ export default function Home() {
                 ? "search-detail2 border-b-[2px] border-[black]"
                 : "search2 border-[2px] border-[black]"
             }
-          // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+        // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
           >
-            {appear3 ? (
+            {appear ? (
               <div className="flex gap-[10px]">
                 <button onClick={Input}>
                   <Exit />
                 </button>
                 <input
-                  className=" outline-none w-[870px] rounded-[10px] mr-[10px] placeholder-[grey] p-[3px] text-grey"
+                  className=" outline-none w-[860px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
                   placeholder="Enter a dish name..."
                   onChange={searchInput}
                 />
+                <button></button>
               </div>
             ) : (
               <div>
@@ -157,76 +143,22 @@ export default function Home() {
               </div>
             )}
           </div>
+          <img
+            onClick={() => GoToProfile()}
+            className="w-[40px]"
+            src="default.png"
+          />
         </div>
       </div>
-      <div className="w-[125vh] flex justify-between items-center border-b-[1px] border-[grey] h-[81px]">
-        <h2 className="Profile_word">Profile</h2>
-        <button className="bg-[#ff6430] h-[48px] w-[142px] text-[white] rounded-[5px] text-[20px]">
-          SAVE
-        </button>
-      </div>
-      <div className="flex flex-row items-center gap-[50px] justify-items-start w-[125vh]">
-        <img className="h-[128px] w-[128px]" src="default.png" />
-        <div className=" flex flex-row gap-[30px]">
-          <button className="w-[216px] h-[48px] bg-[#ff6430] rounded-[5px] text-[white]">
-            Change photo
-          </button>
-          <button className="w-[151px] h-[48px] border-[1px] border-[black] rounded-[5px]">
-            Delete
-          </button>
+      <div className="flex flex-col gap-[50px] justify-center items-center">
+        <h3 className="text-[50px] border-b-[1px] border-[grey] w-[125vh]">
+          Categories
+        </h3>
+        <div className="flex justify-center items-center flex-wrap gap-[90px] w-[125vh]">
+          {Stuff.map((category, index) => (
+            <Category key={index} category={category} />
+          ))}
         </div>
-      </div>
-      <div className="text-[grey] flex w-[85vh] flex-wrap gap-[100px] justify-items-start mr-[400px] ">
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>FULL NAME</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Profile />
-            <input
-              placeholder="Full name"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
-          </div>
-        </div>
-        <div className="border-b-[2px] border-[grey] w-[351px] ">
-          <h3>USERNAME</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <At />
-            <input
-              placeholder="Username"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
-          </div>
-        </div>
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>EMAIL</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Mail />
-            <input
-              placeholder="Email"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
-          </div>
-        </div>
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>PASSWORD</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Lock />
-            <input
-              placeholder="Password"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex w-[125vh] justify-between items-center">
-        <div
-          onClick={() => LogOutFromProfile()}
-          className="flex justify-center items-center gap-[5px]"
-        >
-          <LogOut />
-          <button>Sign Out</button>
-        </div>
-        <h3 className="text-[#ff6430]">Delete Account</h3>
       </div>
       <div>
         <Contacts />
