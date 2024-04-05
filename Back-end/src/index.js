@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 
 const app = express();
 
-const port = 8000;
+const port = 8001;
 
 app.use(cors());
 app.use(express.json());
@@ -21,15 +21,15 @@ const connectFoodDB = async () => {
   console.log("database1 connected");
 };
 
-const connectUserDB = async () => {
-  await mongoose.connect(
-    "mongodb+srv://Food-Recipe:food-recipe@food-recipe.bf2uk28.mongodb.net/"
-  );
-  console.log("database2 connected");
-};
+// const connectUserDB = async () => {
+//   await mongoose.connect(
+//     "mongodb+srv://Food-Recipe:food-recipe@food-recipe.bf2uk28.mongodb.net/"
+//   );
+//   console.log("database2 connected");
+// };
 
 connectFoodDB();
-connectUserDB();
+// connectUserDB();
 
 app.listen(port, () => {
   console.log("Server is running on http://localhost:" + port);

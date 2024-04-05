@@ -30,9 +30,11 @@ export default function NavigationBar() {
   }
 
   return (
-    <div>
-      <div>Logo </div>
-      <div>Recipes</div>
+    <div className="navigation">
+      <div className="logoRecipeContainer">
+        <div className="logo"></div>
+        <div>Recipes</div>
+      </div>
       {isLoggedIn ? (
         <div>
           <h3 onClick={() => ProfilePicture()}>profile picture </h3>
