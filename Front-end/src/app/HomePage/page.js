@@ -69,9 +69,7 @@ export default function HomePage() {
 
     const sortedLikes = recipeLikes.sort((a, b) => a - b);
 
-    // console.log(sortedLikes);
     const topLikes = sortedLikes.slice(-3);
-    // console.log(topLikes);
 
     foodData?.data?.foods.map((food) => {
       if (topLikes.includes(food.like)) {
