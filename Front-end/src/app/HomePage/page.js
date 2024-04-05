@@ -77,7 +77,6 @@ export default function HomePage() {
       if (topLikes.includes(food.like)) {
         topRecipes.push(food);
       }
-      // console.log("top", topRecipes);
     });
 
     setTop(topRecipes);
@@ -93,7 +92,7 @@ export default function HomePage() {
   }, []);
 
   function pageJump(index) {
-    const recipeId = suggestRecipes?.[index]?._id;
+    const recipeId = top?.[index]._id;
     console.log(recipeId);
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
@@ -115,11 +114,11 @@ export default function HomePage() {
       </div>
       <img className="Logo" src="Logo.png"></img>
       <div className="suggestRecipes">
-        {suggestRecipes.map((food, index) => (
+        {top.map((food, index) => (
           <TopRecipe
-            id={food?._id}
-            imgSrc={food?.imgSrc}
-            foodName={food?.foodName}
+            id={food._id}
+            imgSrc={food.imgSrc}
+            foodName={food.foodName}
             index={index}
             pageJump={pageJump}
           />

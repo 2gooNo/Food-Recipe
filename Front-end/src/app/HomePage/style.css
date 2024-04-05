@@ -241,6 +241,19 @@
   flex-direction: row;
   justify-content: end;
   align-items: center;
+}
+.topNav {
+  width: 100vw;
+  height: 56px;
+  background-color: rgb(249, 249, 249);
+  padding-right: 166px;
+  padding-bottom: 19px;
+  padding-top: 19px;
+  margin-bottom: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
   position: relative;
 }
 .navSocial {
