@@ -32,8 +32,6 @@ export default function HomePage() {
   };
 
   const suggestRecipes = (foodData) => {
-    
-
     const generateRandomNumbers = () => {
       const numbers = [];
       for (let i = 0; i < foodData?.data?.foods.length; i++) {
@@ -83,9 +81,9 @@ export default function HomePage() {
           <TwitterBlack></TwitterBlack>
           <InstagramBlack></InstagramBlack>
         </div>
-        <div className="pages-container">
+        <div className="Selection-Icon">
           <button className="navbarSelection">Pages</button>
-          <DownWard></DownWard>
+          <img className="downward-icon" src="downwardPointerIcon.png"></img>
         </div>
         <img className="userImg"></img>
         <Search></Search>
@@ -425,4 +423,3 @@ const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
     </div>
   );
 };
-
