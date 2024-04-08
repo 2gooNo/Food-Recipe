@@ -3,11 +3,8 @@
 import styles from "./style.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { Calendar } from "../../assets/icons/calendar";
-import { Like } from "../../assets/icons/like";
-import { Comment } from "../../assets/icons/comment";
 import { Back_End_Url } from "../../../back-url";
 import { Search } from "@/assets/icons/search";
 import { FacebookBlack } from "@/assets/icons/facebookBlack";
@@ -18,29 +15,54 @@ import { Profile } from "@/assets/icons/profile";
 
 export default function HomePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [foods, setFoods] = useState([]);
   const [suggestRecipes, setSuggestRecipes] = useState([]);
+  const [tryNewRecipes, setTryNewRecipes] = useState([]);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
     generateRandomNumbers(foodData);
+    // generateSixNumbers(foodData)
     setFoods(foodData);
   };
 
   const generateRandomNumbers = async (foodData) => {
     const numbers = [];
     for (let i = 0; i < 3; i++) {
-      numbers.push(
-        Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1
-      );
+      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1
+      if(numbers.includes(randomNumber)){
+        fetchData()
+      }else{
+        numbers.push(
+          randomNumber
+        );
+      }
+
     }
     console.log("numbers", numbers);
     const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
     console.log(suggesRecipes);
     setSuggestRecipes(suggesRecipes);
+  };
+  const generateSixNumbers = async (foodData) => {
+    const numbers = [];
+    for (let i = 0; i < 6; i++) {
+      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1
+      if(numbers.includes(randomNumber)){
+        fetchData()
+      }else{
+        numbers.push(
+          randomNumber
+        );
+      }
+
+    }
+    console.log("numbers", numbers);
+    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log(suggesRecipes);
+    setTryNewRecipes(suggesRecipes);
   };
 
   useEffect(() => {
@@ -113,31 +135,19 @@ export default function HomePage() {
         </div>
       </div>
       <div className="super-delicious-container">
-        <h1 className="Super-delicious-text">Super Delicious</h1>
+        <h1 className="Super-delicious-text">Try some new tastes</h1>
         <div className="super-delicious-recipes">
-          {
-            
+          {tryNewRecipes.map((food, index) => (
+          <TryNewRecipe
+          id={food?._id}
+          imgSrc={food?.imgSrc}
+          foodName={food?.foodName}
+          index={index}
+          pageJump={pageJump}
+          foodCreator={food?.foodCreator}
+        />
+          ))
           }
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <Profile></Profile>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                  <Calendar></Calendar>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-              </div>
-            </div>
-          </div>
           
         </div>
       </div>
@@ -272,5 +282,29 @@ const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
         <h1 className="suggestRecipeName">{foodName}</h1>
       </div>
     </div>
+  );
+};
+const TryNewRecipe = ({ id, imgSrc, foodName, index, pageJump ,foodCreator}) => {
+  return (
+    <div className="super-delicious-recipe">
+    <img className="super-delicious-img" src={imgSrc}></img>
+    <div className="delicious-recipe-description">
+      <div className="star-name-profile">
+        <h1 className="deliciousRecipe-name">
+          {foodName}
+        </h1>
+      </div>
+      <div className="user-name">
+        <Profile></Profile>
+        <h1 className="userName">{foodCreator}</h1>
+      </div>
+      <div className="calendar-like">
+        <div className="calendar">
+          <Calendar></Calendar>
+          <h1 className="calendar-text">Yesterday</h1>
+        </div>
+      </div>
+    </div>
+  </div>
   );
 };
