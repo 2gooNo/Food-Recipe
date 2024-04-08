@@ -103,9 +103,9 @@ export default function HomePage() {
           <TwitterBlack></TwitterBlack>
           <InstagramBlack></InstagramBlack>
         </div>
-        <div className="pages-container">
+        <div className="Selection-Icon">
           <button className="navbarSelection">Pages</button>
-          <DownWard></DownWard>
+          <img className="downward-icon" src="downwardPointerIcon.png"></img>
         </div>
         <img className="userImg"></img>
         <Search></Search>
