@@ -13,22 +13,34 @@ import { Search } from "@/assets/icons/search";
 import { FacebookBlack } from "@/assets/icons/facebookBlack";
 import { TwitterBlack } from "@/assets/icons/twitterBlack";
 import { InstagramBlack } from "@/assets/icons/instagramBlack";
+import { DownWard } from "@/assets/icons/downward";
 
 export default function HomePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [foods, setFoods] = useState([]);
   const [top, setTop] = useState([]);
+  const [randomNumbers, setRandomNumbers] = useState([]);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
+    console.log(foodData);
 
     topThree(foodData);
     setFoods(foodData);
   };
 
-  const topThree = (foodData) => {
+  const suggestRecipes = (foodData) => {
+    
+
+    const generateRandomNumbers = () => {
+      const numbers = [];
+      for (let i = 0; i < foodData?.data?.foods.length; i++) {
+        numbers.push(Math.floor(Math.random() * 10) + 1);
+      }
+      setRandomNumbers(numbers);
+    };
     const recipeLikes = [];
     const topRecipes = [];
 
@@ -66,9 +78,9 @@ export default function HomePage() {
           <TwitterBlack></TwitterBlack>
           <InstagramBlack></InstagramBlack>
         </div>
-        <div className="Selection-Icon">
+        <div className="pages-container">
           <button className="navbarSelection">Pages</button>
-          <img className="downward-icon" src="downwardPointerIcon.png"></img>
+          <DownWard></DownWard>
         </div>
         <img className="userImg"></img>
         <Search></Search>

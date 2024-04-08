@@ -39,9 +39,14 @@
     gap: 30px;
     margin-bottom: 40px;
 }
-.Selection-Icon{
+.pages-container{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  left: 400px;
 }
 .downward-icon{
   width: 35px;
