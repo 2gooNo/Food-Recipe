@@ -27,7 +27,7 @@ export default function HomePage() {
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
 
-    topThree(foodData);
+    // topThree(foodData);
     setFoods(foodData);
   };
 
