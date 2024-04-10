@@ -67,7 +67,9 @@ export default function HomePage() {
 
   function pageJump(index) {
     const recipeId = suggestRecipes?.[index]?._id;
-    console.log(recipeId);
+    if (recipeId) {
+      console.log("recipe id", recipeId);
+    }
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
   }
