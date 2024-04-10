@@ -58,3 +58,10 @@ export const deleteFood = async (req, res) => {
     res.status(404).json({ message: "Food not found" });
   }
 };
+
+export const addCategory = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const addCategory = await FoodModel.find
+  }
+}

@@ -12,7 +12,7 @@ export default function AddRecipe() {
   const [newIntroduction, setNewIntroduction] = useState("");
   const [category, setCategory] = useState("");
   const [foodName, setFoodName] = useState("");
-
+  const [uploadedUrl, setUploadedUrl] = useState("");
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("hzxyensd5");
   const [uploadPreset] = useState("aoh4fpwm");
@@ -23,7 +23,7 @@ export default function AddRecipe() {
       setNewIngredient("");
     }
   };
-
+console.log("s")
   const handleRemoveIngredient = (index) => {
     const updatedRecipe = [...recipe];
     updatedRecipe.splice(index, 1);
@@ -58,20 +58,24 @@ export default function AddRecipe() {
 
   const myImage = cld.image(publicId);
 
-  console.log(myImage, publicId);
+  console.log("myImage:", myImage, "publixId:", publicId);
 
   return (
     <div>
-      {" "}
       <div className="App">
         <h3>Cloudinary Upload Widget Example</h3>
-        <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
+        <CloudinaryUploadWidget
+          uwConfig={uwConfig}
+          setUrl={setUploadedUrl}
+          setPublicId={setPublicId}
+        />
         <div style={{ width: "800px" }}>
-          <AdvancedImage
+          <img src={uploadedUrl} />
+          {/* <AdvancedImage
             style={{ maxWidth: "100%" }}
             cldImg={myImage}
             plugins={[responsive(), placeholder()]}
-          />
+          /> */}
         </div>
       </div>
       <div className="add-recipe-container">
@@ -125,31 +129,33 @@ export default function AddRecipe() {
           </div>
         </div>
         <div className="introduction-list">
-          <h2 className="introduction-list-title">Introductions</h2>
-          <ul className="introductions">
-            {introductions.map((introduction, index) => (
-              <li key={index} className="introduction">
-                <span>{introduction}</span>
-                <button
-                  onClick={() => handleRemoveIntroduction(index)}
-                  className="remove-button"
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="add-introduction">
-            <input
-              type="text"
-              value={newIntroduction}
-              onChange={(e) => setNewIntroduction(e.target.value)}
-              placeholder="Enter introduction"
-              className="introduction-input"
-            />
-            <button onClick={handleAddIntroduction} className="add-button">
-              Add Introduction
-            </button>
+          <div className="introduction-list">
+            <h2 className="introduction-list-title">Introductions</h2>
+            <ul className="introductions">
+              {introductions.map((introduction, index) => (
+                <li key={index} className="introduction">
+                  <span>{introduction}</span>
+                  <button
+                    onClick={() => handleRemoveIntroduction(index)}
+                    className="remove-button"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="add-introduction">
+              <input
+                type="text"
+                value={newIntroduction}
+                onChange={(e) => setNewIntroduction(e.target.value)}
+                placeholder="Enter introduction"
+                className="introduction-input"
+              />
+              <button onClick={handleAddIntroduction} className="add-button">
+                Add Introduction
+              </button>
+            </div>
           </div>
         </div>
       </div>
