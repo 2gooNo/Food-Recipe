@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./AddRecipe.css";
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
 export default function AddRecipe() {
   const [recipe, setRecipe] = useState([]);
@@ -16,49 +16,33 @@ export default function AddRecipe() {
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("hzxyensd5");
   const [uploadPreset] = useState("aoh4fpwm");
+  const [foodCategories, setFoodCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleAddIngredient = () => {
-    if (newIngredient.trim() !== "") {
-      setRecipe([...recipe, newIngredient]);
-      setNewIngredient("");
-    }
-  };
-console.log("s")
-  const handleRemoveIngredient = (index) => {
-    const updatedRecipe = [...recipe];
-    updatedRecipe.splice(index, 1);
-    setRecipe(updatedRecipe);
-  };
+  useEffect(() => {
+    getAllFoodCategories();
+  }, []);
 
-  const handleAddIntroduction = () => {
-    if (newIntroduction.trim() !== "") {
-      setIntroductions([...introductions, newIntroduction]);
-      setNewIntroduction("");
+  const getAllFoodCategories = async () => {
+    try {
+      const response = await axios.get("/api/food");
+      setFoodCategories(response.data.foods);
+    } catch (error) {
+      console.error("Error fetching food categories:", error);
     }
   };
 
-  const handleRemoveIntroduction = (index) => {
-    const updatedIntroductions = [...introductions];
-    updatedIntroductions.splice(index, 1);
-    setIntroductions(updatedIntroductions);
+  const handleSearch = () => {
+    const filteredCategories = foodCategories.filter((category) =>
+      category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    return filteredCategories;
   };
 
-  const [uwConfig] = useState({
+  const uwConfig = {
     cloudName,
     uploadPreset,
-  });
-
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "dj9ewujce",
-      apiKey: "325327348454615",
-      apiSecret: "3r6jF5NQ5SOhqjrCi36jhoVQebA",
-    },
-  });
-
-  const myImage = cld.image(publicId);
-
-  console.log("myImage:", myImage, "publixId:", publicId);
+  };
 
   return (
     <div>
@@ -69,14 +53,11 @@ console.log("s")
           setUrl={setUploadedUrl}
           setPublicId={setPublicId}
         />
-        <div style={{ width: "800px" }}>
-          <img src={uploadedUrl} />
-          {/* <AdvancedImage
-            style={{ maxWidth: "100%" }}
-            cldImg={myImage}
-            plugins={[responsive(), placeholder()]}
-          /> */}
-        </div>
+        {uploadedUrl && (
+          <div style={{ width: "800px" }}>
+            <img src={uploadedUrl} alt="Uploaded" />
+          </div>
+        )}
       </div>
       <div className="add-recipe-container">
         <h1 className="add-recipe-title">Add Recipe</h1>
@@ -158,6 +139,20 @@ console.log("s")
             </div>
           </div>
         </div>
+        <div className="food-search">
+          <input
+            type="text"
+            placeholder="Search for food category..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+        <ul className="food-categories">
+          {foodCategories.map((category, index) => (
+            <li key={index}>{category}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
