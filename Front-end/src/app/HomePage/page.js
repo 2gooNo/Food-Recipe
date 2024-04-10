@@ -24,7 +24,7 @@ export default function HomePage() {
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
     generateRandomNumbers(foodData);
-    // generateSixNumbers(foodData)
+    generateSixNumbers(foodData);
     setFoods(foodData);
   };
 
@@ -61,36 +61,12 @@ export default function HomePage() {
     setTryNewRecipes(suggesRecipes);
   };
 
-  const topThree = (foodData) => {
-    const recipeLikes = [];
-    const topRecipes = [];
-
-    foodData?.data?.foods.map((food) => recipeLikes.push(food.like));
-
-    const sortedLikes = recipeLikes.sort((a, b) => a - b);
-
-    const topLikes = sortedLikes.slice(-3);
-
-    foodData?.data?.foods.map((food) => {
-      if (topLikes.includes(food.like)) {
-        topRecipes.push(food);
-      }
-    });
-
-    setTop(topRecipes);
-  };
-
-  // console.log("likes", recipeLikes);
-  const recipPage = () => {
-    router.push("/RecipePage");
-  };
-
   useEffect(() => {
     fetchData();
   }, []);
 
   function pageJump(index) {
-    const recipeId = top?.[index]._id;
+    const recipeId = suggestRecipes?.[index]?._id;
     console.log(recipeId);
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
@@ -103,20 +79,20 @@ export default function HomePage() {
           <TwitterBlack></TwitterBlack>
           <InstagramBlack></InstagramBlack>
         </div>
-        <div className="Selection-Icon">
+        <div className="pages-container">
           <button className="navbarSelection">Pages</button>
-          <img className="downward-icon" src="downwardPointerIcon.png"></img>
+          <DownWard></DownWard>
         </div>
         <img className="userImg"></img>
         <Search></Search>
       </div>
       <img className="Logo" src="Logo.png"></img>
       <div className="suggestRecipes">
-        {top.map((food, index) => (
+        {suggestRecipes.map((food, index) => (
           <TopRecipe
-            id={food._id}
-            imgSrc={food.imgSrc}
-            foodName={food.foodName}
+            id={food?._id}
+            imgSrc={food?.imgSrc}
+            foodName={food?.foodName}
             index={index}
             pageJump={pageJump}
           />
