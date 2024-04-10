@@ -131,7 +131,9 @@ export default function Home() {
                   placeholder="Enter a dish name..."
                   onChange={searchInput}
                 />
-                <button></button>
+                <button>
+                  <img className="w-[20px] h-[20px]" src="search.webp" />
+                </button>
               </div>
             ) : (
               <div>

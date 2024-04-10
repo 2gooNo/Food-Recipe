@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import "./AddRecipe.css";
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
@@ -156,4 +156,3 @@ export default function AddRecipe() {
     </div>
   );
 }
-

@@ -3,17 +3,16 @@ import Image from "next/image";
 import styles from "./style.css";
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
+import { Back_End_Url } from "../../../back-url";
 
 const RecipePage = ({ params }) => {
   const [recipeData, setRecipeData] = useState([]);
   const [strikeThroughCSS, setStrikeThroughCSS] = useState({});
-  const { id } = params;
+  const { recipeId } = params;
 
   const fetchRecipe = async () => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:8000/getFood/66013c058b21b336ef0c90cb`
-      );
+      const { data } = await axios.get(`${Back_End_Url}/getFood/${recipeId}`);
       setRecipeData(data.findFood);
     } catch (error) {
       console.error("error");
@@ -113,12 +112,12 @@ const RecipePage = ({ params }) => {
               src={recipeData.imgSrc}
               height={0}
               width={0}
-              alt="Strawberry Cheesecake"
+              alt="Food picture"
               className="w-[1100px] h-auto rounded-xl"
             />
           </div>
           {/* ingredient + nutrition facts + instructions start  */}
-          <div className="flex">
+          <div className="flex w-[1100px]">
             {/* ingredient + nutrition facts start */}
             <div className="mr-[250px]">
               {/* ingredients start  */}
@@ -431,5 +430,3 @@ const RecipePage = ({ params }) => {
   );
 };
 export default RecipePage;
-
-
