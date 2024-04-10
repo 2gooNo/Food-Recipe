@@ -5,13 +5,15 @@ import { Contacts } from "@/app/categories/components/Contacts";
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
 import { useState } from "react";
 import { Select, Option } from "@mui/joy";
-import { Router, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Exit } from "../favorites/components/Exit";
+import axios from "axios";
+import { useEffect } from "react";
+import { Back_End_Url } from "../../../back-url";
 
 export default function Home() {
   const [appear2, setAppear2] = useState(false);
   const [appear, setAppear] = useState(false);
-  const [appear3, setAppear3] = useState(false);
   const router = useRouter();
 
   function Input() {
@@ -37,6 +39,34 @@ export default function Home() {
   function GoToProfile() {
     router.push("/Profile");
   }
+  const [foodData, setFoodData] = useState([]);
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    const { data: res } = await axios.get(`${Back_End_Url}/getAllFood`);
+    setFoodData(res.foods);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const categories = [];
+
+  const [aaa, setAAA] = useState([]);
+  useEffect(() => {
+    foodData.map((food) => categories.push(...food.category));
+    if (categories.length > 1) {
+      const categoryObject = categories.reduce(
+        (accumulator, currentValue) => ({
+          ...accumulator,
+          [currentValue]: [...(accumulator[currentValue] || [])],
+        }),
+        {}
+      );
+
+      setAAA(Object.keys(categoryObject));
+    }
+  }, [foodData]);
+  console.log(aaa);
+
   return (
     <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
@@ -131,7 +161,9 @@ export default function Home() {
                   placeholder="Enter a dish name..."
                   onChange={searchInput}
                 />
-                <button></button>
+                <button>
+                  <img className="w-[20px] h-[20px]" src="search.webp" />
+                </button>
               </div>
             ) : (
               <div>
@@ -155,8 +187,8 @@ export default function Home() {
           Categories
         </h3>
         <div className="flex justify-center items-center flex-wrap gap-[90px] w-[125vh]">
-          {Stuff.map((category, index) => (
-            <Category key={index} category={category} />
+          {aaa.map((food) => (
+            <Category food={food} />
           ))}
         </div>
       </div>
