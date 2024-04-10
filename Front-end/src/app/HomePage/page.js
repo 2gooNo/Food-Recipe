@@ -15,6 +15,7 @@ import { Profile } from "@/assets/icons/profile";
 
 export default function HomePage() {
   const router = useRouter();
+<<<<<<< HEAD
   const [foods, setFoods] = useState([]);
   const [suggestRecipes, setSuggestRecipes] = useState([]);
   const [tryNewRecipes, setTryNewRecipes] = useState([]);
@@ -22,6 +23,19 @@ export default function HomePage() {
   const fetchData = async () => {
     const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
+=======
+  const searchParams = useSearchParams();
+  const [foodData, setFoodData] = useState([]);
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    const foodData = await axios.get(`http://localhost:8001/getAllFood`);
+    // const userData = await axios.get(`http://localhost:8000/getUser`, {
+    //   headers: { token },
+    // });
+    setFoodData(foodData);
+    // setUserData(userData);
+>>>>>>> dceae8c (dev)
     console.log(foodData);
     generateRandomNumbers(foodData);
     // generateSixNumbers(foodData)
@@ -60,6 +74,14 @@ export default function HomePage() {
     console.log(suggesRecipes);
     setTryNewRecipes(suggesRecipes);
   };
+  function index() {
+    const numbers = [];
+    for (let i = 0; i < 3; i++) {
+      numbers.push(Math.floor(Math.random() * 6) + 1);
+    }
+  }
+  const i = foodData?.data?.foods[0]?.imgSrc;
+  console.log(foodData?.data?.foods[0]?.imgSrc);
 
   useEffect(() => {
     fetchData();
