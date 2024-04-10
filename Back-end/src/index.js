@@ -16,7 +16,7 @@ app.use(userRouter);
 
 const connectFoodDB = async () => {
   await mongoose.connect(
-    "mongodb+srv://Food-Recipe:food-recipe@food-recipe.bf2uk28.mongodb.net/"
+    "mongodb+srv://tastebiterecipe:tastebiterecipe@tastebite.hfmqyok.mongodb.net/"
   );
   console.log("database1 connected");
 };
