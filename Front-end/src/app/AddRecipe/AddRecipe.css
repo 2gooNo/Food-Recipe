@@ -1,73 +1,73 @@
 .add-recipe-container {
-    padding: 50px;
-  }
-  
-  .add-recipe-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .ingredient-list {
-    border: 1px solid #ccc;
-    padding: 20px;
-  }
-  
-  .ingredient-list-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .ingredients {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .ingredient {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .remove-button {
-    background-color: #ff6347;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .remove-button:hover {
-    background-color: #ff3e20;
-  }
-  
-  .add-ingredient {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .ingredient-input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .add-button {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  
-  .add-button:hover {
-    background-color: #45a049;
-  }
-  
+  padding: 50px;
+  width: 1000px;
+}
+
+.add-recipe-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.ingredient-list {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.ingredient-list-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ingredients {
+  list-style: none;
+  padding: 0;
+}
+
+.ingredient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.remove-button {
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #ff3e20;
+}
+
+.add-ingredient {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.ingredient-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}

@@ -3,69 +3,74 @@
 import styles from "./style.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { Calendar } from "../../assets/icons/calendar";
-import { Like } from "../../assets/icons/like";
-import { Comment } from "../../assets/icons/comment";
 import { Back_End_Url } from "../../../back-url";
 import { Search } from "@/assets/icons/search";
 import { FacebookBlack } from "@/assets/icons/facebookBlack";
 import { TwitterBlack } from "@/assets/icons/twitterBlack";
 import { InstagramBlack } from "@/assets/icons/instagramBlack";
 import { DownWard } from "@/assets/icons/downward";
+import { Profile } from "@/assets/icons/profile";
 
 export default function HomePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [foods, setFoods] = useState([]);
-  const [top, setTop] = useState([]);
-  const [randomNumbers, setRandomNumbers] = useState([]);
+  const [suggestRecipes, setSuggestRecipes] = useState([]);
+  const [tryNewRecipes, setTryNewRecipes] = useState([]);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
-
-    topThree(foodData);
+    generateRandomNumbers(foodData);
+    // generateSixNumbers(foodData)
     setFoods(foodData);
   };
 
-  const suggestRecipes = (foodData) => {
-    
-
-    const generateRandomNumbers = () => {
-      const numbers = [];
-      for (let i = 0; i < foodData?.data?.foods.length; i++) {
-        numbers.push(Math.floor(Math.random() * 10) + 1);
+  const generateRandomNumbers = async (foodData) => {
+    const numbers = [];
+    for (let i = 0; i < 3; i++) {
+      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1
+      if(numbers.includes(randomNumber)){
+        fetchData()
+      }else{
+        numbers.push(
+          randomNumber
+        );
       }
-      setRandomNumbers(numbers);
-    };
-    const recipeLikes = [];
-    const topRecipes = [];
 
-    foodData?.data?.foods.map((food) => recipeLikes.push(food.like));
-
-    const sortedLikes = recipeLikes.sort((a, b) => a - b);
-
-    const topLikes = sortedLikes.slice(-3);
-
-    foodData?.data?.foods.map((food) => {
-      if (topLikes.includes(food.like)) {
-        topRecipes.push(food);
-      }
-    });
-
-    setTop(topRecipes);
+    }
+    console.log("numbers", numbers);
+    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log(suggesRecipes);
+    setSuggestRecipes(suggesRecipes);
   };
+  const generateSixNumbers = async (foodData) => {
+    const numbers = [];
+    for (let i = 0; i < 6; i++) {
+      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1
+      if(numbers.includes(randomNumber)){
+        fetchData()
+      }else{
+        numbers.push(
+          randomNumber
+        );
+      }
 
+    }
+    console.log("numbers", numbers);
+    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log(suggesRecipes);
+    setTryNewRecipes(suggesRecipes);
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
   function pageJump(index) {
-    const recipeId = top?.[index]._id;
+    const recipeId = suggestRecipes?.[index]?._id;
     console.log(recipeId);
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
@@ -86,12 +91,12 @@ export default function HomePage() {
         <Search></Search>
       </div>
       <img className="Logo" src="Logo.png"></img>
-      <div className="suggestRecipes" >
-        {top.map((food, index) => (
+      <div className="suggestRecipes">
+        {suggestRecipes.map((food, index) => (
           <TopRecipe
-            id={food._id}
-            imgSrc={food.imgSrc}
-            foodName={food.foodName}
+            id={food?._id}
+            imgSrc={food?.imgSrc}
+            foodName={food?.foodName}
             index={index}
             pageJump={pageJump}
           />
@@ -130,161 +135,20 @@ export default function HomePage() {
         </div>
       </div>
       <div className="super-delicious-container">
-        <h1 className="Super-delicious-text">Super Delicious</h1>
+        <h1 className="Super-delicious-text">Try some new tastes</h1>
         <div className="super-delicious-recipes">
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <img src="profile.png"></img>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                  <Calendar></Calendar>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <img src="profile.png"></img>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                  <Calendar></Calendar>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <img src="profile.png"></img>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                  <Calendar></Calendar>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <img src="profile.png"></img>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13.333"
-                    height="14.666"
-                    viewBox="0 0 13.333 14.666"
-                  >
-                    <path
-                      id="Shape"
-                      d="M2,14.666a2,2,0,0,1-2-2V3.333a2,2,0,0,1,2-2H3.334V.667a.667.667,0,0,1,1.333,0v.667h4V.667A.667.667,0,0,1,10,.667v.667h1.333a2,2,0,0,1,2,2v9.334a2,2,0,0,1-2,2Zm-.667-2A.667.667,0,0,0,2,13.333h9.334A.667.667,0,0,0,12,12.667v-6H1.333ZM12,5.333v-2a.667.667,0,0,0-.667-.667H10v.667a.667.667,0,0,1-1.334,0V2.666h-4v.667a.667.667,0,1,1-1.333,0V2.666H2a.667.667,0,0,0-.667.667v2Z"
-                      fill="#7F7F7F"
-                    />
-                  </svg>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <img src="profile.png"></img>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13.333"
-                    height="14.666"
-                    viewBox="0 0 13.333 14.666"
-                  >
-                    <path
-                      id="Shape"
-                      d="M2,14.666a2,2,0,0,1-2-2V3.333a2,2,0,0,1,2-2H3.334V.667a.667.667,0,0,1,1.333,0v.667h4V.667A.667.667,0,0,1,10,.667v.667h1.333a2,2,0,0,1,2,2v9.334a2,2,0,0,1-2,2Zm-.667-2A.667.667,0,0,0,2,13.333h9.334A.667.667,0,0,0,12,12.667v-6H1.333ZM12,5.333v-2a.667.667,0,0,0-.667-.667H10v.667a.667.667,0,0,1-1.334,0V2.666h-4v.667a.667.667,0,1,1-1.333,0V2.666H2a.667.667,0,0,0-.667.667v2Z"
-                      fill="#7F7F7F"
-                    />
-                  </svg>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="super-delicious-recipe">
-            <img className="super-delicious-img" src="recipe9Img.jpg"></img>
-            <div className="delicious-recipe-description">
-              <div className="star-name-profile">
-                <h1 className="deliciousRecipe-name">
-                  Loaded Mixed Berries Mini Tarts
-                </h1>
-              </div>
-              <div className="user-name">
-                <img src="profile.png"></img>
-                <h1 className="userName">Tricia Albert</h1>
-              </div>
-              <div className="calendar-like">
-                <div className="calendar">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13.333"
-                    height="14.666"
-                    viewBox="0 0 13.333 14.666"
-                  >
-                    <path
-                      id="Shape"
-                      d="M2,14.666a2,2,0,0,1-2-2V3.333a2,2,0,0,1,2-2H3.334V.667a.667.667,0,0,1,1.333,0v.667h4V.667A.667.667,0,0,1,10,.667v.667h1.333a2,2,0,0,1,2,2v9.334a2,2,0,0,1-2,2Zm-.667-2A.667.667,0,0,0,2,13.333h9.334A.667.667,0,0,0,12,12.667v-6H1.333ZM12,5.333v-2a.667.667,0,0,0-.667-.667H10v.667a.667.667,0,0,1-1.334,0V2.666h-4v.667a.667.667,0,1,1-1.333,0V2.666H2a.667.667,0,0,0-.667.667v2Z"
-                      fill="#7F7F7F"
-                    />
-                  </svg>
-                  <h1 className="calendar-text">Yesterday</h1>
-                </div>
-              </div>
-            </div>
-          </div>
+          {tryNewRecipes.map((food, index) => (
+          <TryNewRecipe
+          id={food?._id}
+          imgSrc={food?.imgSrc}
+          foodName={food?.foodName}
+          index={index}
+          pageJump={pageJump}
+          foodCreator={food?.foodCreator}
+        />
+          ))
+          }
+          
         </div>
       </div>
       <div className="footer-container">
@@ -420,4 +284,27 @@ const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
     </div>
   );
 };
-
+const TryNewRecipe = ({ id, imgSrc, foodName, index, pageJump ,foodCreator}) => {
+  return (
+    <div className="super-delicious-recipe">
+    <img className="super-delicious-img" src={imgSrc}></img>
+    <div className="delicious-recipe-description">
+      <div className="star-name-profile">
+        <h1 className="deliciousRecipe-name">
+          {foodName}
+        </h1>
+      </div>
+      <div className="user-name">
+        <Profile></Profile>
+        <h1 className="userName">{foodCreator}</h1>
+      </div>
+      <div className="calendar-like">
+        <div className="calendar">
+          <Calendar></Calendar>
+          <h1 className="calendar-text">Yesterday</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  );
+};
