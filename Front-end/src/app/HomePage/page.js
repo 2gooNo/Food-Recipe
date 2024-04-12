@@ -10,8 +10,10 @@ import { Search } from "@/assets/icons/search";
 import { FacebookBlack } from "@/assets/icons/facebookBlack";
 import { TwitterBlack } from "@/assets/icons/twitterBlack";
 import { InstagramBlack } from "@/assets/icons/instagramBlack";
-import { DownWard } from "@/assets/icons/downward";
+import { Select, Option } from "@mui/joy";
 import { Profile } from "@/assets/icons/profile";
+import { ArrowDown } from "../categories/components/ArrowDown";
+import { Router } from "@mui/icons-material";
 
 export default function HomePage() {
   const router = useRouter();
@@ -24,22 +26,20 @@ export default function HomePage() {
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
     generateRandomNumbers(foodData);
-    // generateSixNumbers(foodData)
+
     setFoods(foodData);
   };
 
   const generateRandomNumbers = async (foodData) => {
     const numbers = [];
     for (let i = 0; i < 3; i++) {
-      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1
-      if(numbers.includes(randomNumber)){
-        fetchData()
-      }else{
-        numbers.push(
-          randomNumber
-        );
+      const randomNumber =
+        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
+      if (numbers.includes(randomNumber)) {
+        fetchData();
+      } else {
+        numbers.push(randomNumber);
       }
-
     }
     console.log("numbers", numbers);
     const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
@@ -49,15 +49,13 @@ export default function HomePage() {
   const generateSixNumbers = async (foodData) => {
     const numbers = [];
     for (let i = 0; i < 6; i++) {
-      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1
-      if(numbers.includes(randomNumber)){
-        fetchData()
-      }else{
-        numbers.push(
-          randomNumber
-        );
+      const randomNumber =
+        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
+      if (numbers.includes(randomNumber)) {
+        fetchData();
+      } else {
+        numbers.push(randomNumber);
       }
-
     }
     console.log("numbers", numbers);
     const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
@@ -75,6 +73,15 @@ export default function HomePage() {
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
   }
+  function GoToAddRecipe() {
+    router.push("AddRecipe");
+  }
+  function GoToCategory() {
+    router.push("categories");
+  }
+  function GoToFavs() {
+    router.push("/favorites");
+  }
   return (
     <div className="body">
       <div className="topNav">
@@ -84,8 +91,28 @@ export default function HomePage() {
           <InstagramBlack></InstagramBlack>
         </div>
         <div className="pages-container">
-          <button className="navbarSelection">Pages</button>
-          <DownWard></DownWard>
+          <Select
+            placeholder="Pages"
+            sx={{
+              border: "none",
+              boxShadow: "none",
+              bgcolor: "transparent",
+              color: "black",
+              fontWeight: 700,
+              "& :hover": { color: "red" },
+            }}
+            indicator={<ArrowDown />}
+          >
+            <Option value="category" onClick={() => GoToCategory()} sx={{}}>
+              Categories
+            </Option>
+            <Option value="favorites" onClick={() => GoToFavs()}>
+              Favorites
+            </Option>
+            <Option value="AddRecipe" onClick={() => GoToAddRecipe()}>
+              Add Recipes
+            </Option>
+          </Select>
         </div>
         <img className="userImg"></img>
         <Search></Search>
@@ -138,17 +165,15 @@ export default function HomePage() {
         <h1 className="Super-delicious-text">Try some new tastes</h1>
         <div className="super-delicious-recipes">
           {tryNewRecipes.map((food, index) => (
-          <TryNewRecipe
-          id={food?._id}
-          imgSrc={food?.imgSrc}
-          foodName={food?.foodName}
-          index={index}
-          pageJump={pageJump}
-          foodCreator={food?.foodCreator}
-        />
-          ))
-          }
-          
+            <TryNewRecipe
+              id={food?._id}
+              imgSrc={food?.imgSrc}
+              foodName={food?.foodName}
+              index={index}
+              pageJump={pageJump}
+              foodCreator={food?.foodCreator}
+            />
+          ))}
         </div>
       </div>
       <div className="footer-container">
@@ -284,27 +309,32 @@ const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
     </div>
   );
 };
-const TryNewRecipe = ({ id, imgSrc, foodName, index, pageJump ,foodCreator}) => {
+const TryNewRecipe = ({
+  id,
+  imgSrc,
+  foodName,
+  index,
+  pageJump,
+  foodCreator,
+}) => {
   return (
     <div className="super-delicious-recipe">
-    <img className="super-delicious-img" src={imgSrc}></img>
-    <div className="delicious-recipe-description">
-      <div className="star-name-profile">
-        <h1 className="deliciousRecipe-name">
-          {foodName}
-        </h1>
-      </div>
-      <div className="user-name">
-        <Profile></Profile>
-        <h1 className="userName">{foodCreator}</h1>
-      </div>
-      <div className="calendar-like">
-        <div className="calendar">
-          <Calendar></Calendar>
-          <h1 className="calendar-text">Yesterday</h1>
+      <img className="super-delicious-img" src={imgSrc}></img>
+      <div className="delicious-recipe-description">
+        <div className="star-name-profile">
+          <h1 className="deliciousRecipe-name">{foodName}</h1>
+        </div>
+        <div className="user-name">
+          <Profile></Profile>
+          <h1 className="userName">{foodCreator}</h1>
+        </div>
+        <div className="calendar-like">
+          <div className="calendar">
+            <Calendar></Calendar>
+            <h1 className="calendar-text">Yesterday</h1>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   );
 };

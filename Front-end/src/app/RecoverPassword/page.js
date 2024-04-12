@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./RecoverPassword.css";
 import MailSvg from "../../../utils/mail-svg";
+import { useHistory } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import { Back_End_Url } from "../../../back-url";
 

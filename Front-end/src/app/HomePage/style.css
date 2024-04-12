@@ -22,24 +22,24 @@
   height: 55px;
   margin-right: 210px;
 }
-.navbarSelection{
-    font-weight: 600;
+.navbarSelection {
+  font-weight: 600;
 }
-.navMenuIcon{
-    width: 60px;
-    height: 55px;
+.navMenuIcon {
+  width: 60px;
+  height: 55px;
 }
-.suggestRecipes{
-    width: 1110px;
-    height: 466px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 30px;
-    margin-bottom: 40px;
+.suggestRecipes {
+  width: 1110px;
+  height: 466px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 30px;
+  margin-bottom: 40px;
 }
-.pages-container{
+.pages-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -48,61 +48,61 @@
   position: absolute;
   left: 400px;
 }
-.downward-icon{
+.downward-icon {
   width: 35px;
   height: 35px;
 }
-.suggesRecipe{
+.suggesRecipe {
   display: flex;
   flex-direction: column;
   gap: 24.5px;
   border-width: 1px;
   border-color: rgb(232, 232, 232);
-  border-top-left-radius:15px ;
-  border-top-right-radius:15px ;
-  border-bottom-left-radius:15px ;
-  border-bottom-right-radius:15px ;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   width: 350px;
   height: 484px;
 }
-.suggestRecipeName{
+.suggestRecipeName {
   color: #000;
   font-size: 20px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
 }
-.suggestRecipePhoto{
+.suggestRecipePhoto {
   height: 338px;
   width: 350px;
-  border-top-left-radius:15px ;
-  border-top-right-radius:15px ;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
-.popularRecipeText{
+.popularRecipeText {
   font-size: 36px;
   font-weight: 700;
   font-family: "Playfair Display", serif;
 }
-.popularRecipeName{
+.popularRecipeName {
   font-weight: 600;
   font-size: 20px;
   margin-top: 8px;
 }
-.Super-delicious-text{
+.Super-delicious-text {
   font-size: 30px;
   font-weight: 700;
   font-family: "Playfair Display", serif;
 }
-.super-delicious-img{
+.super-delicious-img {
   height: 187px;
   width: 345px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-.super-delicious-recipe{
+.super-delicious-recipe {
   height: 500px;
   width: 345px;
 }
-.super-delicious-container{
+.super-delicious-container {
   width: 1110px;
   height: 1126px;
   display: flex;
@@ -110,7 +110,7 @@
   gap: 41px;
   margin-bottom: 80px;
 }
-.delicious-recipe-description{
+.delicious-recipe-description {
   width: 100%;
   padding-top: 16.5px;
   padding-bottom: 38px;
@@ -122,55 +122,55 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.super-delicious-recipes{
+.super-delicious-recipes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   flex-direction: row;
 }
-.deliciousRecipe-name{
+.deliciousRecipe-name {
   margin-bottom: 20px;
   color: #000;
   font-size: 20px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
 }
-.user-name{
+.user-name {
   display: flex;
   flex-direction: row;
   gap: 6px;
   align-items: center;
 }
-.userName{
+.userName {
   font-size: 12px;
   font-weight: 400;
   font-family: "Inter", sans-serif;
   color: #000;
 }
-.calendar-text{
+.calendar-text {
   font-size: 12px;
   font-weight: 400;
-  color: #7F7F7F;
+  color: #7f7f7f;
 }
-.calendar-like{
-  bottom:24px ;
+.calendar-like {
+  bottom: 24px;
   position: absolute;
   right: 25px;
   display: flex;
   flex-direction: row;
   gap: 28px;
 }
-.calendar{
+.calendar {
   display: flex;
   flex-direction: row;
   gap: 8px;
 }
-.footer-text{
+.footer-text {
   color: #7f7f7f;
   font-size: 16px;
   font-family: "Inter", sans-serif;
   font-weight: 400;
 }
-.footer-container{
+.footer-container {
   background-color: rgb(249, 249, 249);
   width: 100vw;
   height: 442px;
@@ -179,59 +179,57 @@
   padding-bottom: 50px;
   padding-top: 105px;
 }
-.upFooter-container{
+.upFooter-container {
   margin-bottom: 95px;
   display: flex;
   gap: 322px;
 }
-.footer-text{
+.footer-text {
   display: flex;
   flex-direction: column;
   gap: 23px;
   width: 350px;
 }
-.footer-logo{
+.footer-logo {
   height: 42px;
   width: 129px;
 }
-.columnText-container{
+.columnText-container {
   display: flex;
 }
-.firstColumn{
+.firstColumn {
   margin-right: 149px;
 }
-.secondColumn{
+.secondColumn {
   margin-right: 101px;
 }
-.downFooter-container{
+.downFooter-container {
   display: flex;
   align-items: end;
   gap: 701px;
   height: 49px;
-  border-top:1px rgb(232, 232, 232) solid;
+  border-top: 1px rgb(232, 232, 232) solid;
 }
-.copyRight-text{
-  color: #7F7F7F;
+.copyRight-text {
+  color: #7f7f7f;
   font-family: "Inter", sans-serif;
   font-size: 12px;
   font-weight: 400;
-
 }
-.columnTitle{
+.columnTitle {
   font-size: 14px;
   cursor: pointer;
   font-weight: 500;
-  font-family: "Inter", sans-serif ;
-
-}
-.columnText{
   font-family: "Inter", sans-serif;
-  color: #7F7F7F;
+}
+.columnText {
+  font-family: "Inter", sans-serif;
+  color: #7f7f7f;
   font-weight: 400;
   font-size: 14px;
   margin-top: 6px;
 }
-.topNav{
+.topNav {
   width: 100vw;
   height: 56px;
   background-color: rgb(249, 249, 249);
@@ -239,19 +237,31 @@
   padding-bottom: 19px;
   padding-top: 19px;
   margin-bottom: 64px;
-display: flex;
-flex-direction: row;
-justify-content: end;
-align-items: center;
-position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
 }
-.navSocial{
+.topNav {
+  width: 100vw;
+  height: 56px;
+  background-color: rgb(249, 249, 249);
+  padding-right: 166px;
+  padding-bottom: 19px;
+  padding-top: 19px;
+  margin-bottom: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+}
+.navSocial {
   display: flex;
   gap: 36px;
   left: 170px;
   position: absolute;
-
 }
-.Logo{
+.Logo {
   margin-bottom: 64px;
 }

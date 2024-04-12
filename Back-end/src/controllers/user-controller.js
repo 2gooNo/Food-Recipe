@@ -116,6 +116,8 @@ export const verifyCode = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
 export const UpdatePassword = async (req, res) => {
   try {
     const { password, email } = req.body;
