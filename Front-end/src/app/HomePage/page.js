@@ -25,9 +25,7 @@ export default function HomePage() {
   const [appear2, setAppear2] = useState(false);
 
   const fetchData = async () => {
-    const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
-    console.log(foodData);
     generateRandomNumbers(foodData);
     generateSixNumbers(foodData);
     setFoods(foodData);
