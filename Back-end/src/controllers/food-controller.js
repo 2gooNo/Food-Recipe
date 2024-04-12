@@ -75,6 +75,7 @@ export const addCategory = async (req, res) => {
     res
       .status(201)
       .json({ message: "Category added successfully", data: newCategory });
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -89,6 +90,7 @@ export const searchFood = async (req, res) => {
     res
       .status(201)
       .json({ message: "food searched succesfully", data: searchedFood });
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

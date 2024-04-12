@@ -1,6 +1,5 @@
 "use client";
 import { Category } from "@/app/categories/components/Category";
-import Stuff from "@/app/categories/json/food";
 import { Contacts } from "@/app/categories/components/Contacts";
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
 import { useState } from "react";
@@ -26,9 +25,6 @@ export default function Home() {
     } else {
       setAppear2(!appear2);
     }
-  }
-  function GoToHome() {
-    router.push("/HomePage");
   }
   function GoToFavorites() {
     router.push("/favorites");
@@ -65,7 +61,12 @@ export default function Home() {
       setAAA(Object.keys(categoryObject));
     }
   }, [foodData]);
-  console.log(aaa);
+  function AddRec() {
+    router.push("/AddRecipe");
+  }
+  function Home() {
+    router.push("/");
+  }
 
   return (
     <div className="flex flex-col items-center gap-[100px]">
@@ -73,45 +74,6 @@ export default function Home() {
         <img className="w-[200px] h-[60px]" src="Taste.png" />
         {!appear2 && (
           <div className="text-[20px] flex justify-between align-center flex-row gap-[20px]">
-            <div className="drop_down  transition-colors duration-400 ease-in-out cursor-pointer cate1">
-              <Select
-                placeholder="HomePage"
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option value="homePage" onClick={GoToHome} sx={{}}>
-                  Home
-                </Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer w-[300px] drop_down  transition-colors duration-400 ease-in-out cate2">
-              <Select
-                placeholder="Recipe Page"
-                on
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option sx={{}}>Test 1</Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
             <div className="outerdiv_category cursor-pointer drop_down  transition-colors duration-400 ease-in-out cate3">
               <Select
                 placeholder="Pages"
@@ -126,6 +88,9 @@ export default function Home() {
                 }}
                 indicator={<ArrowDown />}
               >
+                <Option value="Home" onClick={() => Home()}>
+                  Home
+                </Option>
                 <Option
                   sx={{}}
                   value="Favorites"
@@ -133,12 +98,11 @@ export default function Home() {
                 >
                   Favorites
                 </Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
+
+                <Option className="Add" onClick={() => AddRec()}>
+                  Add Recipe
+                </Option>
               </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer cate4">
-              <h3 className="Buy">Buy</h3>
             </div>
           </div>
         )}
@@ -148,8 +112,7 @@ export default function Home() {
               appear
                 ? "search-detail2 border-b-[2px] border-[black]"
                 : "search2 border-[2px] border-[black]"
-            }
-        // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+            }`}
           >
             {appear ? (
               <div className="flex gap-[10px]">
