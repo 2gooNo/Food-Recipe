@@ -12,6 +12,8 @@ import { Trash } from "@/app/favorites/components/Trash";
 import Stuff from "@/app/favorites/json/food";
 import { White_Correct } from "@/app/favorites/components/White_Correct";
 import { Exit } from "@/app/favorites/components/Exit";
+import axios from "axios";
+import { Back_End_Url } from "../../../back-url";
 
 export default function Home() {
   const [appear3, setAppear3] = useState(false);
@@ -19,6 +21,9 @@ export default function Home() {
   const [appear, setAppear] = useState(false);
   const [amount, setAmount] = useState(Stuff.length);
   const [showAll, setShowAll] = useState(false);
+  const [searchValue, setSearchValue] = useState();
+  const [searchedFood, setSearchedFood] = useState([]);
+
   const router = useRouter();
 
   function Input() {
@@ -53,6 +58,33 @@ export default function Home() {
   }
   function GoToProfile() {
     router.push("/Profile");
+  }
+
+  const searchFood = async () => {
+    console.log(searchValue);
+    const { data } = await axios.post(`${Back_End_Url}/searchFood`, {
+      searchValue: searchValue,
+    });
+    setSearchedFood(data.data);
+    // console.log(data.data);
+    
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchFood();
+    }
+  };
+  function pageJump(index) {
+    const recipeId = searchedFood?.[index]?._id;
+    if (recipeId) {
+      console.log("recipe id", recipeId);
+      console.log(searchedFood);
+      console.log(searchedFood?.[index]?._id);
+
+    }
+
+    router.push(`/RecipePage?recipeId=${recipeId}`);
   }
   return (
     <div className="flex flex-col items-center gap-[100px]">
@@ -136,18 +168,33 @@ export default function Home() {
           // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
           >
             {appear3 ? (
-              <div className="flex gap-[10px]">
-                <button onClick={Input}>
-                  <Exit />
-                </button>
-                <input
-                  className=" outline-none w-[860px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
-                  placeholder="Enter a dish name..."
-                  onChange={searchInput}
-                />
-                <button>
-                  <img className="w-[20px] h-[20px]" src="search.webp" />
-                </button>
+              <div>
+                <div className="flex gap-[10px]">
+                  <button onClick={Input}>
+                    <Exit />
+                  </button>
+                  <input
+                    className=" outline-none w-[860px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
+                    placeholder="Enter a dish name..."
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                  />
+                  <button>
+                    <img className="w-[20px] h-[20px]" src="search.webp" />
+                  </button>
+                </div>
+                <div className="searchResult">
+                  {
+                    <h1>
+                      {/* {searchedFood === null
+                        ? console.log("data is null")
+                        : searchedFood?.foodName} */}
+                      {searchedFood?.map((food,index) => (
+                        <h1 onClick={() => pageJump(index)}>{food.foodName}</h1>
+                      ))}
+                    </h1>
+                  }
+                </div>
               </div>
             ) : (
               <div>
