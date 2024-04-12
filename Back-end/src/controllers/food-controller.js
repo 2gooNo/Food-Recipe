@@ -59,9 +59,9 @@ export const deleteFood = async (req, res) => {
   }
 };
 
-export const addCategory = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const addCategory = await FoodModel.find
-  }
-}
+// export const addCategory = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const addCategory = await FoodModel.find
+//   }
+// }
