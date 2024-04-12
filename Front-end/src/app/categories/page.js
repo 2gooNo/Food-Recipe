@@ -1,6 +1,5 @@
 "use client";
 import { Category } from "@/app/categories/components/Category";
-import Stuff from "@/app/categories/json/food";
 import { Contacts } from "@/app/categories/components/Contacts";
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
 import { useState } from "react";
@@ -105,9 +104,6 @@ export default function Home() {
                 </Option>
               </Select>
             </div>
-            <div className="outerdiv_category cursor-pointer cate4">
-              <h3 className="Buy">Buy</h3>
-            </div>
           </div>
         )}
         <div className="flex flex-row gap-[40px] justify-between items-center">
@@ -116,8 +112,7 @@ export default function Home() {
               appear
                 ? "search-detail2 border-b-[2px] border-[black]"
                 : "search2 border-[2px] border-[black]"
-            }
-        // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+            }`}
           >
             {appear ? (
               <div className="flex gap-[10px]">

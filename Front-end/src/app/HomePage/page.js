@@ -6,20 +6,23 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Calendar } from "../../assets/icons/calendar";
 import { Back_End_Url } from "../../../back-url";
-import { Search } from "@/assets/icons/search";
+
 import { FacebookBlack } from "@/assets/icons/facebookBlack";
 import { TwitterBlack } from "@/assets/icons/twitterBlack";
 import { InstagramBlack } from "@/assets/icons/instagramBlack";
 import { Select, Option } from "@mui/joy";
 import { Profile } from "@/assets/icons/profile";
 import { ArrowDown } from "../categories/components/ArrowDown";
-import { Router } from "@mui/icons-material";
+import { Exit } from "../favorites/components/Exit";
 
 export default function HomePage() {
   const router = useRouter();
   const [foods, setFoods] = useState([]);
   const [suggestRecipes, setSuggestRecipes] = useState([]);
   const [tryNewRecipes, setTryNewRecipes] = useState([]);
+  const [appear, setAppear] = useState(false);
+  const [appear3, setAppear3] = useState(false);
+  const [appear2, setAppear2] = useState(false);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
@@ -29,7 +32,20 @@ export default function HomePage() {
 
     setFoods(foodData);
   };
-
+  function Input() {
+    setAppear(!appear);
+    console.log("Working");
+    if (appear == true) {
+      setTimeout(() => {
+        setAppear2(!appear2);
+      }, 80);
+    } else {
+      setAppear2(!appear2);
+    }
+  }
+  function searchInput(e) {
+    console.log(e.target.value);
+  }
   const generateRandomNumbers = async (foodData) => {
     const numbers = [];
     for (let i = 0; i < 3; i++) {
@@ -114,8 +130,44 @@ export default function HomePage() {
             </Option>
           </Select>
         </div>
-        <img className="userImg"></img>
-        <Search></Search>
+        <div className="flex flex-row gap-[40px] justify-between items-center">
+          <div
+            className={`p-[8px] ${
+              appear
+                ? "search-detail2 border-b-[2px] border-[black]"
+                : "search2 border-[2px] border-[black]"
+            }
+          // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+          >
+            {appear3 ? (
+              <div className="flex gap-[10px]">
+                <button onClick={Input}>
+                  <Exit />
+                </button>
+                <input
+                  className=" outline-none w-[860px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
+                  placeholder="Enter a dish name..."
+                  onChange={searchInput}
+                />
+                <button>
+                  <img className="w-[20px] h-[20px]" src="search.webp" />
+                </button>
+              </div>
+            ) : (
+              <div>
+                {" "}
+                <button onClick={Input}>
+                  <img className="w-[20px] h-[20px]" src="search.webp" />
+                </button>
+              </div>
+            )}
+          </div>
+          <img
+            onClick={() => GoToProfile()}
+            className="w-[40px]"
+            src="default.png"
+          />
+        </div>
       </div>
       <img className="Logo" src="Logo.png"></img>
       <div className="suggestRecipes">

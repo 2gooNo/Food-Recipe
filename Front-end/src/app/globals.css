@@ -81,12 +81,12 @@
 }
 .search-detail2 {
   width: 950px;
-  border-radius: 20px;
 }
 
 .search2 {
   width: 40px;
   border-radius: 50%;
+  height: 40px;
 }
 .Profile_word {
   font-weight: 700;
