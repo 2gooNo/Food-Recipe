@@ -59,6 +59,8 @@ export const deleteFood = async (req, res) => {
   }
 };
 
+
+
 export const addCategory = async (req, res) => {
   const { category } = req.body;
 
