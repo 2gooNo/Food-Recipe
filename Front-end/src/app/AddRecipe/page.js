@@ -104,7 +104,7 @@ export default function AddRecipe() {
               placeholder="Enter ingredient"
               className="ingredient-input"
             />
-            <button onClick={handleAddIngredient} className="add-button">
+            <button  className="add-button">
               Add Ingredient
             </button>
           </div>
@@ -133,7 +133,7 @@ export default function AddRecipe() {
                 placeholder="Enter introduction"
                 className="introduction-input"
               />
-              <button onClick={handleAddIntroduction} className="add-button">
+              <button className="add-button">
                 Add Introduction
               </button>
             </div>
