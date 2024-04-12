@@ -58,23 +58,3 @@ export const deleteFood = async (req, res) => {
     res.status(404).json({ message: "Food not found" });
   }
 };
-
-export const addCategory = async (req, res) => {
-  const { category } = req.body;
-
-  try {
-    const existingCategory = await FoodModel.findOne({ category: category });
-
-    if (existingCategory) {
-      return res.status(200).json({ message: "Category already exists" });
-    }
-
-    const newCategory = await FoodModel.create({
-      category: category,
-    });
-
-    res.status(201).json({ message: "Category added successfully", data: newCategory });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
