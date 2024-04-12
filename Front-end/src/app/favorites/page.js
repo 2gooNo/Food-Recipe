@@ -39,9 +39,6 @@ export default function Home() {
       setAppear3(!appear3);
     }
   }
-  function GoToHome() {
-    router.push("/HomePage");
-  }
   function GoToCategory() {
     router.push("/categories");
   }
@@ -54,52 +51,18 @@ export default function Home() {
   function GoToProfile() {
     router.push("/Profile");
   }
+  function Home() {
+    router.push("/");
+  }
+  function AddRec() {
+    router.push("/AddRecipe");
+  }
   return (
     <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
         <img className="w-[200px] h-[60px]" src="Taste.png" />
         {!appear2 && (
           <div className="text-[20px] flex justify-between align-center flex-row gap-[20px]">
-            <div className="drop_down  transition-colors duration-400 ease-in-out cursor-pointer cate1">
-              <Select
-                placeholder="HomePage"
-                on
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option onClick={GoToHome} sx={{}}>
-                  Home
-                </Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer w-[300px] drop_down  transition-colors duration-400 ease-in-out cate2">
-              <Select
-                placeholder="Recipe Page"
-                on
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option sx={{}}>Test 1</Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
             <div className="outerdiv_category cursor-pointer drop_down  transition-colors duration-400 ease-in-out cate3">
               <Select
                 placeholder="Pages"
@@ -114,15 +77,17 @@ export default function Home() {
                 }}
                 indicator={<ArrowDown />}
               >
+                <Option value="Home" onClick={() => Home()}>
+                  Home
+                </Option>
                 <Option value="categories" onClick={GoToCategory}>
                   Categories
                 </Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
+
+                <Option value="AddRec" onClick={() => AddRec()}>
+                  Add Recipe
+                </Option>
               </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer cate4">
-              <h3 className="Buy">Buy</h3>
             </div>
           </div>
         )}
