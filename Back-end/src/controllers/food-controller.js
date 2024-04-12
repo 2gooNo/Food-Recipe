@@ -57,4 +57,3 @@ export const deleteFood = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: "Food not found" });
   }
-};
