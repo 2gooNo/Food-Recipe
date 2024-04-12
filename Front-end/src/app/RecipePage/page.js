@@ -3,12 +3,15 @@ import Image from "next/image";
 import styles from "./style.css";
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { Back_End_Url } from "../../../back-url";
 
-const RecipePage = ({ params }) => {
+export default function RecipePage() {
   const [recipeData, setRecipeData] = useState([]);
   const [strikeThroughCSS, setStrikeThroughCSS] = useState({});
-  const { recipeId } = params;
+  const searchParams = useSearchParams();
+  const recipeId = searchParams.get("recipeId");
+  console.log(recipeId);
 
   const fetchRecipe = async () => {
     try {
@@ -61,24 +64,6 @@ const RecipePage = ({ params }) => {
             </div>
           </div>
           {/* header end  */}
-          <div className="flex ml-[355px]">
-            <div className="flex justify-end gap-[40px] mt-[90px] mr-[350px] w-[1100px]">
-              <Image
-                src={"download.svg"}
-                height={0}
-                width={0}
-                alt="download"
-                className="w-[30px] h-[35px]"
-              />
-              <Image
-                src={"save.svg"}
-                height={0}
-                width={0}
-                alt="save"
-                className="w-[40px] h-[35px]"
-              />
-            </div>
-          </div>
           <div className="flex flex-col items-start w-[1100px] ">
             <h1 className="text-6xl font-bold mt-[50px]">
               {recipeData?.foodName}
@@ -103,11 +88,6 @@ const RecipePage = ({ params }) => {
           </div>
 
           <div className="flex flex-col items-center mt-[20px] pt-[30px] w-[1100px] border-solid border-t border-gray-250">
-            <p className="pb-[40px]">
-              One thing I learned living in the Canarsie section of Brooklyn, NY
-              was how to cook a good Italian meal. Here is a recipe I created
-              after having this dish in a restaurant. Enjoy!
-            </p>
             <img
               src={recipeData.imgSrc}
               height={0}
@@ -144,7 +124,6 @@ const RecipePage = ({ params }) => {
                           textDecoration: strikeThroughCSS[index]
                             ? "line-through"
                             : "none",
-                          color: strikeThroughCSS[index] ? "GrayText" : "none",
                         }}
                       >
                         {rec.size} {rec.recipe}
@@ -154,51 +133,6 @@ const RecipePage = ({ params }) => {
                 ))}
               </div>
               {/* Ingredients end  */}
-              {/* nutrition facts start  */}
-              <div className="bg-gray-100 rounded-xl p-7 mt-[70px]">
-                <h1 className="text-3xl font-semibold pb-[20px]">
-                  Nutrition Facts
-                </h1>
-                <div className="flex flex-col gap-[10px]">
-                  <div className="flex justify-between gap-[200px] border-b-2 border-solid border-gray-200">
-                    <p className="text-gray-500">Calories</p>
-                    <p>219,9</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Total Fat</p>
-                    <p>10,7 g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Saturated Fat</p>
-                    <p>2,2 g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Cholesterol</p>
-                    <p>37,4 mg</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Sodium</p>
-                    <p>120,3 mg</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Potassium</p>
-                    <p>32,8 mg</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Total Carbohydrate</p>
-                    <p>22.3g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Sugars</p>
-                    <p>8,4 g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Protein</p>
-                    <p>7,9 g</p>
-                  </div>
-                </div>
-              </div>
-              {/* nutrition facts end  */}
             </div>
             {/* ingredient + nutrition facts end  */}
             {/* instructions start  */}
@@ -428,5 +362,5 @@ const RecipePage = ({ params }) => {
       {/* footer end  */}
     </div>
   );
-};
-export default RecipePage;
+}
+// export default RecipePage;

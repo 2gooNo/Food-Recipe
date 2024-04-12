@@ -24,7 +24,7 @@ export default function HomePage() {
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
     generateRandomNumbers(foodData);
-    generateSixNumbers(foodData);
+    // generateSixNumbers(foodData);
     setFoods(foodData);
   };
 
