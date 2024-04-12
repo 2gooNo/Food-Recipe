@@ -46,6 +46,9 @@ export default function HomePage() {
   function searchInput(e) {
     console.log(e.target.value);
   }
+  function GoToProfile() {
+    router.push("/Profile");
+  }
   const generateRandomNumbers = async (foodData) => {
     const numbers = [];
     for (let i = 0; i < 3; i++) {
