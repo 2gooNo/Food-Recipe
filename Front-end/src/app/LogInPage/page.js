@@ -13,7 +13,6 @@ export default function LogInPage() {
   const [token, setToken] = useState("");
   const router = useRouter();
 
-
   const handleLogIn = async () => {
     const data = await axios
       .post(`${Back_End_Url}/logIn`, {
@@ -26,7 +25,6 @@ export default function LogInPage() {
 
     router.push("/");
   };
-
 
   const SignUpPage = async () => {
     router.push("/SignUpPage");

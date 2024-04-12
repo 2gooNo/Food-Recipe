@@ -55,7 +55,7 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId, setUrl }) {
       >
         Upload
       </button>
-      {uploadedUrl && <p>Uploaded URL: {uploadedUrl}</p>}
+      {/* {uploadedUrl && <p>Uploaded URL: {uploadedUrl}</p>} */}
     </CloudinaryScriptContext.Provider>
   );
 }

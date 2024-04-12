@@ -1,18 +1,16 @@
 import mongoose from "mongoose";
 
 const foodSchema = new mongoose.Schema({
-  foodCreator:String,
+  foodCreator: String,
   foodName: String,
   category: [String],
-  imgSrc:String,
+  imgSrc: String,
   recipes: [
     {
       recipe: String,
       size: String,
     },
   ],
-  instruction: [
-    String
-  ],
+  instruction: [String],
 });
 export const FoodModel = mongoose.model("food", foodSchema);
