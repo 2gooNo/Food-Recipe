@@ -3,12 +3,18 @@ import Image from "next/image";
 import styles from "./style.css";
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { Back_End_Url } from "../../../back-url";
 
-const RecipePage = ({ params }) => {
+export default function RecipePage() {
   const [recipeData, setRecipeData] = useState([]);
   const [strikeThroughCSS, setStrikeThroughCSS] = useState({});
-  const { recipeId } = params;
+  const searchParams = useSearchParams();
+  const [suggestRecipes, setSuggestRecipes] = useState([]);
+  const [foods, setFoods] = useState([]);
+
+  const recipeId = searchParams.get("recipeId");
+  console.log(recipeId);
 
   const fetchRecipe = async () => {
     try {
@@ -18,6 +24,16 @@ const RecipePage = ({ params }) => {
       console.error("error");
     }
   };
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
+    console.log(foodData);
+    generateRandomNumbers(foodData);
+    // generateSixNumbers(foodData);
+    setFoods(foodData);
+  };
+
   console.log(recipeData);
 
   useEffect(() => {
@@ -30,6 +46,32 @@ const RecipePage = ({ params }) => {
       [index]: !prevState[index],
     }));
   }, []);
+
+  const generateRandomNumbers = async (foodData) => {
+    const numbers = [];
+    for (let i = 0; i < 8; i++) {
+      const randomNumber =
+        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
+      if (numbers.includes(randomNumber)) {
+        fetchData();
+      } else {
+        numbers.push(randomNumber);
+      }
+    }
+    console.log("numbers", numbers);
+    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log(suggesRecipes);
+    setSuggestRecipes(suggesRecipes);
+  };
+
+  function pageJump(index) {
+    const recipeId = suggestRecipes?.[index]?._id;
+    if (recipeId) {
+      console.log("recipe id", recipeId);
+    }
+
+    router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
 
   return (
     <div className="w-full height-full">
@@ -61,24 +103,6 @@ const RecipePage = ({ params }) => {
             </div>
           </div>
           {/* header end  */}
-          <div className="flex ml-[355px]">
-            <div className="flex justify-end gap-[40px] mt-[90px] mr-[350px] w-[1100px]">
-              <Image
-                src={"download.svg"}
-                height={0}
-                width={0}
-                alt="download"
-                className="w-[30px] h-[35px]"
-              />
-              <Image
-                src={"save.svg"}
-                height={0}
-                width={0}
-                alt="save"
-                className="w-[40px] h-[35px]"
-              />
-            </div>
-          </div>
           <div className="flex flex-col items-start w-[1100px] ">
             <h1 className="text-6xl font-bold mt-[50px]">
               {recipeData?.foodName}
@@ -103,11 +127,6 @@ const RecipePage = ({ params }) => {
           </div>
 
           <div className="flex flex-col items-center mt-[20px] pt-[30px] w-[1100px] border-solid border-t border-gray-250">
-            <p className="pb-[40px]">
-              One thing I learned living in the Canarsie section of Brooklyn, NY
-              was how to cook a good Italian meal. Here is a recipe I created
-              after having this dish in a restaurant. Enjoy!
-            </p>
             <img
               src={recipeData.imgSrc}
               height={0}
@@ -144,7 +163,6 @@ const RecipePage = ({ params }) => {
                           textDecoration: strikeThroughCSS[index]
                             ? "line-through"
                             : "none",
-                          color: strikeThroughCSS[index] ? "GrayText" : "none",
                         }}
                       >
                         {rec.size} {rec.recipe}
@@ -154,51 +172,6 @@ const RecipePage = ({ params }) => {
                 ))}
               </div>
               {/* Ingredients end  */}
-              {/* nutrition facts start  */}
-              <div className="bg-gray-100 rounded-xl p-7 mt-[70px]">
-                <h1 className="text-3xl font-semibold pb-[20px]">
-                  Nutrition Facts
-                </h1>
-                <div className="flex flex-col gap-[10px]">
-                  <div className="flex justify-between gap-[200px] border-b-2 border-solid border-gray-200">
-                    <p className="text-gray-500">Calories</p>
-                    <p>219,9</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Total Fat</p>
-                    <p>10,7 g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Saturated Fat</p>
-                    <p>2,2 g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Cholesterol</p>
-                    <p>37,4 mg</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Sodium</p>
-                    <p>120,3 mg</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Potassium</p>
-                    <p>32,8 mg</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Total Carbohydrate</p>
-                    <p>22.3g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Sugars</p>
-                    <p>8,4 g</p>
-                  </div>
-                  <div className="flex justify-between gap-[40px] border-b-2 border-solid border-b-gray-200">
-                    <p className="text-gray-500">Protein</p>
-                    <p>7,9 g</p>
-                  </div>
-                </div>
-              </div>
-              {/* nutrition facts end  */}
             </div>
             {/* ingredient + nutrition facts end  */}
             {/* instructions start  */}
@@ -224,6 +197,15 @@ const RecipePage = ({ params }) => {
             <h1 className="text-4xl font-semibold mb-[40px] mt-[40px]">
               You might also like
             </h1>
+            {/* {suggestRecipes.map((food, index) => (
+              <SuggestingRecipes
+                id={food?._id}
+                imgSrc={food?.imgSrc}
+                foodName={food?.foodName}
+                index={index}
+                pageJump={pageJump}
+              />
+            ))} */}
             <div className="flex grid grid-cols-4 gap-[15px] gap-y-[40px] font-semibold break-words text-[18px]">
               <div className=" hover:text-orange-500 cursor-pointer">
                 <div className="max-w-[250px] overflow-hidden bg-cover">
@@ -428,5 +410,15 @@ const RecipePage = ({ params }) => {
       {/* footer end  */}
     </div>
   );
+}
+const SuggestingRecipes = ({ id, imgSrc, foodName, index, pageJump }) => {
+  return (
+    <div onClick={() => pageJump(index)} className="suggesRecipe" key={id}>
+      <img className="suggestRecipePhoto" src={imgSrc}></img>
+      <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
+        <h1 className="suggestRecipeName">{foodName}</h1>
+      </div>
+    </div>
+  );
 };
-export default RecipePage;
+// export default RecipePage;

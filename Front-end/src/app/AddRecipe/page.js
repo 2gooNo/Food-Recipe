@@ -4,6 +4,8 @@ import axios from "axios";
 import "./AddRecipe.css";
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 import { Cloudinary } from "@cloudinary/url-gen";
+import { useRouter } from "next/navigation";
+import { Back_End_Url } from "../../../back-url";
 
 export default function AddRecipe() {
   const [recipe, setRecipe] = useState([]);
@@ -18,32 +20,77 @@ export default function AddRecipe() {
   const [uploadPreset] = useState("aoh4fpwm");
   const [foodCategories, setFoodCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [userData,setUserData] = useState()
+  const router = useRouter();
 
   useEffect(() => {
-    getAllFoodCategories();
+    fetchData();
   }, []);
 
-  const getAllFoodCategories = async () => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get("/api/food");
-      setFoodCategories(response.data.foods);
+      const response = await axios.get("http://localhost:8000/categories");
+      setFoodCategories(response.data);
+      console.log(response.data);
+      const token = localStorage.getItem("token")
+      if(token == null){
+        router.push("LogInPage")
+      }else{
+        const data = await axios.get("http://localhost:8000/getUser",{
+          headers:{token},
+        })
+        setUserData(data)
+      }
+
     } catch (error) {
       console.error("Error fetching food categories:", error);
     }
   };
-
-  const handleSearch = () => {
-    const filteredCategories = foodCategories.filter((category) =>
-      category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    return filteredCategories;
-  };
-
   const uwConfig = {
     cloudName,
     uploadPreset,
   };
 
+  const handlePush = async () => {
+    try {
+      const response = await axios.post(`${Back_End_Url}/createFood`, {
+        imgSrc: uploadedUrl,
+        instruction: introductions,
+        foodName: foodName,
+        category: category,
+        recipes: recipe,
+        foodCreator:userData?.data?.user?.userName
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error pushing data:", error);
+    }
+  };
+
+  const handleAddIngredient = () => {
+    if (newIngredient.trim() !== "") {
+      setRecipe([...recipe, newIngredient]);
+      setNewIngredient("");
+    }
+  };
+  const handleRemoveIngredient = (index) => {
+    const updatedRecipe = [...recipe];
+    updatedRecipe.splice(index, 1);
+    setRecipe(updatedRecipe);
+  };
+
+  const handleAddIntroduction = () => {
+    if (newIntroduction.trim() !== "") {
+      setIntroductions([...introductions, newIntroduction]);
+      setNewIntroduction("");
+    }
+  };
+  const handleRemoveIntroduction = (index) => {
+    const updatedIntroductions = [...introductions];
+    updatedIntroductions.splice(index, 1);
+    setIntroductions(updatedIntroductions);
+  };
+  // console.log(foodCategories);
   return (
     <div>
       <div className="App">
@@ -54,7 +101,7 @@ export default function AddRecipe() {
           setPublicId={setPublicId}
         />
         {uploadedUrl && (
-          <div style={{ width: "800px" }}>
+          <div style={{ width: "500px" }}>
             <img src={uploadedUrl} alt="Uploaded" />
           </div>
         )}
@@ -62,25 +109,25 @@ export default function AddRecipe() {
       <div className="add-recipe-container">
         <h1 className="add-recipe-title">Add Recipe</h1>
         <div className="ingredient-list">
+          <div>
+            <h1>Food Name</h1>
+            <input onChange={(e) => setFoodName(e.target.value)} placeholder="Enter food name"/>
+          </div>
           <div className="input-container">
             <label htmlFor="category">Category:</label>
-            <input
-              type="text"
+            <select
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              placeholder="Enter category"
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="foodName">Food Name:</label>
-            <input
-              type="text"
-              id="foodName"
-              value={foodName}
-              onChange={(e) => setFoodName(e.target.value)}
-              placeholder="Enter food name"
-            />
+              placeholder="Select category"
+            >
+              <option value="">Select category</option>
+              {foodCategories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category.category}
+                </option>
+              ))}
+            </select>
           </div>
           <h2 className="ingredient-list-title">Recipe</h2>
           <ul className="ingredients">
@@ -104,14 +151,14 @@ export default function AddRecipe() {
               placeholder="Enter ingredient"
               className="ingredient-input"
             />
-            <button onClick={handleAddIngredient} className="add-button">
+            <button className="add-button" onClick={handleAddIngredient}>
               Add Ingredient
             </button>
           </div>
         </div>
         <div className="introduction-list">
           <div className="introduction-list">
-            <h2 className="introduction-list-title">Introductions</h2>
+            <h2 className="introduction-list-title">Instructions</h2>
             <ul className="introductions">
               {introductions.map((introduction, index) => (
                 <li key={index} className="introduction">
@@ -130,29 +177,18 @@ export default function AddRecipe() {
                 type="text"
                 value={newIntroduction}
                 onChange={(e) => setNewIntroduction(e.target.value)}
-                placeholder="Enter introduction"
+                placeholder="Enter instruction"
                 className="introduction-input"
               />
-              <button onClick={handleAddIntroduction} className="add-button">
-                Add Introduction
+              <button className="add-button" onClick={handleAddIntroduction}>
+                Add Instruction
               </button>
             </div>
           </div>
         </div>
-        <div className="food-search">
-          <input
-            type="text"
-            placeholder="Search for food category..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button onClick={handleSearch}>Search</button>
-        </div>
-        <ul className="food-categories">
-          {foodCategories.map((category, index) => (
-            <li key={index}>{category}</li>
-          ))}
-        </ul>
+        <button onClick={handlePush} className="add-button">
+          submit
+        </button>
       </div>
     </div>
   );
