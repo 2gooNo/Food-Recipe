@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Calendar } from "../../assets/icons/calendar";
 import { Back_End_Url } from "../../../back-url";
-
 import { FacebookBlack } from "@/assets/icons/facebookBlack";
 import { TwitterBlack } from "@/assets/icons/twitterBlack";
 import { InstagramBlack } from "@/assets/icons/instagramBlack";
@@ -25,11 +24,14 @@ export default function HomePage() {
   const [appear2, setAppear2] = useState(false);
   const [searchValue, setSearchValue] = useState();
   const [searchedFood, setSearchedFood] = useState([]);
+  const [categories, setCategories] = useState();
 
   const fetchData = async () => {
+    const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
+    console.log(foodData);
     generateRandomNumbers(foodData);
-    generateSixNumbers(foodData);
+
     setFoods(foodData);
   };
   const searchFood = async () => {
@@ -44,8 +46,8 @@ export default function HomePage() {
       searchFood();
     }
   };
-
   function Input() {
+    setAppear3(!appear3);
     setAppear(!appear);
     console.log("Working");
     if (appear == true) {
@@ -56,6 +58,16 @@ export default function HomePage() {
       setAppear2(!appear2);
     }
   }
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${Back_End_Url}/categories`);
+      console.log("Categories:", response.data);
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
   function searchInput(e) {
     console.log(e.target.value);
   }
@@ -63,6 +75,7 @@ export default function HomePage() {
     router.push("/Profile");
   }
   const generateRandomNumbers = async (foodData) => {
+
     const generatedNumbers = [];
     while (generatedNumbers.length < 3) {
       const randomNumber =
@@ -79,6 +92,7 @@ export default function HomePage() {
     setSuggestRecipes(suggesRecipes);
   };
   const generateSixNumbers = async (foodData) => {
+
     const generatedNumbers = [];
     while (generatedNumbers.length < 6) {
       const randomNumber =
@@ -97,6 +111,7 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchData();
+    fetchCategories();
   }, []);
 
   function pageJump(index) {
@@ -153,7 +168,7 @@ export default function HomePage() {
                 ? "search-detail2 border-b-[2px] border-[black]"
                 : "search2 border-[2px] border-[black]"
             }
-          // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+          h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
           >
             {appear3 ? (
               <div>
