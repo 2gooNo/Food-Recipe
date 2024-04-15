@@ -22,6 +22,8 @@ export default function HomePage() {
   const [appear, setAppear] = useState(false);
   const [appear3, setAppear3] = useState(false);
   const [appear2, setAppear2] = useState(false);
+  const [searchValue, setSearchValue] = useState();
+  const [searchedFood, setSearchedFood] = useState([]);
   const [categories, setCategories] = useState();
 
   const fetchData = async () => {
@@ -31,6 +33,18 @@ export default function HomePage() {
     generateRandomNumbers(foodData);
 
     setFoods(foodData);
+  };
+  const searchFood = async () => {
+    console.log(searchValue);
+    const { data } = await axios.post(`${Back_End_Url}/searchFood`, {
+      searchValue: searchValue,
+    });
+    setSearchedFood(data.data);
+  };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchFood();
+    }
   };
   function Input() {
     setAppear3(!appear3);
@@ -61,34 +75,36 @@ export default function HomePage() {
     router.push("/Profile");
   }
   const generateRandomNumbers = async (foodData) => {
-    const numbers = [];
-    for (let i = 0; i < 3; i++) {
+
+    const generatedNumbers = [];
+    while (generatedNumbers.length < 3) {
       const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
-      if (numbers.includes(randomNumber)) {
-        fetchData();
-      } else {
-        numbers.push(randomNumber);
+        Math.floor(Math.random() * foodData?.data?.foods.length) + 1;
+      if (!generatedNumbers.includes(randomNumber)) {
+        generatedNumbers.push(randomNumber);
       }
     }
-    console.log("numbers", numbers);
-    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log("numbers", generatedNumbers);
+    const suggesRecipes = generatedNumbers.map(
+      (index) => foodData?.data?.foods[index]
+    );
     console.log(suggesRecipes);
     setSuggestRecipes(suggesRecipes);
   };
   const generateSixNumbers = async (foodData) => {
-    const numbers = [];
-    for (let i = 0; i < 6; i++) {
+
+    const generatedNumbers = [];
+    while (generatedNumbers.length < 6) {
       const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
-      if (numbers.includes(randomNumber)) {
-        fetchData();
-      } else {
-        numbers.push(randomNumber);
+        Math.floor(Math.random() * foodData?.data?.foods.length) + 1;
+      if (!generatedNumbers.includes(randomNumber)) {
+        generatedNumbers.push(randomNumber);
       }
     }
-    console.log("numbers", numbers);
-    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log("numbers", generatedNumbers);
+    const suggesRecipes = generatedNumbers.map(
+      (index) => foodData?.data?.foods[index]
+    );
     console.log(suggesRecipes);
     setTryNewRecipes(suggesRecipes);
   };
@@ -155,18 +171,31 @@ export default function HomePage() {
           h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
           >
             {appear3 ? (
-              <div className="flex gap-[10px]">
-                <button onClick={Input}>
-                  <Exit />
-                </button>
-                <input
-                  className=" outline-none w-[500px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
-                  placeholder="Enter a dish name..."
-                  onChange={searchInput}
-                />
-                <button>
-                  <img className="w-[20px] h-[20px]" src="search.webp" />
-                </button>
+              <div>
+                <div className="flex gap-[10px]">
+                  <button onClick={Input}>
+                    <Exit />
+                  </button>
+                  <input
+                    className=" outline-none w-[860px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
+                    placeholder="Enter a dish name..."
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    // type="text"
+                    onKeyPress={handleKeyPress}
+                  />
+                  <button>
+                    <img className="w-[20px] h-[20px]" src="search.webp" />
+                  </button>
+                </div>
+                <div className="searchResult">
+                  {
+                    <h1>
+                      {searchedFood?.map((food,index) => (
+                        <h1 onClick={() => pageJump(index)}>{food.foodName}</h1>
+                      ))}
+                    </h1>
+                  }
+                </div>
               </div>
             ) : (
               <div>

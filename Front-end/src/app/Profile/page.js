@@ -1,7 +1,7 @@
 "use client";
 import { Back_End_Url } from "../../../back-url";
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Exit } from "@/app/favorites/components/Exit";
 import { useRouter } from "next/navigation";
 import { Select, Option } from "@mui/joy";
@@ -17,6 +17,8 @@ export default function Home() {
   const [appear3, setAppear3] = useState(false);
   const [appear2, setAppear2] = useState(false);
   const [appear, setAppear] = useState(false);
+  const [userData, setUserData] = useState(false);
+
   const router = useRouter();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : "";
@@ -25,12 +27,15 @@ export default function Home() {
     if (!token) {
       router.push("/LogInHome");
     } else {
-      const userId = await axios.get(`${Back_End_Url}/getUser`, {
+      const data = await axios.get(`${Back_End_Url}/getUser`, {
         headers: { token },
       });
-      return userId;
+      setUserData(data?.data?.user);
     }
   };
+  useEffect(() => {
+    getUser();
+  }, []);
 
   function Input() {
     setAppear(!appear);
@@ -156,29 +161,24 @@ export default function Home() {
       </div>
       <div className="w-[125vh] flex justify-between items-center border-b-[1px] border-[grey] h-[81px]">
         <h2 className="Profile_word">Profile</h2>
-        <button className="bg-[#ff6430] h-[48px] w-[142px] text-[white] rounded-[5px] text-[20px]">
-          SAVE
-        </button>
       </div>
       <div className="text-[grey] flex w-[85vh] flex-wrap gap-[100px] justify-items-start mr-[400px] ">
         <div className="border-b-[2px] border-[grey] w-[351px] ">
           <h3>USERNAME</h3>
           <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
             <At />
-            <input
-              placeholder="Username"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
+            <div className=" placeholder-[grey] border-none w-[300px] outline-none">
+              {userData.userName}
+            </div>
           </div>
         </div>
         <div className="border-b-[2px] border-[grey] w-[351px]">
           <h3>EMAIL</h3>
           <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
             <Mail />
-            <input
-              placeholder="Email"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
+            <div className=" placeholder-[grey] border-none w-[300px] outline-none">
+              {userData.email}
+            </div>
           </div>
         </div>
       </div>
