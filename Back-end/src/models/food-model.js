@@ -5,12 +5,7 @@ const foodSchema = new mongoose.Schema({
   foodName: String,
   category: [String],
   imgSrc: String,
-  recipes: [
-    {
-      recipe: String,
-      size: String,
-    },
-  ],
+  recipes: [String],
   instruction: [String],
 });
 export const FoodModel = mongoose.model("food", foodSchema);
