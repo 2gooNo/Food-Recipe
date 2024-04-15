@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import "./AddRecipe.css";
-import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
-import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+// import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
+// import { Cloudinary } from "@cloudinary/url-gen";
+// import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
 export default function AddRecipe() {
   const [recipe, setRecipe] = useState([]);
