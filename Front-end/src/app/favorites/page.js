@@ -153,9 +153,6 @@ export default function Home() {
                 <div className="searchResult">
                   {
                     <h1>
-                      {/* {searchedFood === null
-                        ? console.log("data is null")
-                        : searchedFood?.foodName} */}
                       {searchedFood?.map((food,index) => (
                         <h1 onClick={() => pageJump(index)}>{food.foodName}</h1>
                       ))}
