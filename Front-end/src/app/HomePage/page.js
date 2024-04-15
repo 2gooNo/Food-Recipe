@@ -27,7 +27,7 @@ export default function HomePage() {
   const fetchData = async () => {
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     generateRandomNumbers(foodData);
-    generateSixNumbers(foodData);
+    // generateSixNumbers(foodData);
     setFoods(foodData);
   };
 
