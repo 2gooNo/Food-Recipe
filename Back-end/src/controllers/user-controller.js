@@ -1,25 +1,28 @@
 import { UserModel } from "../models/user-model.js";
-//import { transporter } from "../util/email.js";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
+
 export const getAllUsers = async (req, res) => {
   const users_data = await UserModel.find({});
   res.status(200).json({ users: users_data });
 };
 
 export const getUser = async (req, res) => {
-  const userId = req.user.user_id;
-  const user = await UserModel.findOne({ _id: userId });
-  console.log(user);
-
-  if (user.length == 0) {
-    res.status(405).json({ message: "User not found" });
-  } else {
-    res.status(200).json({ user: user });
-  }
-  console.log(user);
+  // const userId = req.user.user_id;
+  // const user = await UserModel.findOne({ _id: userId });
+  // if (userId.length == 0) {
+  //   res.status(405).json({ message: "User not found" });
+  // } else {
+  // res.status(200).json({ userId: user._id });
+  // }
+  // console.log(user);
 };
 
+export const deleteUser = async (req, res) => {
+  const { user } = req;
+  await UserModel.findByIdAndDelete(user.user_id);
+  res.status(200).json({ message: "success" });
+};
 export const createUser = async (req, res) => {
   try {
     const body = req.body;
@@ -116,7 +119,6 @@ export const verifyCode = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
 
 export const UpdatePassword = async (req, res) => {
   try {

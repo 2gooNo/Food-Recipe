@@ -14,16 +14,20 @@ export default function LogInPage() {
   const router = useRouter();
 
   const handleLogIn = async () => {
-    const data = await axios
-      .post(`${Back_End_Url}/logIn`, {
-        email: loginData.email,
-        password: loginData.password,
-        userName: loginData.userName,
-      })
-      .catch((error) => alert("error"));
-    window.localStorage.setItem("token", data.data.token);
+    try {
+      const data = await axios
+        .post(`${Back_End_Url}/logIn`, {
+          email: loginData.email,
+          password: loginData.password,
+          userName: loginData.userName,
+        })
+        .catch((error) => alert("error"));
+      window.localStorage.setItem("token", data.data.token);
 
-    router.push("/");
+      router.push("/");
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   const SignUpPage = async () => {

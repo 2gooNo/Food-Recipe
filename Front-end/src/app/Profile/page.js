@@ -1,5 +1,5 @@
 "use client";
-
+import { Back_End_Url } from "../../../back-url";
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
 import { useState } from "react";
 import { Exit } from "@/app/favorites/components/Exit";
@@ -11,12 +11,26 @@ import { Mail } from "@/app/Profile/components/Mail";
 import { Lock } from "@/app/Profile/components/Lock";
 import { LogOut } from "@/app/Profile/components/LogOut";
 import { Contacts } from "@/app/Profile/components/Contacts";
+import axios from "axios";
 
 export default function Home() {
   const [appear3, setAppear3] = useState(false);
   const [appear2, setAppear2] = useState(false);
   const [appear, setAppear] = useState(false);
   const router = useRouter();
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : "";
+
+  const getUser = async () => {
+    if (!token) {
+      router.push("/LogInHome");
+    } else {
+      const userId = await axios.get(`${Back_End_Url}/getUser`, {
+        headers: { token },
+      });
+      return userId;
+    }
+  };
 
   function Input() {
     setAppear(!appear);
@@ -61,6 +75,17 @@ export default function Home() {
   function GoToRec() {
     router.push("/AddRecipe");
   }
+  const DeleteButton = async () => {
+    const res = await axios.post(
+      `${Back_End_Url}/deleteUser`,
+      {},
+      {
+        headers: { token },
+      }
+    );
+    console.log(res.data);
+    router.push("/LogInPage");
+  };
 
   return (
     <div className="flex flex-col items-center gap-[115px]">
@@ -165,7 +190,9 @@ export default function Home() {
           <LogOut />
           <button onClick={() => SignOut()}>Sign Out</button>
         </div>
-        <h3 className="text-[#ff6430]">Delete Account</h3>
+        <button onClick={DeleteButton} className="text-[#ff6430]">
+          Delete Account
+        </button>
       </div>
       <div>
         <Contacts />

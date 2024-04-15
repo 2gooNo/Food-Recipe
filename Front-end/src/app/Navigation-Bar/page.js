@@ -20,7 +20,7 @@ export default function NavigationBar() {
   }
 
   function ProfilePicture() {
-    router.push("/Profile");
+    router.push("/");
   }
   function Category() {
     router.push("/categories");
