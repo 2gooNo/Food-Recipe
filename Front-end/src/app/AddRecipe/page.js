@@ -1,9 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./AddRecipe.css";
-// import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
-// import { Cloudinary } from "@cloudinary/url-gen";
-// import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { useRouter } from "next/navigation";
+import { Back_End_Url } from "../../../back-url";
 
 export default function AddRecipe() {
   const [recipe, setRecipe] = useState([]);
@@ -12,10 +14,58 @@ export default function AddRecipe() {
   const [newIntroduction, setNewIntroduction] = useState("");
   const [category, setCategory] = useState("");
   const [foodName, setFoodName] = useState("");
-
+  const [uploadedUrl, setUploadedUrl] = useState("");
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("hzxyensd5");
   const [uploadPreset] = useState("aoh4fpwm");
+  const [foodCategories, setFoodCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [userData,setUserData] = useState()
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/categories");
+      setFoodCategories(response.data);
+      console.log(response.data);
+      const token = localStorage.getItem("token")
+      if(token == null){
+        router.push("LogInPage")
+      }else{
+        const data = await axios.get("http://localhost:8000/getUser",{
+          headers:{token},
+        })
+        setUserData(data)
+      }
+
+    } catch (error) {
+      console.error("Error fetching food categories:", error);
+    }
+  };
+  const uwConfig = {
+    cloudName,
+    uploadPreset,
+  };
+
+  const handlePush = async () => {
+    try {
+      const response = await axios.post(`${Back_End_Url}/createFood`, {
+        imgSrc: uploadedUrl,
+        instruction: introductions,
+        foodName: foodName,
+        category: category,
+        recipes: recipe,
+        foodCreator:userData?.data?.user?.userName
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error pushing data:", error);
+    }
+  };
 
   const handleAddIngredient = () => {
     if (newIngredient.trim() !== "") {
@@ -23,7 +73,6 @@ export default function AddRecipe() {
       setNewIngredient("");
     }
   };
-
   const handleRemoveIngredient = (index) => {
     const updatedRecipe = [...recipe];
     updatedRecipe.splice(index, 1);
@@ -36,66 +85,49 @@ export default function AddRecipe() {
       setNewIntroduction("");
     }
   };
-
   const handleRemoveIntroduction = (index) => {
     const updatedIntroductions = [...introductions];
     updatedIntroductions.splice(index, 1);
     setIntroductions(updatedIntroductions);
   };
-
-  const [uwConfig] = useState({
-    cloudName,
-    uploadPreset,
-  });
-
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "dj9ewujce",
-      apiKey: "325327348454615",
-      apiSecret: "3r6jF5NQ5SOhqjrCi36jhoVQebA",
-    },
-  });
-
-  const myImage = cld.image(publicId);
-
-  console.log(myImage, publicId);
-
+  // console.log(foodCategories);
   return (
     <div>
-      {" "}
       <div className="App">
         <h3>Cloudinary Upload Widget Example</h3>
-        <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
-        <div style={{ width: "800px" }}>
-          <AdvancedImage
-            style={{ maxWidth: "100%" }}
-            cldImg={myImage}
-            plugins={[responsive(), placeholder()]}
-          />
-        </div>
+        <CloudinaryUploadWidget
+          uwConfig={uwConfig}
+          setUrl={setUploadedUrl}
+          setPublicId={setPublicId}
+        />
+        {uploadedUrl && (
+          <div style={{ width: "500px" }}>
+            <img src={uploadedUrl} alt="Uploaded" />
+          </div>
+        )}
       </div>
       <div className="add-recipe-container">
         <h1 className="add-recipe-title">Add Recipe</h1>
         <div className="ingredient-list">
+          <div>
+            <h1>Food Name</h1>
+            <input onChange={(e) => setFoodName(e.target.value)} placeholder="Enter food name"/>
+          </div>
           <div className="input-container">
             <label htmlFor="category">Category:</label>
-            <input
-              type="text"
+            <select
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              placeholder="Enter category"
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="foodName">Food Name:</label>
-            <input
-              type="text"
-              id="foodName"
-              value={foodName}
-              onChange={(e) => setFoodName(e.target.value)}
-              placeholder="Enter food name"
-            />
+              placeholder="Select category"
+            >
+              <option value="">Select category</option>
+              {foodCategories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category.category}
+                </option>
+              ))}
+            </select>
           </div>
           <h2 className="ingredient-list-title">Recipe</h2>
           <ul className="ingredients">
@@ -119,39 +151,44 @@ export default function AddRecipe() {
               placeholder="Enter ingredient"
               className="ingredient-input"
             />
-            <button onClick={handleAddIngredient} className="add-button">
+            <button className="add-button" onClick={handleAddIngredient}>
               Add Ingredient
             </button>
           </div>
         </div>
         <div className="introduction-list">
-          <h2 className="introduction-list-title">Introductions</h2>
-          <ul className="introductions">
-            {introductions.map((introduction, index) => (
-              <li key={index} className="introduction">
-                <span>{introduction}</span>
-                <button
-                  onClick={() => handleRemoveIntroduction(index)}
-                  className="remove-button"
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="add-introduction">
-            <input
-              type="text"
-              value={newIntroduction}
-              onChange={(e) => setNewIntroduction(e.target.value)}
-              placeholder="Enter introduction"
-              className="introduction-input"
-            />
-            <button onClick={handleAddIntroduction} className="add-button">
-              Add Introduction
-            </button>
+          <div className="introduction-list">
+            <h2 className="introduction-list-title">Instructions</h2>
+            <ul className="introductions">
+              {introductions.map((introduction, index) => (
+                <li key={index} className="introduction">
+                  <span>{introduction}</span>
+                  <button
+                    onClick={() => handleRemoveIntroduction(index)}
+                    className="remove-button"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="add-introduction">
+              <input
+                type="text"
+                value={newIntroduction}
+                onChange={(e) => setNewIntroduction(e.target.value)}
+                placeholder="Enter instruction"
+                className="introduction-input"
+              />
+              <button className="add-button" onClick={handleAddIntroduction}>
+                Add Instruction
+              </button>
+            </div>
           </div>
         </div>
+        <button onClick={handlePush} className="add-button">
+          submit
+        </button>
       </div>
     </div>
   );

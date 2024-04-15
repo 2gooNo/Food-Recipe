@@ -1,17 +1,18 @@
 "use client";
 import { Category } from "@/app/categories/components/Category";
-import Stuff from "@/app/categories/json/food";
 import { Contacts } from "@/app/categories/components/Contacts";
 import { ArrowDown } from "@/app/categories/components/ArrowDown";
 import { useState } from "react";
 import { Select, Option } from "@mui/joy";
-import { Router, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Exit } from "../favorites/components/Exit";
+import axios from "axios";
+import { useEffect } from "react";
+import { Back_End_Url } from "../../../back-url";
 
 export default function Home() {
   const [appear2, setAppear2] = useState(false);
   const [appear, setAppear] = useState(false);
-  const [appear3, setAppear3] = useState(false);
   const router = useRouter();
 
   function Input() {
@@ -25,9 +26,6 @@ export default function Home() {
       setAppear2(!appear2);
     }
   }
-  function GoToHome() {
-    router.push("/HomePage");
-  }
   function GoToFavorites() {
     router.push("/favorites");
   }
@@ -37,51 +35,45 @@ export default function Home() {
   function GoToProfile() {
     router.push("/Profile");
   }
+  const [foodData, setFoodData] = useState([]);
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    const { data: res } = await axios.get(`${Back_End_Url}/getAllFood`);
+    setFoodData(res.foods);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const categories = [];
+
+  const [aaa, setAAA] = useState([]);
+  useEffect(() => {
+    foodData.map((food) => categories.push(...food.category));
+    if (categories.length > 1) {
+      const categoryObject = categories.reduce(
+        (accumulator, currentValue) => ({
+          ...accumulator,
+          [currentValue]: [...(accumulator[currentValue] || [])],
+        }),
+        {}
+      );
+
+      setAAA(Object.keys(categoryObject));
+    }
+  }, [foodData]);
+  function AddRec() {
+    router.push("/AddRecipe");
+  }
+  function Home() {
+    router.push("/");
+  }
+
   return (
     <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
         <img className="w-[200px] h-[60px]" src="Taste.png" />
         {!appear2 && (
           <div className="text-[20px] flex justify-between align-center flex-row gap-[20px]">
-            <div className="drop_down  transition-colors duration-400 ease-in-out cursor-pointer cate1">
-              <Select
-                placeholder="HomePage"
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option value="homePage" onClick={GoToHome} sx={{}}>
-                  Home
-                </Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer w-[300px] drop_down  transition-colors duration-400 ease-in-out cate2">
-              <Select
-                placeholder="Recipe Page"
-                on
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option sx={{}}>Test 1</Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
             <div className="outerdiv_category cursor-pointer drop_down  transition-colors duration-400 ease-in-out cate3">
               <Select
                 placeholder="Pages"
@@ -96,6 +88,9 @@ export default function Home() {
                 }}
                 indicator={<ArrowDown />}
               >
+                <Option value="Home" onClick={() => Home()}>
+                  Home
+                </Option>
                 <Option
                   sx={{}}
                   value="Favorites"
@@ -103,12 +98,11 @@ export default function Home() {
                 >
                   Favorites
                 </Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
+
+                <Option className="Add" onClick={() => AddRec()}>
+                  Add Recipe
+                </Option>
               </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer cate4">
-              <h3 className="Buy">Buy</h3>
             </div>
           </div>
         )}
@@ -118,8 +112,7 @@ export default function Home() {
               appear
                 ? "search-detail2 border-b-[2px] border-[black]"
                 : "search2 border-[2px] border-[black]"
-            }
-        // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+            }`}
           >
             {appear ? (
               <div className="flex gap-[10px]">
@@ -157,8 +150,8 @@ export default function Home() {
           Categories
         </h3>
         <div className="flex justify-center items-center flex-wrap gap-[90px] w-[125vh]">
-          {Stuff.map((category, index) => (
-            <Category key={index} category={category} />
+          {aaa.map((food) => (
+            <Category food={food} />
           ))}
         </div>
       </div>

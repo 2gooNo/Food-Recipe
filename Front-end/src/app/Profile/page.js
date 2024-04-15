@@ -52,6 +52,15 @@ export default function Home() {
     sessionStorage.removeItem("isLoggedIn");
     router.push("/HomePage");
   }
+  function SignOut() {
+    localStorage.removeItem("token");
+  }
+  function GoToHome() {
+    router.push("/");
+  }
+  function GoToRec() {
+    router.push("/AddRecipe");
+  }
 
   return (
     <div className="flex flex-col items-center gap-[115px]">
@@ -59,46 +68,6 @@ export default function Home() {
         <img className="w-[200px] h-[60px]" src="Taste.png" />
         {!appear2 && (
           <div className="text-[20px] flex justify-between align-center flex-row gap-[20px]">
-            <div className="drop_down  transition-colors duration-400 ease-in-out cursor-pointer cate1">
-              <Select
-                placeholder="HomePage"
-                on
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option onClick={GoToHome} sx={{}}>
-                  Home
-                </Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer w-[300px] drop_down  transition-colors duration-400 ease-in-out cate2">
-              <Select
-                placeholder="Recipe Page"
-                on
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option sx={{}}>Test 1</Option>
-                <Option value="first">Test 2</Option>
-                <Option>Test 3</Option>
-              </Select>
-            </div>
             <div className="outerdiv_category cursor-pointer drop_down  transition-colors duration-400 ease-in-out cate3">
               <Select
                 placeholder="Pages"
@@ -113,17 +82,19 @@ export default function Home() {
                 }}
                 indicator={<ArrowDown />}
               >
+                <Option value="Home" onClick={() => GoToHome()}>
+                  Home
+                </Option>
                 <Option value="categories" onClick={GoToCategory}>
                   Categories
                 </Option>
                 <Option onClick={GoToFavorites} value="favorites">
                   Favorites
                 </Option>
-                <Option>Test 3</Option>
+                <Option value="addRec" onClick={() => GoToRec()}>
+                  Add Recipe
+                </Option>
               </Select>
-            </div>
-            <div className="outerdiv_category cursor-pointer cate4">
-              <h3 className="Buy">Buy</h3>
             </div>
           </div>
         )}
@@ -133,8 +104,7 @@ export default function Home() {
               appear
                 ? "search-detail2 border-b-[2px] border-[black]"
                 : "search2 border-[2px] border-[black]"
-            }
-          // h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+            }`}
           >
             {appear3 ? (
               <div className="flex gap-[10px]">
@@ -165,28 +135,7 @@ export default function Home() {
           SAVE
         </button>
       </div>
-      <div className="flex flex-row items-center gap-[50px] justify-items-start w-[125vh]">
-        <img className="h-[128px] w-[128px]" src="default.png" />
-        <div className=" flex flex-row gap-[30px]">
-          <button className="w-[216px] h-[48px] bg-[#ff6430] rounded-[5px] text-[white]">
-            Change photo
-          </button>
-          <button className="w-[151px] h-[48px] border-[1px] border-[black] rounded-[5px]">
-            Delete
-          </button>
-        </div>
-      </div>
       <div className="text-[grey] flex w-[85vh] flex-wrap gap-[100px] justify-items-start mr-[400px] ">
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>FULL NAME</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Profile />
-            <input
-              placeholder="Full name"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
-          </div>
-        </div>
         <div className="border-b-[2px] border-[grey] w-[351px] ">
           <h3>USERNAME</h3>
           <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
@@ -207,16 +156,6 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="border-b-[2px] border-[grey] w-[351px]">
-          <h3>PASSWORD</h3>
-          <div className="flex mb-[10px] items-center gap-[20px] mt-[20px]">
-            <Lock />
-            <input
-              placeholder="Password"
-              className=" placeholder-[grey] border-none w-[300px] outline-none"
-            />
-          </div>
-        </div>
       </div>
       <div className="flex w-[125vh] justify-between items-center">
         <div
@@ -224,7 +163,7 @@ export default function Home() {
           className="flex justify-center items-center gap-[5px]"
         >
           <LogOut />
-          <button>Sign Out</button>
+          <button onClick={() => SignOut()}>Sign Out</button>
         </div>
         <h3 className="text-[#ff6430]">Delete Account</h3>
       </div>

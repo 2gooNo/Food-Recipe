@@ -71,3 +71,30 @@
 .add-button:hover {
   background-color: #45a049;
 }
+
+.add-introduction {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.introduction-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-introduction .add-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.add-introduction .add-button:hover {
+  background-color: #45a049;
+}
