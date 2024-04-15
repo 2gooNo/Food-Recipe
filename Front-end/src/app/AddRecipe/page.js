@@ -4,6 +4,8 @@ import axios from "axios";
 import "./AddRecipe.css";
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 import { Cloudinary } from "@cloudinary/url-gen";
+import { useRouter } from "next/navigation";
+import { Back_End_Url } from "../../../back-url";
 
 export default function AddRecipe() {
   const [recipe, setRecipe] = useState([]);
@@ -18,16 +20,28 @@ export default function AddRecipe() {
   const [uploadPreset] = useState("aoh4fpwm");
   const [foodCategories, setFoodCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [userData,setUserData] = useState()
+  const router = useRouter();
 
   useEffect(() => {
-    getAllFoodCategories();
+    fetchData();
   }, []);
 
-  const getAllFoodCategories = async () => {
+  const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:8000/categories");
       setFoodCategories(response.data);
       console.log(response.data);
+      const token = localStorage.getItem("token")
+      if(token == null){
+        router.push("LogInPage")
+      }else{
+        const data = await axios.get("http://localhost:8000/getUser",{
+          headers:{token},
+        })
+        setUserData(data)
+      }
+
     } catch (error) {
       console.error("Error fetching food categories:", error);
     }
@@ -39,12 +53,13 @@ export default function AddRecipe() {
 
   const handlePush = async () => {
     try {
-      const response = await axios.post(`${BACK_END_URL}/createFood`, {
+      const response = await axios.post(`${Back_End_Url}/createFood`, {
         imgSrc: uploadedUrl,
         instruction: introductions,
         foodName: foodName,
         category: category,
         recipes: recipe,
+        foodCreator:userData?.data?.user?.userName
       });
       console.log(response.data);
     } catch (error) {
@@ -75,7 +90,7 @@ export default function AddRecipe() {
     updatedIntroductions.splice(index, 1);
     setIntroductions(updatedIntroductions);
   };
-  console.log(foodCategories);
+  // console.log(foodCategories);
   return (
     <div>
       <div className="App">
@@ -94,6 +109,10 @@ export default function AddRecipe() {
       <div className="add-recipe-container">
         <h1 className="add-recipe-title">Add Recipe</h1>
         <div className="ingredient-list">
+          <div>
+            <h1>Food Name</h1>
+            <input onChange={(e) => setFoodName(e.target.value)} placeholder="Enter food name"/>
+          </div>
           <div className="input-container">
             <label htmlFor="category">Category:</label>
             <select
@@ -139,7 +158,7 @@ export default function AddRecipe() {
         </div>
         <div className="introduction-list">
           <div className="introduction-list">
-            <h2 className="introduction-list-title">Introductions</h2>
+            <h2 className="introduction-list-title">Instructions</h2>
             <ul className="introductions">
               {introductions.map((introduction, index) => (
                 <li key={index} className="introduction">
@@ -158,11 +177,11 @@ export default function AddRecipe() {
                 type="text"
                 value={newIntroduction}
                 onChange={(e) => setNewIntroduction(e.target.value)}
-                placeholder="Enter introduction"
+                placeholder="Enter instruction"
                 className="introduction-input"
               />
               <button className="add-button" onClick={handleAddIntroduction}>
-                Add Introduction
+                Add Instruction
               </button>
             </div>
           </div>
