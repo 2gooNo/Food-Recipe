@@ -82,6 +82,7 @@ export default function Home() {
     }
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
 
   function Home() {
     router.push("/");

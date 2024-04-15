@@ -30,6 +30,7 @@ export default function HomePage() {
     generateSixNumbers(foodData);
     setFoods(foodData);
   };
+
   function Input() {
     setAppear(!appear);
     console.log("Working");
@@ -48,37 +49,32 @@ export default function HomePage() {
     router.push("/Profile");
   }
   const generateRandomNumbers = async (foodData) => {
-    const numbers = [];
-    for (let i = 0; i < 3; i++) {
-      const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
-      if (numbers.includes(randomNumber)) {
-        fetchData();
-      } else {
-        numbers.push(randomNumber);
+    const generatedNumbers = [];
+    while (generatedNumbers.length < 3) {
+      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length) + 1;
+      if (!generatedNumbers.includes(randomNumber)) {
+        generatedNumbers.push(randomNumber);
       }
     }
-    console.log("numbers", numbers);
-    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log("numbers", generatedNumbers);
+    const suggesRecipes = generatedNumbers.map((index) => foodData?.data?.foods[index]);
     console.log(suggesRecipes);
     setSuggestRecipes(suggesRecipes);
   };
   const generateSixNumbers = async (foodData) => {
-    const numbers = [];
-    for (let i = 0; i < 6; i++) {
-      const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
-      if (numbers.includes(randomNumber)) {
-        fetchData();
-      } else {
-        numbers.push(randomNumber);
+    const generatedNumbers = [];
+    while (generatedNumbers.length < 6) {
+      const randomNumber = Math.floor(Math.random() * foodData?.data?.foods.length) + 1;
+      if (!generatedNumbers.includes(randomNumber)) {
+        generatedNumbers.push(randomNumber);
       }
     }
-    console.log("numbers", numbers);
-    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log("numbers", generatedNumbers);
+    const suggesRecipes = generatedNumbers.map((index) => foodData?.data?.foods[index]);
     console.log(suggesRecipes);
     setTryNewRecipes(suggesRecipes);
   };
+  
 
   useEffect(() => {
     fetchData();
