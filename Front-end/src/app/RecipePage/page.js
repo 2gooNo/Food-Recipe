@@ -144,6 +144,7 @@ export default function RecipePage() {
                 <h1 className="text-3xl font-semibold pb-[30px]">
                   Ingredients
                 </h1>
+                { console.log(recipeData?.recipes?.[0] , "data")}
                 {recipeData.recipes?.map((rec, index) => (
                   <div className="flex flex-col gap-[10px]" key={index}>
                     <div className="flex gap-2 pt-[20px] mb-[15px]">
