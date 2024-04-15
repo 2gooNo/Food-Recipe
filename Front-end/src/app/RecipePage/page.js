@@ -128,7 +128,7 @@ export default function RecipePage() {
 
           <div className="flex flex-col items-center mt-[20px] pt-[30px] w-[1100px] border-solid border-t border-gray-250">
             <img
-              src={recipeData.imgSrc}
+              src={recipeData?.imgSrc}
               height={0}
               width={0}
               alt="Food picture"
@@ -165,7 +165,7 @@ export default function RecipePage() {
                             : "none",
                         }}
                       >
-                        {rec.size} {rec.recipe}
+                        {rec}
                       </label>
                     </div>
                   </div>
@@ -178,7 +178,7 @@ export default function RecipePage() {
 
             <div className="w-[500px] flex flex-col gap-[30px] mt-[65px]">
               <h1 className="text-3xl">Instructions</h1>
-              {recipeData.instruction?.map((inst, index) => (
+              {recipeData?.instruction?.map((inst, index) => (
                 <div className="flex gap-[25px] mt-[15px]">
                   <div className="max-w-6 max-h-6">
                     <p className="bg-orange-600 w-6 h-6 rounded-3xl text-center text-white">

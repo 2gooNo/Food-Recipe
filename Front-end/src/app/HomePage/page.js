@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Calendar } from "../../assets/icons/calendar";
 import { Back_End_Url } from "../../../back-url";
-
 import { FacebookBlack } from "@/assets/icons/facebookBlack";
 import { TwitterBlack } from "@/assets/icons/twitterBlack";
 import { InstagramBlack } from "@/assets/icons/instagramBlack";
@@ -23,6 +22,7 @@ export default function HomePage() {
   const [appear, setAppear] = useState(false);
   const [appear3, setAppear3] = useState(false);
   const [appear2, setAppear2] = useState(false);
+  const [categories, setCategories] = useState();
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
@@ -44,6 +44,16 @@ export default function HomePage() {
       setAppear2(!appear2);
     }
   }
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${Back_End_Url}/categories`);
+      console.log("Categories:", response.data);
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
   function searchInput(e) {
     console.log(e.target.value);
   }
@@ -85,6 +95,7 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchData();
+    fetchCategories();
   }, []);
 
   function pageJump(index) {
