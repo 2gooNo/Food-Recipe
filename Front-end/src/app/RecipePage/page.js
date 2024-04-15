@@ -10,6 +10,9 @@ export default function RecipePage() {
   const [recipeData, setRecipeData] = useState([]);
   const [strikeThroughCSS, setStrikeThroughCSS] = useState({});
   const searchParams = useSearchParams();
+  const [suggestRecipes, setSuggestRecipes] = useState([]);
+  const [foods, setFoods] = useState([]);
+
   const recipeId = searchParams.get("recipeId");
   console.log(recipeId);
 
@@ -21,6 +24,16 @@ export default function RecipePage() {
       console.error("error");
     }
   };
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
+    console.log(foodData);
+    generateRandomNumbers(foodData);
+    // generateSixNumbers(foodData);
+    setFoods(foodData);
+  };
+
   console.log(recipeData);
 
   useEffect(() => {
@@ -33,6 +46,32 @@ export default function RecipePage() {
       [index]: !prevState[index],
     }));
   }, []);
+
+  const generateRandomNumbers = async (foodData) => {
+    const numbers = [];
+    for (let i = 0; i < 8; i++) {
+      const randomNumber =
+        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
+      if (numbers.includes(randomNumber)) {
+        fetchData();
+      } else {
+        numbers.push(randomNumber);
+      }
+    }
+    console.log("numbers", numbers);
+    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
+    console.log(suggesRecipes);
+    setSuggestRecipes(suggesRecipes);
+  };
+
+  function pageJump(index) {
+    const recipeId = suggestRecipes?.[index]?._id;
+    if (recipeId) {
+      console.log("recipe id", recipeId);
+    }
+
+    router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
 
   return (
     <div className="w-full height-full">
@@ -158,6 +197,15 @@ export default function RecipePage() {
             <h1 className="text-4xl font-semibold mb-[40px] mt-[40px]">
               You might also like
             </h1>
+            {/* {suggestRecipes.map((food, index) => (
+              <SuggestingRecipes
+                id={food?._id}
+                imgSrc={food?.imgSrc}
+                foodName={food?.foodName}
+                index={index}
+                pageJump={pageJump}
+              />
+            ))} */}
             <div className="flex grid grid-cols-4 gap-[15px] gap-y-[40px] font-semibold break-words text-[18px]">
               <div className=" hover:text-orange-500 cursor-pointer">
                 <div className="max-w-[250px] overflow-hidden bg-cover">
@@ -363,4 +411,14 @@ export default function RecipePage() {
     </div>
   );
 }
+const SuggestingRecipes = ({ id, imgSrc, foodName, index, pageJump }) => {
+  return (
+    <div onClick={() => pageJump(index)} className="suggesRecipe" key={id}>
+      <img className="suggestRecipePhoto" src={imgSrc}></img>
+      <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
+        <h1 className="suggestRecipeName">{foodName}</h1>
+      </div>
+    </div>
+  );
+};
 // export default RecipePage;
