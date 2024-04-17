@@ -265,3 +265,8 @@
 .Logo {
   margin-bottom: 64px;
 }
+/* .searchResult {
+  display: flex;
+  flex-direction: column;
+  gap: none;
+} */
