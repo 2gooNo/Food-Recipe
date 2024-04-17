@@ -12,7 +12,6 @@ import { Select, Option } from "@mui/joy";
 import { ArrowDown } from "../categories/components/ArrowDown";
 import { Exit } from "../favorites/components/Exit";
 import styless from "../HomePage/style.css";
-import { useRouter } from "next/navigation";
 
 export default function RecipePage() {
   const [recipeData, setRecipeData] = useState([]);
