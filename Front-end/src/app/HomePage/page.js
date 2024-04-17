@@ -33,6 +33,7 @@ export default function HomePage() {
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
     generateRandomNumbers(foodData);
+    generateSixNumbers(foodData);
 
     setFoods(foodData);
   };
@@ -121,8 +122,14 @@ export default function HomePage() {
     fetchCategories();
   }, []);
 
-  function pageJump(index) {
+  function SPageJump(index) {
     const recipeId = suggestRecipes?.[index]?._id;
+    console.log(recipeId);
+
+    router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
+  function TPageJump(index) {
+    const recipeId = tryNewRecipes?.[index]?._id;
     console.log(recipeId);
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
@@ -135,6 +142,9 @@ export default function HomePage() {
   }
   function GoToFavs() {
     router.push("/favorites");
+  }
+  function GoToHomePage() {
+    router.push("/HomePage");
   }
   return (
     <div className="body">
@@ -227,7 +237,7 @@ export default function HomePage() {
           />
         </div>
       </div>
-      <img className="Logo" src="Logo.png"></img>
+      <img className="Logo" src="Logo.png" onClick={() => GoToHomePage()}></img>
       <div className="suggestRecipes">
         {suggestRecipes.map((food, index) => (
           <TopRecipe
@@ -235,7 +245,7 @@ export default function HomePage() {
             imgSrc={food?.imgSrc}
             foodName={food?.foodName}
             index={index}
-            pageJump={pageJump}
+            SPageJump={SPageJump}
           />
         ))}
       </div>
@@ -258,7 +268,7 @@ export default function HomePage() {
               imgSrc={food?.imgSrc}
               foodName={food?.foodName}
               index={index}
-              pageJump={pageJump}
+              TPageJump={TPageJump}
               foodCreator={food?.foodCreator}
             />
           ))}
@@ -387,9 +397,10 @@ export default function HomePage() {
     </div>
   );
 }
-const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
+const TopRecipe = ({ id, imgSrc, foodName, index, SPageJump }) => {
+  console.log("top recipe ", id);
   return (
-    <div onClick={() => pageJump(index)} className="suggesRecipe" key={id}>
+    <div onClick={() => SPageJump(index)} className="suggesRecipe" key={id}>
       <img className="suggestRecipePhoto" src={imgSrc}></img>
       <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
         <h1 className="suggestRecipeName">{foodName}</h1>
@@ -402,11 +413,16 @@ const TryNewRecipe = ({
   imgSrc,
   foodName,
   index,
-  pageJump,
+  TPageJump,
   foodCreator,
 }) => {
+  console.log("try new recipe ", id);
   return (
-    <div className="super-delicious-recipe">
+    <div
+      className="super-delicious-recipe"
+      onClick={() => TPageJump(index)}
+      key={id}
+    >
       <img className="super-delicious-img" src={imgSrc}></img>
       <div className="delicious-recipe-description">
         <div className="star-name-profile">
