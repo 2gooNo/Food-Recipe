@@ -1,6 +1,21 @@
+.body {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .add-recipe-container {
   padding: 50px;
   width: 1000px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.input-container {
+  margin-bottom: 20px;
 }
 
 .add-recipe-title {
@@ -9,23 +24,28 @@
   margin-bottom: 20px;
 }
 
-.ingredient-list {
-  border: 1px solid #ccc;
-  padding: 20px;
+.ingredient-list,
+.introduction-list {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  margin-top: 20px;
 }
 
-.ingredient-list-title {
+.ingredient-list-title,
+.introduction-list-title {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.ingredients {
+.ingredients,
+.introductions {
   list-style: none;
   padding: 0;
 }
 
-.ingredient {
+.ingredient,
+.introduction {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,13 +65,15 @@
   background-color: #ff3e20;
 }
 
-.add-ingredient {
+.add-ingredient,
+.add-introduction {
   display: flex;
   align-items: center;
   margin-top: 20px;
 }
 
-.ingredient-input {
+.ingredient-input,
+.introduction-input {
   flex: 1;
   padding: 8px;
   border: 1px solid #ccc;
@@ -66,26 +88,30 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+  
 }
 
 .add-button:hover {
   background-color: #45a049;
 }
 
-.add-introduction {
+#upload_widget {
+  width: 500px;
+  height: 500px;
+  background-color: #ccc;
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  cursor: pointer;
 }
 
-.introduction-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+#upload_widget svg {
+  width: 100px;
+  height: 100px;
+  fill: white;
 }
 
-.add-introduction .add-button {
+.submit-button{
   background-color: #4caf50;
   color: #fff;
   border: none;
@@ -93,8 +119,15 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+  width: 200px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
 }
-
-.add-introduction .add-button:hover {
-  background-color: #45a049;
+.submit-center{
+  display: flex;
+  justify-content: center;
+}
+.foodname{
+  outline: none;
 }

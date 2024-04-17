@@ -103,7 +103,7 @@ export default function RecipePage() {
             </div>
           </div>
           {/* header end  */}
-          <div className="flex flex-col items-start w-[1100px] ">
+          <div className="flex flex-col items-start w-[900px] ">
             <h1 className="text-6xl font-bold mt-[50px]">
               {recipeData?.foodName}
             </h1>

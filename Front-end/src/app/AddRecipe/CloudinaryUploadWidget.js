@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import "./AddRecipe.css";
+import { Plus } from "./components/Plus";
 
 const CloudinaryScriptContext = createContext();
 
@@ -48,12 +50,15 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId, setUrl }) {
 
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
-      <button
-        id="upload_widget"
-        className="cloudinary-button"
-        onClick={initializeCloudinaryWidget}
-      >
-        Upload
+      <button id="upload_widget" onClick={initializeCloudinaryWidget}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="48"
+          viewBox="0 -960 960 960"
+          width="48"
+        >
+          <path d="M435-434H179v-91h256v-258h91v258h256v91H526v255h-91v-255Z" />
+        </svg>
       </button>
     </CloudinaryScriptContext.Provider>
   );
