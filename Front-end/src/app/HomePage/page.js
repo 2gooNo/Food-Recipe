@@ -88,7 +88,7 @@ export default function HomePage() {
     const generatedNumbers = [];
     while (generatedNumbers.length < 3) {
       const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length) + 1;
+        Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1;
       if (!generatedNumbers.includes(randomNumber)) {
         generatedNumbers.push(randomNumber);
       }
@@ -104,7 +104,7 @@ export default function HomePage() {
     const generatedNumbers = [];
     while (generatedNumbers.length < 6) {
       const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length) + 1;
+        Math.floor(Math.random() * foodData?.data?.foods.length-1) + 1;
       if (!generatedNumbers.includes(randomNumber)) {
         generatedNumbers.push(randomNumber);
       }
