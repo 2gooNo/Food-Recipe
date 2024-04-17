@@ -13,6 +13,8 @@ import { Select, Option } from "@mui/joy";
 import { Profile } from "@/assets/icons/profile";
 import { ArrowDown } from "../categories/components/ArrowDown";
 import { Exit } from "../favorites/components/Exit";
+import { Category } from "./components/Category";
+import { fetch } from "@cloudinary/url-gen/qualifiers/source";
 
 export default function HomePage() {
   const router = useRouter();
@@ -24,15 +26,32 @@ export default function HomePage() {
   const [appear2, setAppear2] = useState(false);
   const [searchValue, setSearchValue] = useState();
   const [searchedFood, setSearchedFood] = useState([]);
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState([]);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
     console.log(foodData);
     generateRandomNumbers(foodData);
+    generateSixNumbers(foodData);
 
     setFoods(foodData);
+  };
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${Back_End_Url}/categories`);
+      console.log("Categories:", response.data);
+      const categories = response.data;
+      const randomCategories = getRandomCategories(categories, 6);
+      setCategories(randomCategories);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  const getRandomCategories = (categories, count) => {
+    const shuffled = categories.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
   };
   const searchFood = async () => {
     console.log(searchValue);
@@ -59,15 +78,6 @@ export default function HomePage() {
     }
   }
 
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get(`${Back_End_Url}/categories`);
-      console.log("Categories:", response.data);
-      setCategories(response.data);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
   function searchInput(e) {
     console.log(e.target.value);
   }
@@ -75,7 +85,6 @@ export default function HomePage() {
     router.push("/Profile");
   }
   const generateRandomNumbers = async (foodData) => {
-
     const generatedNumbers = [];
     while (generatedNumbers.length < 3) {
       const randomNumber =
@@ -92,7 +101,6 @@ export default function HomePage() {
     setSuggestRecipes(suggesRecipes);
   };
   const generateSixNumbers = async (foodData) => {
-
     const generatedNumbers = [];
     while (generatedNumbers.length < 6) {
       const randomNumber =
@@ -114,8 +122,14 @@ export default function HomePage() {
     fetchCategories();
   }, []);
 
-  function pageJump(index) {
+  function SPageJump(index) {
     const recipeId = suggestRecipes?.[index]?._id;
+    console.log(recipeId);
+
+    router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
+  function TPageJump(index) {
+    const recipeId = tryNewRecipes?.[index]?._id;
     console.log(recipeId);
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
@@ -128,6 +142,9 @@ export default function HomePage() {
   }
   function GoToFavs() {
     router.push("/favorites");
+  }
+  function GoToHomePage() {
+    router.push("/HomePage");
   }
   return (
     <div className="body">
@@ -187,14 +204,21 @@ export default function HomePage() {
                     <img className="w-[20px] h-[20px]" src="search.webp" />
                   </button>
                 </div>
-                <div className="searchResult">
-                  {
-                    <h1>
-                      {searchedFood?.map((food,index) => (
-                        <h1 onClick={() => pageJump(index)}>{food.foodName}</h1>
-                      ))}
-                    </h1>
-                  }
+                <div className="mt-[10px] flex gap-none flex-col">
+                  {searchedFood?.map((food, index) => (
+                    <div className="flex bg-[#f9f9f9] w-auto h-auto p-[10px] items-center gap-[30px] border-[1px] border-[#cbcbcb] border-t-[0.5px] border-b-[0.5px]">
+                      <img
+                        className="w-[70px] h-[70px] rounded-[50%]"
+                        src={food.imgSrc}
+                      />
+                      <h1
+                        className="text-[#a8a8a8]"
+                        onClick={() => pageJump(index)}
+                      >
+                        {food.foodName}
+                      </h1>
+                    </div>
+                  ))}
                 </div>
               </div>
             ) : (
@@ -213,7 +237,7 @@ export default function HomePage() {
           />
         </div>
       </div>
-      <img className="Logo" src="Logo.png"></img>
+      <img className="Logo" src="Logo.png" onClick={() => GoToHomePage()}></img>
       <div className="suggestRecipes">
         {suggestRecipes.map((food, index) => (
           <TopRecipe
@@ -221,44 +245,22 @@ export default function HomePage() {
             imgSrc={food?.imgSrc}
             foodName={food?.foodName}
             index={index}
-            pageJump={pageJump}
+            SPageJump={SPageJump}
           />
         ))}
       </div>
-      <div className="w-[1110px] h-[1px] bg-[#e8e8e8] mb-[40px]">
-        <div></div>
-      </div>
-      <div className="w-[1110px] h-[285px] flex flex-col  gap-[40.5px] mb-[96px]">
-        <h1 className="popularRecipeText">Popular Categories</h1>
-        <div className="flex gap-[30px]">
-          <div className="flex flex-col items-center ">
-            <img src="recipe3Img.png"></img>
-            <h1 className="popularRecipeName">Pasta</h1>
-          </div>
-          <div className="flex flex-col items-center ">
-            <img src="recipe4Img.png"></img>
-            <h1 className="popularRecipeName">Pizza</h1>
-          </div>
-          <div className="flex flex-col items-center ">
-            <img src="recipe5Img.png"></img>
-            <h1 className="popularRecipeName">Vegan</h1>
-          </div>
-          <div className="flex flex-col items-center ">
-            <img src="recipe6Img.png"></img>
-            <h1 className="popularRecipeName">Desserts</h1>
-          </div>
-          <div className="flex flex-col items-center ">
-            <img src="recipe7Img.png"></img>
-            <h1 className="popularRecipeName">Smoothies</h1>
-          </div>
-          <div className="flex flex-col items-center ">
-            <img src="recipe8Img.png"></img>
-            <h1 className="popularRecipeName">Breakfast</h1>
-          </div>
+      <div className="w-[1110px] h-[1px] bg-[#e8e8e8] mb-[40px]"></div>
+      <div className="flex items-center flex-col justify-start">
+        <h3 className="Super-delicious-text Category_text mr-[860px]">
+          Popular Categories
+        </h3>
+        <div className="flex gap-[10px] p-[40px]">
+          {categories.map((category) => (
+            <Category food={category} />
+          ))}
         </div>
       </div>
       <div className="super-delicious-container">
-        <h1 className="Super-delicious-text">Try some new tastes</h1>
         <div className="super-delicious-recipes">
           {tryNewRecipes.map((food, index) => (
             <TryNewRecipe
@@ -266,7 +268,7 @@ export default function HomePage() {
               imgSrc={food?.imgSrc}
               foodName={food?.foodName}
               index={index}
-              pageJump={pageJump}
+              TPageJump={TPageJump}
               foodCreator={food?.foodCreator}
             />
           ))}
@@ -395,9 +397,10 @@ export default function HomePage() {
     </div>
   );
 }
-const TopRecipe = ({ id, imgSrc, foodName, index, pageJump }) => {
+const TopRecipe = ({ id, imgSrc, foodName, index, SPageJump }) => {
+  console.log("top recipe ", id);
   return (
-    <div onClick={() => pageJump(index)} className="suggesRecipe" key={id}>
+    <div onClick={() => SPageJump(index)} className="suggesRecipe" key={id}>
       <img className="suggestRecipePhoto" src={imgSrc}></img>
       <div className="w-[100%] pl-[23.5px] mb-[29.5px] flex gap-[15px] flex-col">
         <h1 className="suggestRecipeName">{foodName}</h1>
@@ -410,11 +413,16 @@ const TryNewRecipe = ({
   imgSrc,
   foodName,
   index,
-  pageJump,
+  TPageJump,
   foodCreator,
 }) => {
+  console.log("try new recipe ", id);
   return (
-    <div className="super-delicious-recipe">
+    <div
+      className="super-delicious-recipe"
+      onClick={() => TPageJump(index)}
+      key={id}
+    >
       <img className="super-delicious-img" src={imgSrc}></img>
       <div className="delicious-recipe-description">
         <div className="star-name-profile">

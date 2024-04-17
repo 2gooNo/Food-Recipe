@@ -12,8 +12,19 @@ import { Back_End_Url } from "../../../back-url";
 
 export default function Home() {
   const [appear2, setAppear2] = useState(false);
+  const [categories1, setCategories1] = useState([]);
   const [appear, setAppear] = useState(false);
   const router = useRouter();
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${Back_End_Url}/categories`);
+      console.log("Categories:", response.data);
+      setCategories1(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   function Input() {
     setAppear(!appear);
@@ -34,6 +45,9 @@ export default function Home() {
   }
   function GoToProfile() {
     router.push("/Profile");
+  }
+  function GoToHomePage() {
+    router.push("/HomePage");
   }
   const [foodData, setFoodData] = useState([]);
   const fetchData = async () => {
@@ -67,11 +81,18 @@ export default function Home() {
   function Home() {
     router.push("/");
   }
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
-        <img className="w-[200px] h-[60px]" src="Taste.png" />
+        <img
+          className="w-[200px] h-[60px]"
+          src="Taste.png"
+          onClick={() => GoToHomePage()}
+        />
         {!appear2 && (
           <div className="text-[20px] flex justify-between align-center flex-row gap-[20px]">
             <div className="outerdiv_category cursor-pointer drop_down  transition-colors duration-400 ease-in-out cate3">
@@ -150,7 +171,7 @@ export default function Home() {
           Categories
         </h3>
         <div className="flex justify-center items-center flex-wrap gap-[90px] w-[125vh]">
-          {aaa.map((food) => (
+          {categories1.map((food) => (
             <Category food={food} />
           ))}
         </div>

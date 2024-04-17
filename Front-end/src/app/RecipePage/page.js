@@ -3,15 +3,29 @@ import Image from "next/image";
 import styles from "./style.css";
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Back_End_Url } from "../../../back-url";
+import { FacebookBlack } from "@/assets/icons/facebookBlack";
+import { TwitterBlack } from "@/assets/icons/twitterBlack";
+import { InstagramBlack } from "@/assets/icons/instagramBlack";
+import { Select, Option } from "@mui/joy";
+import { ArrowDown } from "../categories/components/ArrowDown";
+import { Exit } from "../favorites/components/Exit";
+import styless from "../HomePage/style.css";
+import { useRouter } from "next/navigation";
 
 export default function RecipePage() {
   const [recipeData, setRecipeData] = useState([]);
   const [strikeThroughCSS, setStrikeThroughCSS] = useState({});
   const searchParams = useSearchParams();
   const [suggestRecipes, setSuggestRecipes] = useState([]);
+  const [appear, setAppear] = useState(false);
+  const [appear3, setAppear3] = useState(false);
+  const [appear2, setAppear2] = useState(false);
   const [foods, setFoods] = useState([]);
+  const [searchedFood, setSearchedFood] = useState([]);
+  const [searchValue, setSearchValue] = useState();
+  const router = useRouter();
 
   const recipeId = searchParams.get("recipeId");
   console.log(recipeId);
@@ -24,7 +38,18 @@ export default function RecipePage() {
       console.error("error");
     }
   };
-
+  function Input() {
+    setAppear3(!appear3);
+    setAppear(!appear);
+    console.log("Working");
+    if (appear == true) {
+      setTimeout(() => {
+        setAppear2(!appear2);
+      }, 80);
+    } else {
+      setAppear2(!appear2);
+    }
+  }
   const fetchData = async () => {
     const token = localStorage.getItem("token");
     const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
@@ -33,7 +58,21 @@ export default function RecipePage() {
     // generateSixNumbers(foodData);
     setFoods(foodData);
   };
-
+  function GoToProfile() {
+    router.push("/Profile");
+  }
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchFood();
+    }
+  };
+  const searchFood = async () => {
+    console.log(searchValue);
+    const { data } = await axios.post(`${Back_End_Url}/searchFood`, {
+      searchValue: searchValue,
+    });
+    setSearchedFood(data.data);
+  };
   console.log(recipeData);
 
   useEffect(() => {
@@ -47,30 +86,36 @@ export default function RecipePage() {
     }));
   }, []);
 
-  const generateRandomNumbers = async (foodData) => {
-    const numbers = [];
-    for (let i = 0; i < 8; i++) {
-      const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
-      if (numbers.includes(randomNumber)) {
-        fetchData();
-      } else {
-        numbers.push(randomNumber);
-      }
-    }
-    console.log("numbers", numbers);
-    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
-    console.log(suggesRecipes);
-    setSuggestRecipes(suggesRecipes);
-  };
+  function GoToHomePage() {
+    router.push("/HomePage");
+  }
+  function GoToAddRecipe() {
+    router.push("AddRecipe");
+  }
+  function GoToCategory() {
+    router.push("categories");
+  }
+  function GoToFavs() {
+    router.push("/favorites");
+  }
 
   function pageJump(index) {
     const recipeId = suggestRecipes?.[index]?._id;
-    if (recipeId) {
-      console.log("recipe id", recipeId);
-    }
+    console.log(recipeId);
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
+  function GoToAddRecipe() {
+    router.push("AddRecipe");
+  }
+  function GoToCategory() {
+    router.push("categories");
+  }
+  function GoToFavs() {
+    router.push("/favorites");
+  }
+  function GoToHome() {
+    router.push("/");
   }
 
   return (
@@ -79,26 +124,119 @@ export default function RecipePage() {
         <div className=" flex flex-col items-center" key={index}>
           {/* header start  */}
           <div className="flex justify-between mt-[30px] w-[1100px]">
-            <img src="logo.png" width={140} height={50} />
-            <div className="flex justify-center gap-[90px] font-semibold items-center">
-              <p>HomePage</p>
-              <p>Recipe Page</p>
-              <p>Pages</p>
-              <p>Buy</p>
+            <img
+              src="logo.png"
+              width={140}
+              height={50}
+              onClick={() => GoToHomePage()}
+            />
+            <div className="">
+              <Select
+                placeholder="Pages"
+                sx={{
+                  border: "none",
+                  boxShadow: "none",
+                  bgcolor: "transparent",
+                  color: "black",
+                  fontWeight: 700,
+                  "& :hover": { color: "red" },
+                }}
+                indicator={<ArrowDown />}
+              >
+                <Option value="category" onClick={() => GoToCategory()} sx={{}}>
+                  Categories
+                </Option>
+                <Option value="favorites" onClick={() => GoToFavs()}>
+                  Favorites
+                </Option>
+                <Option value="AddRecipe" onClick={() => GoToAddRecipe()}>
+                  Add Recipes
+                </Option>
+              </Select>
             </div>
-            <div className="flex gap-[40px]">
-              <Image
-                src={"search.svg"}
-                width={0}
-                height={0}
-                alt="search"
-                className="w-[30px] h-auto"
-              />
-              <Image
-                src={"/profile.svg"}
-                width={45}
-                height={45}
-                alt="profile picture"
+            <div className="pages-container">
+              <Select
+                placeholder="Pages"
+                sx={{
+                  border: "none",
+                  boxShadow: "none",
+                  bgcolor: "transparent",
+                  color: "black",
+                  fontWeight: 700,
+                  "& :hover": { color: "red" },
+                }}
+                indicator={<ArrowDown />}
+              >
+                <Option value="Home" onClick={() => GoToHome()}>
+                  Home Page
+                </Option>
+                <Option value="category" onClick={() => GoToCategory()} sx={{}}>
+                  Categories
+                </Option>
+                <Option value="favorites" onClick={() => GoToFavs()}>
+                  Favorites
+                </Option>
+                <Option value="AddRecipe" onClick={() => GoToAddRecipe()}>
+                  Add Recipes
+                </Option>
+              </Select>
+            </div>
+            <div className="flex flex-row gap-[40px] justify-between items-center">
+              <div
+                className={`p-[8px] ${
+                  appear
+                    ? "search-detail2 border-b-[2px] border-[black]"
+                    : "search2 border-[2px] border-[black]"
+                }
+          h-[40px] transition-all duration-400 ease-in-out flex flex-row justify-end`}
+              >
+                {appear3 ? (
+                  <div>
+                    <div className="flex gap-[10px]">
+                      <button onClick={Input}>
+                        <Exit />
+                      </button>
+                      <input
+                        className=" outline-none w-[860px] rounded-[10px] mr-[10px] placeholder-[black] p-[3px]"
+                        placeholder="Enter a dish name..."
+                        onChange={(e) => setSearchValue(e.target.value)}
+                        // type="text"
+                        onKeyPress={handleKeyPress}
+                      />
+                      <button>
+                        <img className="w-[20px] h-[20px]" src="search.webp" />
+                      </button>
+                    </div>
+                    <div className="mt-[10px] flex gap-none flex-col">
+                      {searchedFood?.map((food, index) => (
+                        <div className="flex bg-[#f9f9f9] w-auto h-auto p-[10px] items-center gap-[30px] border-[1px] border-[#cbcbcb] border-t-[0.5px] border-b-[0.5px]">
+                          <img
+                            className="w-[70px] h-[70px] rounded-[50%]"
+                            src={food.imgSrc}
+                          />
+                          <h1
+                            className="text-[#a8a8a8]"
+                            onClick={() => pageJump(index)}
+                          >
+                            {food.foodName}
+                          </h1>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {" "}
+                    <button onClick={Input}>
+                      <img className="w-[20px] h-[20px]" src="search.webp" />
+                    </button>
+                  </div>
+                )}
+              </div>
+              <img
+                onClick={() => GoToProfile()}
+                className="w-[40px]"
+                src="default.png"
               />
             </div>
           </div>
@@ -207,7 +345,7 @@ export default function RecipePage() {
               />
             ))} */}
             <div className="flex grid grid-cols-4 gap-[15px] gap-y-[40px] font-semibold break-words text-[18px]">
-              <div className=" hover:text-orange-500 cursor-pointer">
+              <div className=" hover:text-orange-500 cursor-pointer transition-all duration-400 ease-in-out">
                 <div className="max-w-[250px] overflow-hidden bg-cover">
                   <img
                     src="cranberry.jpg"
@@ -421,4 +559,3 @@ const SuggestingRecipes = ({ id, imgSrc, foodName, index, pageJump }) => {
     </div>
   );
 };
-// export default RecipePage;
