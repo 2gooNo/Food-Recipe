@@ -74,9 +74,6 @@ export default function Home() {
   function SignOut() {
     localStorage.removeItem("token");
   }
-  function GoToHome() {
-    router.push("/");
-  }
   function GoToRec() {
     router.push("/AddRecipe");
   }
@@ -95,7 +92,11 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center gap-[115px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
-        <img className="w-[200px] h-[60px]" src="Taste.png" />
+        <img
+          className="w-[200px] h-[60px]"
+          src="Taste.png"
+          onClick={() => GoToHome()}
+        />
         {!appear2 && (
           <div className="text-[20px] flex justify-between align-center flex-row gap-[20px]">
             <div className="outerdiv_category cursor-pointer drop_down  transition-colors duration-400 ease-in-out cate3">

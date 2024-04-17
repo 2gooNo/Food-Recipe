@@ -3,8 +3,10 @@ import Image from "next/image";
 import styles from "./style.css";
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Back_End_Url } from "../../../back-url";
+import { Select, Option } from "@mui/joy";
+import { ArrowDown } from "../categories/components/ArrowDown";
 
 export default function RecipePage() {
   const [recipeData, setRecipeData] = useState([]);
@@ -12,6 +14,7 @@ export default function RecipePage() {
   const searchParams = useSearchParams();
   const [suggestRecipes, setSuggestRecipes] = useState([]);
   const [foods, setFoods] = useState([]);
+  const router = useRouter();
 
   const recipeId = searchParams.get("recipeId");
   console.log(recipeId);
@@ -23,15 +26,6 @@ export default function RecipePage() {
     } catch (error) {
       console.error("error");
     }
-  };
-
-  const fetchData = async () => {
-    const token = localStorage.getItem("token");
-    const foodData = await axios.get(`${Back_End_Url}/getAllFood`);
-    console.log(foodData);
-    generateRandomNumbers(foodData);
-    // generateSixNumbers(foodData);
-    setFoods(foodData);
   };
 
   console.log(recipeData);
@@ -47,30 +41,17 @@ export default function RecipePage() {
     }));
   }, []);
 
-  const generateRandomNumbers = async (foodData) => {
-    const numbers = [];
-    for (let i = 0; i < 8; i++) {
-      const randomNumber =
-        Math.floor(Math.random() * foodData?.data?.foods.length - 1) + 1;
-      if (numbers.includes(randomNumber)) {
-        fetchData();
-      } else {
-        numbers.push(randomNumber);
-      }
-    }
-    console.log("numbers", numbers);
-    const suggesRecipes = numbers.map((index) => foodData?.data?.foods[index]);
-    console.log(suggesRecipes);
-    setSuggestRecipes(suggesRecipes);
-  };
-
-  function pageJump(index) {
-    const recipeId = suggestRecipes?.[index]?._id;
-    if (recipeId) {
-      console.log("recipe id", recipeId);
-    }
-
-    router.push(`/RecipePage?recipeId=${recipeId}`);
+  function GoToHomePage() {
+    router.push("/HomePage");
+  }
+  function GoToAddRecipe() {
+    router.push("AddRecipe");
+  }
+  function GoToCategory() {
+    router.push("categories");
+  }
+  function GoToFavs() {
+    router.push("/favorites");
   }
 
   return (
@@ -79,12 +60,35 @@ export default function RecipePage() {
         <div className=" flex flex-col items-center" key={index}>
           {/* header start  */}
           <div className="flex justify-between mt-[30px] w-[1100px]">
-            <img src="logo.png" width={140} height={50} />
-            <div className="flex justify-center gap-[90px] font-semibold items-center">
-              <p>HomePage</p>
-              <p>Recipe Page</p>
-              <p>Pages</p>
-              <p>Buy</p>
+            <img
+              src="logo.png"
+              width={140}
+              height={50}
+              onClick={() => GoToHomePage()}
+            />
+            <div className="">
+              <Select
+                placeholder="Pages"
+                sx={{
+                  border: "none",
+                  boxShadow: "none",
+                  bgcolor: "transparent",
+                  color: "black",
+                  fontWeight: 700,
+                  "& :hover": { color: "red" },
+                }}
+                indicator={<ArrowDown />}
+              >
+                <Option value="category" onClick={() => GoToCategory()} sx={{}}>
+                  Categories
+                </Option>
+                <Option value="favorites" onClick={() => GoToFavs()}>
+                  Favorites
+                </Option>
+                <Option value="AddRecipe" onClick={() => GoToAddRecipe()}>
+                  Add Recipes
+                </Option>
+              </Select>
             </div>
             <div className="flex gap-[40px]">
               <Image

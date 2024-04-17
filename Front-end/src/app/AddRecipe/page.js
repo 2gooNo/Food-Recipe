@@ -20,7 +20,7 @@ export default function AddRecipe() {
   const [uploadPreset] = useState("aoh4fpwm");
   const [foodCategories, setFoodCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [userData,setUserData] = useState()
+  const [userData, setUserData] = useState();
   const router = useRouter();
 
   useEffect(() => {
@@ -32,16 +32,15 @@ export default function AddRecipe() {
       const response = await axios.get("http://localhost:8000/categories");
       setFoodCategories(response.data);
       console.log(response.data);
-      const token = localStorage.getItem("token")
-      if(token == null){
-        router.push("LogInPage")
-      }else{
-        const data = await axios.get("http://localhost:8000/getUser",{
-          headers:{token},
-        })
-        setUserData(data)
+      const token = localStorage.getItem("token");
+      if (token == null) {
+        router.push("LogInPage");
+      } else {
+        const data = await axios.get("http://localhost:8000/getUser", {
+          headers: { token },
+        });
+        setUserData(data);
       }
-
     } catch (error) {
       console.error("Error fetching food categories:", error);
     }
@@ -59,7 +58,7 @@ export default function AddRecipe() {
         foodName: foodName,
         category: category,
         recipes: recipe,
-        foodCreator:userData?.data?.user?.userName
+        foodCreator: userData?.data?.user?.userName,
       });
       console.log(response.data);
     } catch (error) {
@@ -90,6 +89,9 @@ export default function AddRecipe() {
     updatedIntroductions.splice(index, 1);
     setIntroductions(updatedIntroductions);
   };
+  function GoToHomePage() {
+    router.push("/HomePage");
+  }
   // console.log(foodCategories);
   return (
     <div>
@@ -111,7 +113,10 @@ export default function AddRecipe() {
         <div className="ingredient-list">
           <div>
             <h1>Food Name</h1>
-            <input onChange={(e) => setFoodName(e.target.value)} placeholder="Enter food name"/>
+            <input
+              onChange={(e) => setFoodName(e.target.value)}
+              placeholder="Enter food name"
+            />
           </div>
           <div className="input-container">
             <label htmlFor="category">Category:</label>

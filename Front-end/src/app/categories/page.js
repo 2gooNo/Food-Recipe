@@ -35,6 +35,9 @@ export default function Home() {
   function GoToProfile() {
     router.push("/Profile");
   }
+  function GoToHomePage() {
+    router.push("/HomePage");
+  }
   const [foodData, setFoodData] = useState([]);
   const fetchData = async () => {
     const token = localStorage.getItem("token");
@@ -71,7 +74,11 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center gap-[100px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
-        <img className="w-[200px] h-[60px]" src="Taste.png" />
+        <img
+          className="w-[200px] h-[60px]"
+          src="Taste.png"
+          onClick={() => GoToHomePage()}
+        />
         {!appear2 && (
           <div className="text-[20px] flex justify-between align-center flex-row gap-[20px]">
             <div className="outerdiv_category cursor-pointer drop_down  transition-colors duration-400 ease-in-out cate3">
