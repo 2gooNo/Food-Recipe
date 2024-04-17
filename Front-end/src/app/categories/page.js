@@ -12,8 +12,19 @@ import { Back_End_Url } from "../../../back-url";
 
 export default function Home() {
   const [appear2, setAppear2] = useState(false);
+  const [categories1, setCategories1] = useState([]);
   const [appear, setAppear] = useState(false);
   const router = useRouter();
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${Back_End_Url}/categories`);
+      console.log("Categories:", response.data);
+      setCategories1(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   function Input() {
     setAppear(!appear);
@@ -67,6 +78,9 @@ export default function Home() {
   function Home() {
     router.push("/");
   }
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-[100px]">
@@ -150,7 +164,7 @@ export default function Home() {
           Categories
         </h3>
         <div className="flex justify-center items-center flex-wrap gap-[90px] w-[125vh]">
-          {aaa.map((food) => (
+          {categories1.map((food) => (
             <Category food={food} />
           ))}
         </div>
