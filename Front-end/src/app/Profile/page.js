@@ -90,7 +90,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-[115px]">
+    <div className="flex h-screen flex-col items-center gap-[115px]">
       <div className="flex gap-[100px] justify-between items-center pt-[20px] w-[125vh] ">
         <img
           className="w-[200px] h-[60px]"
