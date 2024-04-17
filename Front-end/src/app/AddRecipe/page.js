@@ -94,107 +94,109 @@ export default function AddRecipe() {
   }
   // console.log(foodCategories);
   return (
-    <div>
-      <div className="App">
-        <h3>Cloudinary Upload Widget Example</h3>
-        <CloudinaryUploadWidget
-          uwConfig={uwConfig}
-          setUrl={setUploadedUrl}
-          setPublicId={setPublicId}
-        />
-        {uploadedUrl && (
-          <div style={{ width: "500px" }}>
-            <img src={uploadedUrl} alt="Uploaded" />
-          </div>
-        )}
+    <div class="body">
+  <div class="App">
+    <CloudinaryUploadWidget
+      uwConfig={uwConfig}
+      setUrl={setUploadedUrl}
+      setPublicId={setPublicId}
+    />
+    {uploadedUrl && (
+      <div style={{ width: "500px" }}>
+        <img src={uploadedUrl} alt="Uploaded" />
       </div>
-      <div className="add-recipe-container">
-        <h1 className="add-recipe-title">Add Recipe</h1>
-        <div className="ingredient-list">
-          <div>
-            <h1>Food Name</h1>
-            <input
-              onChange={(e) => setFoodName(e.target.value)}
-              placeholder="Enter food name"
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="category">Category:</label>
-            <select
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="Select category"
-            >
-              <option value="">Select category</option>
-              {foodCategories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category.category}
-                </option>
-              ))}
-            </select>
-          </div>
-          <h2 className="ingredient-list-title">Recipe</h2>
-          <ul className="ingredients">
-            {recipe.map((ingredient, index) => (
-              <li key={index} className="ingredient">
-                <span>{ingredient}</span>
-                <button
-                  onClick={() => handleRemoveIngredient(index)}
-                  className="remove-button"
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="add-ingredient">
-            <input
-              type="text"
-              value={newIngredient}
-              onChange={(e) => setNewIngredient(e.target.value)}
-              placeholder="Enter ingredient"
-              className="ingredient-input"
-            />
-            <button className="add-button" onClick={handleAddIngredient}>
-              Add Ingredient
-            </button>
-          </div>
-        </div>
-        <div className="introduction-list">
-          <div className="introduction-list">
-            <h2 className="introduction-list-title">Instructions</h2>
-            <ul className="introductions">
-              {introductions.map((introduction, index) => (
-                <li key={index} className="introduction">
-                  <span>{introduction}</span>
-                  <button
-                    onClick={() => handleRemoveIntroduction(index)}
-                    className="remove-button"
-                  >
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <div className="add-introduction">
-              <input
-                type="text"
-                value={newIntroduction}
-                onChange={(e) => setNewIntroduction(e.target.value)}
-                placeholder="Enter instruction"
-                className="introduction-input"
-              />
-              <button className="add-button" onClick={handleAddIntroduction}>
-                Add Instruction
+    )}
+  </div>
+  <div class="add-recipe-container">
+    <div class="input-container">
+      <label htmlFor="foodName">Food Name:</label>
+      <input
+        onChange={(e) => setFoodName(e.target.value)}
+        placeholder="Enter food name"
+        className="foodname"
+      />
+    </div>
+    <div class="input-container">
+      <label htmlFor="category">Category:</label>
+      <select
+        id="category"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        placeholder="Select category"
+      >
+        <option value="">Select category</option>
+        {foodCategories.map((category, index) => (
+          <option key={index} value={category}>
+            {category.category}
+          </option>
+        ))}
+      </select>
+    </div>
+    <div class="add-recipe-content">
+      <h1 class="add-recipe-title">Add Recipe</h1>
+      <div class="ingredient-list">
+        <h2 class="ingredient-list-title">Recipe</h2>
+        <ul class="ingredients">
+          {recipe.map((ingredient, index) => (
+            <li key={index} class="ingredient">
+              <span>{ingredient}</span>
+              <button
+                onClick={() => handleRemoveIngredient(index)}
+                class="remove-button"
+              >
+                Remove
               </button>
-            </div>
-          </div>
+            </li>
+          ))}
+        </ul>
+        <div class="add-ingredient">
+          <input
+            type="text"
+            value={newIngredient}
+            onChange={(e) => setNewIngredient(e.target.value)}
+            placeholder="Enter ingredient"
+            class="ingredient-input"
+          />
+          <button class="add-button" onClick={handleAddIngredient}>
+            Add Ingredient
+          </button>
         </div>
-        <button onClick={handlePush} className="add-button">
-          submit
-        </button>
+      </div>
+      <div class="introduction-list">
+        <h2 class="introduction-list-title">Instructions</h2>
+        <ul class="introductions">
+          {introductions.map((introduction, index) => (
+            <li key={index} class="introduction">
+              <span>{introduction}</span>
+              <button
+                onClick={() => handleRemoveIntroduction(index)}
+                class="remove-button"
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div class="add-introduction">
+          <input
+            type="text"
+            value={newIntroduction}
+            onChange={(e) => setNewIntroduction(e.target.value)}
+            placeholder="Enter instruction"
+            class="introduction-input"
+          />
+          <button class="add-button" onClick={handleAddIntroduction}>
+            Add Instruction
+          </button>
+        </div>
       </div>
     </div>
+    <div className="submit-center">    <button onClick={handlePush} class="submit-button">
+      Submit
+    </button></div>
+
+  </div>
+</div>
+
   );
 }
