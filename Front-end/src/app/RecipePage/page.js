@@ -153,33 +153,6 @@ export default function RecipePage() {
                 </Option>
               </Select>
             </div>
-            <div className="pages-container">
-              <Select
-                placeholder="Pages"
-                sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  bgcolor: "transparent",
-                  color: "black",
-                  fontWeight: 700,
-                  "& :hover": { color: "red" },
-                }}
-                indicator={<ArrowDown />}
-              >
-                <Option value="Home" onClick={() => GoToHome()}>
-                  Home Page
-                </Option>
-                <Option value="category" onClick={() => GoToCategory()} sx={{}}>
-                  Categories
-                </Option>
-                <Option value="favorites" onClick={() => GoToFavs()}>
-                  Favorites
-                </Option>
-                <Option value="AddRecipe" onClick={() => GoToAddRecipe()}>
-                  Add Recipes
-                </Option>
-              </Select>
-            </div>
             <div className="flex flex-row gap-[40px] justify-between items-center">
               <div
                 className={`p-[8px] ${

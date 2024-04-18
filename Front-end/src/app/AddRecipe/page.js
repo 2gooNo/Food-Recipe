@@ -95,18 +95,24 @@ export default function AddRecipe() {
   // console.log(foodCategories);
   return (
     <div class="body">
-  <div class="App">
-    <CloudinaryUploadWidget
-      uwConfig={uwConfig}
-      setUrl={setUploadedUrl}
-      setPublicId={setPublicId}
-    />
-    {uploadedUrl && (
-      <div style={{ width: "500px" }}>
-        <img src={uploadedUrl} alt="Uploaded" />
+      
+
+      <div className="App">
+        {!uploadedUrl && (
+          <CloudinaryUploadWidget
+            className="widget"
+            uwConfig={uwConfig}
+            setUrl={setUploadedUrl}
+            setPublicId={setPublicId}
+          />
+        )}
+        {uploadedUrl && (
+          <div className="image" style={{ width: "500px" }}>
+            <img src={uploadedUrl} alt="Uploaded" />
+          </div>
+        )}
       </div>
-    )}
-  </div>
+      
   <div class="add-recipe-container">
     <div class="input-container">
       <label htmlFor="foodName">Food Name:</label>
@@ -126,8 +132,8 @@ export default function AddRecipe() {
       >
         <option value="">Select category</option>
         {foodCategories.map((category, index) => (
-          <option key={index} value={category}>
-            {category.category}
+          <option className="category-text" key={index}>
+            {category.name}
           </option>
         ))}
       </select>
@@ -191,7 +197,7 @@ export default function AddRecipe() {
         </div>
       </div>
     </div>
-    <div className="submit-center">    <button onClick={handlePush} class="submit-button">
+    <div className="submit-center" onClick={GoToHomePage}>    <button onClick={handlePush} class="submit-button">
       Submit
     </button></div>
 

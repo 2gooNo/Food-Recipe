@@ -131,3 +131,10 @@
 .foodname{
   outline: none;
 }
+.category-text{
+  color: white;
+}
+
+.App{
+  margin-top: 70px;
+}

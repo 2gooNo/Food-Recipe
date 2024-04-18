@@ -34,7 +34,7 @@ export default function HomePage() {
     console.log(foodData);
     generateRandomNumbers(foodData);
     generateSixNumbers(foodData);
-
+console.log("foods",foodData);
     setFoods(foodData);
   };
   const fetchCategories = async () => {
@@ -134,6 +134,12 @@ export default function HomePage() {
 
     router.push(`/RecipePage?recipeId=${recipeId}`);
   }
+  function pageJump(index) {
+    const recipeId = searchedFood?.[index]?._id;
+    console.log(recipeId);
+
+    router.push(`/RecipePage?recipeId=${recipeId}`);
+  }
   function GoToAddRecipe() {
     router.push("AddRecipe");
   }
@@ -206,14 +212,14 @@ export default function HomePage() {
                 </div>
                 <div className="mt-[10px] flex gap-none flex-col">
                   {searchedFood?.map((food, index) => (
-                    <div className="flex bg-[#f9f9f9] w-auto h-auto p-[10px] items-center gap-[30px] border-[1px] border-[#cbcbcb] border-t-[0.5px] border-b-[0.5px]">
+                    <div onClick={() => pageJump(index)} className="flex bg-[#f9f9f9] w-auto h-auto p-[10px] items-center gap-[30px] border-[1px] border-[#cbcbcb] border-t-[0.5px] border-b-[0.5px]">
                       <img
                         className="w-[70px] h-[70px] rounded-[50%]"
                         src={food.imgSrc}
                       />
                       <h1
                         className="text-[#a8a8a8]"
-                        onClick={() => pageJump(index)}
+                        
                       >
                         {food.foodName}
                       </h1>
@@ -261,6 +267,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="super-delicious-container">
+        <h1 className="popularRecipeText">Try some new tastes</h1>
         <div className="super-delicious-recipes">
           {tryNewRecipes.map((food, index) => (
             <TryNewRecipe
